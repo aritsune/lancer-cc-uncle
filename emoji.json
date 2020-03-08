@@ -9,5 +9,8 @@
   "explosive": "<:cc_damage_explosive:683696633329877011>",
   "energy": "<:cc_damage_energy:683696632889737241>",
   "burn": "<:cc_damage_burn:683696632642011187>",
-  "heat": "<:cc_damage_heat:683696632868503652>"
+  "heat": "<:cc_damage_heat:683696632868503652>",
+  "rank_1": "<:cc_rank_1:683696633933987919>",
+  "rank_2": "<:cc_rank_2:683696633929793605>",
+  "rank_3": "<:cc_rank_3:683696634223132740>"
 }

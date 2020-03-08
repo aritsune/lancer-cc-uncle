@@ -19,10 +19,12 @@ class SearchCommand extends Commando.Command {
       aliases: ['search', 'compendium'],
       description: 'Searches the LANCER compendium, including supplements.',
       patterns: [/\[\[(.+?)\]\]/g],
-      defaultHandling: false
+      defaultHandling: false,
+      throttling: false
     })
   }
   async run(msg, args, fromPattern) {
+    console.log(msg.content)
     let targets = [];
     const re = /\[\[(.+?)\]\]/g
     let matches;
@@ -35,7 +37,7 @@ class SearchCommand extends Commando.Command {
       else return format(getDetails(tgtResults[0].ref))
     }).join('\n--\n')
 
-    await msg.reply(results, { split: true })
+    await msg.reply('\n' + results, { split: true })
   }
 }
 
