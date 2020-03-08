@@ -1,0 +1,119 @@
+[
+  {
+    "id": "mw_ferrofluid_lance",
+    "name": "FERROFLUID LANCE",
+    "mount": "Main",
+    "type": "Melee",
+    "damage": [
+      {
+        "type": "kinetic",
+        "val": "1d6"
+      }
+    ],
+    "range": [
+      {
+        "type": "Threat",
+        "val": 2
+      }
+    ],
+    "tags": [
+      {
+        "id": "tg_round",
+        "val": 1
+      }
+    ],
+    "source": "SSC",
+    "license": "WHITE WITCH",
+    "license_level": 1,
+    "effect": "1/round you may force a character struck by this weapon must make a hull save. On a failed save, both you and the target are immobilized. At the end of each of its turns, the target can repeat the save, freeing both of you on success. As a quick action on your turn, you can break this immobilization effect on both of you to whip your target away, knocking them back 4 spaces in any direction. Otherwise you both remain immobilized.",
+    "description": "“To say we can pull this needle from ‘thin air’ is the best-fit phrase, but it’s not accurate. Not entirely. There’s no such thing as thin air, not in the way one means it when they use that phrase. ‘Agreeable Atomic Space’ — that’s what ‘thin air’ really is. A place where one could — if one could — coalesce utility from useless particulate mass with a thought. With a snap of our finger. Here, watch this —“",
+    "data_type": "weapon",
+    "aptitude": {}
+  },
+  {
+    "id": "mw_retort_loop",
+    "name": "RETORT LOOP",
+    "mount": "Heavy",
+    "type": "Cannon",
+    "damage": [
+      {
+        "type": "kinetic",
+        "val": "3 + [charge x 1d6]"
+      }
+    ],
+    "range": [
+      {
+        "type": "Range",
+        "val": 10
+      }
+    ],
+    "tags": [
+      {
+        "id": "tg_reliable",
+        "val": 3
+      }
+    ],
+    "source": "SSC",
+    "license": "WHITE WITCH",
+    "license_level": 3,
+    "effect": "This weapon picks up and stores damage taken by your mechs’ armor as a kinetic charge.<br>When you take damage from an source owned by a hostile character, you may choose to store a charge in this weapon. When fired, the weapon deals an additional 1d6 kinetic damage per charge, up to a maximum of 3 charges. Once fired, the charges deplete to 0, hit or miss. They also deplete to 0 if you take structure or stress damage.<br>If you have 3 charges, your mech is immobilized, but the weapon additionally gains knock back 3.",
+    "description": "“Ultimately, I have to return to the core of what we made, the code we cracked when we finally figured out NO/EM. From a simple prompt, we created a terrible engine. I am more proud of what we did than anything I’ve ever worked on before, but it should never see the light of day. Working with Visual convinced me of this: it’s their job to translate our work to sales, and they could not. If the translator cannot understand the text... then who are they to re-write it? Who is the reader to attempt to access it? I conclude my summary with this: mothball the platform. There are less terrible paths we can walk.",
+    "data_type": "weapon",
+    "aptitude": {}
+  },
+  {
+    "id": "mw_bolt_nexus",
+    "name": "BOLT NEXUS",
+    "mount": "Main",
+    "type": "Nexus",
+    "damage": [
+      {
+        "type": "energy",
+        "val": 3
+      }
+    ],
+    "range": [
+      {
+        "type": "Range",
+        "val": 20
+      }
+    ],
+    "tags": [
+      {
+        "id": "tg_smart"
+      }
+    ],
+    "source": "SSC",
+    "license": "EMPEROR",
+    "license_level": 1,
+    "effect": "Once this weapon hits a character, it gains the seeking and reliable 3 tags against that character until you attack a new character with this weapon.",
+    "description": "",
+    "data_type": "weapon",
+    "aptitude": {}
+  },
+  {
+    "id": "mw_emperor_integrated",
+    "name": "Arc Bow",
+    "mount": "Main",
+    "type": "Launcher",
+    "range": [
+      {
+        "type": "line",
+        "val": 20
+      }
+    ],
+    "damage": [
+      {
+        "type": "energy",
+        "val": 2
+      }
+    ],
+    "effect": "Allied characters caught in the area are not attacked, but instead gain overshield 2. If they already have overshield, increase their overshield by +2, but this weapon can’t increase overshield past 10.",
+    "description": "",
+    "tags": [
+      {
+        "id": "tg_ordnance"
+      }
+    ]
+  }
+]
