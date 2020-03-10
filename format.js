@@ -56,8 +56,8 @@ function weaponFormat(weapon) {
   if (weapon.sp) tagsEtc.push(`${weapon.sp} SP`)
   tagsEtc = tagsEtc.concat(weapon.tags.map(tag => populateTag(tag)))
   out += `\n${tagsEtc.join(', ')}\n`
-  if (weapon.range.length) out += '[' + weapon.range.map(r => r.override ? r.val : `${emoji[r.type.toLowerCase()]} ${r.val}`).join(', ') + '] '
-  if (weapon.damage.length) out += '[' + weapon.damage.map(dmg => dmg.override ? dmg.val : `${dmg.val}${emoji[dmg.type.toLowerCase()]}`).join(' + ') + ']'
+  if (weapon.range && weapon.range.length) out += '[' + weapon.range.map(r => r.override ? r.val : `${emoji[r.type.toLowerCase()]} ${r.val}`).join(', ') + '] '
+  if (weapon.damage && weapon.damage.length) out += '[' + weapon.damage.map(dmg => dmg.override ? dmg.val : `${dmg.val}${emoji[dmg.type.toLowerCase()]}`).join(' + ') + ']'
   if (weapon.effect) out += '\n' + turndownService.turndown(weapon.effect)
   return out
 }
