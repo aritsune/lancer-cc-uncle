@@ -47,3 +47,7 @@ client.registry
   .registerCommand(SearchCommand)
 
 client.login(process.env.TOKEN)
+
+client.on('ready', () => {
+  client.user.setPresence({ activity: { name: 'LANCER | use [[brackets]]' }, status: 'online' })
+})

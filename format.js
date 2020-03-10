@@ -1,7 +1,6 @@
 const data = require('./data');
 const emoji = require('./emoji.json')
-const TurndownService = require('turndown')
-const turndownService = new TurndownService()
+const turndownService = new require('turndown')()
 
 function itemTypeFormat(object) {
   switch (object.data_type) {
@@ -13,6 +12,8 @@ function itemTypeFormat(object) {
       return 'Mod'
     case 'tag':
       return 'Equipment Tag'
+    case 'core_bonus':
+      return 'Core Bonus'
     default:
       return '';
   }
@@ -31,6 +32,11 @@ function licenseFormat(object) {
 function populateTag(tag) {
   const tagData = data.tags.find(t => t.id === tag.id)
   return tagData.name.replace(/\{VAL\}/, tag.val)
+}
+
+function cbFormat(cb) {
+  return `**${cb.name}** (${cb.source} ${itemTypeFormat(cb)})
+${turndownService.turndown(cb.effect)}`
 }
 
 function frameFormat(frame) {
@@ -88,6 +94,8 @@ module.exports = function (object) {
       return systemFormat(object);
     case 'talent':
       return talentFormat(object);
+    case 'core_bonus':
+      return cbFormat(object);
     case 'tag':
       return tagFormat(object);
   }
