@@ -25,11 +25,24 @@ const system_data = systems
   .concat(lr_mods);
 const talent_data = talents.concat(lr_talents);
 
+frame_data.filter(frame => frame.core_system && frame.core_system.integrated && frame.core_system.integrated.id)
+  .map(f => ({ intID: f.core_system.integrated.id, frame: `${f.source} ${f.name}` }))
+  .forEach(({ intID, frame }) => {
+    weapon_data.find(x => x.id === intID).frame_integrated = frame
+  })
+
+const core_systems = frame_data.map(frame => ({
+  id: `core_${frame.core_system.name.replace(' ', '_').toLowerCase()}`,
+  source: `${frame.source} ${frame.name}`,
+  ...frame.core_system,
+  data_type: 'core_system',
+}))
 
 module.exports = {
   ...lancer_data,
   frames: frame_data,
   weapons: weapon_data,
   systems: system_data,
+  core_systems,
   talents: talent_data
 }

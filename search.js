@@ -1,7 +1,7 @@
 const data = require('./data');
 const lunr = require('lunr')
 
-const { weapons, systems, mods, frames, tags, talents, core_bonuses } = data
+const { weapons, systems, mods, frames, tags, talents, core_bonuses, core_systems } = data
 
 
 // const traits = frames.flatMap(frame => frame.traits.map(trait => ({
@@ -12,6 +12,7 @@ const { weapons, systems, mods, frames, tags, talents, core_bonuses } = data
 // })))
 
 const searchable = [
+  ...core_systems,
   ...weapons.map(w => ({ ...w, data_type: 'weapon' })), ...systems, ...mods, ...frames,
   ...talents.map(t => ({ ...t, data_type: 'talent' })),
   ...tags.filter(x => !x.filter_ignore).map(t => ({ ...t, data_type: 'tag' })),

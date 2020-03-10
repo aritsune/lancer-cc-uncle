@@ -5,7 +5,7 @@ require('dotenv').config()
 
 const client = new Commando.Client({
   owner: process.env.OWNER,
-  commandPrefix: ']'
+  commandPrefix: '::'
 })
 
 client.on('ready', () => console.log('UNCLE is ready!'))
@@ -41,10 +41,27 @@ class SearchCommand extends Commando.Command {
   }
 }
 
+class InviteCommand extends Commando.Command {
+  constructor(client) {
+    super(client, {
+      name: 'invite',
+      group: 'lancer',
+      memberName: 'invite',
+      description: 'Get an invite link for UNCLE',
+    })
+    client.on('ready', () => this.userID = client.user.id)
+  }
+  async run(msg) {
+    await msg.reply(`Invite me to your server: https://discordapp.com/api/oauth2/authorize?client_id=${this.userID}&permissions=0&scope=bot`)
+  }
+}
+
+
 client.registry
   .registerDefaults()
   .registerGroup('lancer', 'LANCER commands')
   .registerCommand(SearchCommand)
+  .registerCommand(InviteCommand)
 
 client.login(process.env.TOKEN)
 
