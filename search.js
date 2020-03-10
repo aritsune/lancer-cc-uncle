@@ -14,7 +14,7 @@ const { weapons, systems, mods, frames, tags, talents, core_bonuses, core_system
 const searchable = [
   ...core_systems,
   ...weapons.map(w => ({ ...w, data_type: 'weapon' })), ...systems, ...mods, ...frames,
-  ...talents.map(t => ({ ...t, data_type: 'talent' })),
+  ...talents.map(t => ({ ...t, ranknames: t.ranks.map(x => x.name), data_type: 'talent' })),
   ...tags.filter(x => !x.filter_ignore).map(t => ({ ...t, data_type: 'tag' })),
   ...core_bonuses.map(t => ({ ...t, data_type: 'core_bonus' })),
 ]
@@ -22,6 +22,7 @@ const searchable = [
 const index = lunr(function () {
   this.ref('id')
   this.field('name')
+  this.field('ranknames')
 
   searchable.forEach(x => this.add(x))
 
