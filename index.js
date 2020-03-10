@@ -33,7 +33,7 @@ class SearchCommand extends Commando.Command {
     }
     const results = targets.map((tgt, i) => {
       const tgtResults = search(tgt)
-      if (tgtResults.length === 0) return `No results found for *${targets[i]}*.`
+      if (tgtResults.length === 0) return `No results found for *${targets[i].replace(/@/g, '\\@')}*.`
       else return format(getDetails(tgtResults[0].ref))
     }).join('\n--\n')
 
