@@ -18,7 +18,7 @@ class SearchCommand extends Commando.Command {
       memberName: 'search',
       aliases: ['search', 'compendium'],
       description: 'Searches the LANCER compendium, including supplements.',
-      patterns: [/\[\[(.+?)\]\]/g],
+      patterns: [/\[\[(.+?)\]\]/],
       defaultHandling: false,
       throttling: false
     })
