@@ -1,5 +1,5 @@
 const data = require('./data');
-const lunr = require('lunr')
+const Fuse = require('fuse.js')
 
 const { weapons, systems, mods, frames, tags, talents, core_bonuses, core_systems } = data
 
@@ -19,20 +19,27 @@ const searchable = [
   ...core_bonuses.map(t => ({ ...t, data_type: 'core_bonus' })),
 ]
 
-const index = lunr(function () {
-  this.ref('id')
-  this.field('name')
-  this.field('ranknames')
+const options = {
+  isCaseSensitive: false,
+  findAllMatches: false,
+  includeMatches: false,
+  includeScore: false,
+  useExtendedSearch: false,
+  minMatchCharLength: 1,
+  shouldSort: true,
+  threshold: 0.6,
+  location: 0,
+  distance: 100,
+  keys: [
+    "name",
+    "ranknames"
+  ]
+};
 
-  searchable.forEach(x => this.add(x))
-
-})
+const fuse = new Fuse(searchable, options);
 
 module.exports = {
   search(term) {
-    return index.search(term)
-  },
-  getDetails(id) {
-    return searchable.find(x => x.id === id)
+    return fuse.search(term)
   }
 }

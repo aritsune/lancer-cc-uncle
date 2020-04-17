@@ -13,8 +13,8 @@
     "discord.js": "github:discordjs/discord.js#master",
     "discord.js-commando": "github:discordjs/Commando",
     "dotenv": "^8.2.0",
+    "fuse.js": "^5.1.0",
     "lancer-data": "^2.0.19",
-    "lunr": "^2.3.8",
     "turndown": "^5.0.3"
   }
 }

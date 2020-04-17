@@ -23,7 +23,7 @@ class SearchCommand extends Commando.Command {
       throttling: false
     })
   }
-  async run(msg, args, fromPattern) {
+  async run(msg) {
     console.log(msg.content)
     let targets = [];
     const re = /\[\[(.+?)\]\]/g
@@ -32,9 +32,9 @@ class SearchCommand extends Commando.Command {
       targets.push(matches[1])
     }
     const results = targets.map((tgt, i) => {
-      const tgtResults = search(tgt)
-      if (tgtResults.length === 0) return `No results found for *${targets[i].replace(/@/g, '\\@')}*.`
-      else return format(getDetails(tgtResults[0].ref))
+      const results = search(tgt)
+      if (results.length === 0) return `No results found for *${targets[i].replace(/@/g, '\\@')}*.`
+      else return format(results[0].item)
     }).join('\n--\n')
 
     await msg.reply('\n' + results, { split: true })
