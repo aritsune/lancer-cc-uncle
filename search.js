@@ -1,7 +1,7 @@
 const data = require('./data');
 const Fuse = require('fuse.js')
 
-const { weapons, systems, mods, frames, tags, talents, core_bonuses, core_systems } = data
+const { weapons, systems, mods, frames, tags, talents, core_bonuses, core_systems, actions } = data
 
 
 // const traits = frames.flatMap(frame => frame.traits.map(trait => ({
@@ -13,6 +13,7 @@ const { weapons, systems, mods, frames, tags, talents, core_bonuses, core_system
 
 const searchable = [
   ...core_systems,
+  ...actions.map(x => ({ ...x, data_type: 'action' })),
   ...weapons.map(w => ({ ...w, data_type: 'weapon' })), ...systems, ...mods, ...frames,
   ...talents.map(t => ({ ...t, ranknames: t.ranks.map(x => x.name), data_type: 'talent' })),
   ...tags.filter(x => !x.filter_ignore).map(t => ({ ...t, data_type: 'tag' })),

@@ -95,6 +95,21 @@ function tagFormat(object) {
   ${object.description}`.replace(/\{VAL\}/, 'X')
 }
 
+function actionFormat(object) {
+  const actionNames = {
+    'free': 'Free Action',
+    'quick': 'Quick Action',
+    'full': 'Full Action',
+    'reaction': 'Reaction',
+    'downtime': 'Downtime Action'
+  }
+
+  const actionName = (object.pilot ? 'Pilot ' : '') + actionNames[object.action_type]
+
+  return `**${object.name}** (${actionName})
+  ${turndownService.turndown(object.detail)}`
+}
+
 module.exports = function (object) {
   console.log(object)
   switch (object.data_type) {
@@ -114,5 +129,7 @@ module.exports = function (object) {
       return cbFormat(object);
     case 'tag':
       return tagFormat(object);
+    case 'action':
+      return actionFormat(object);
   }
 }
