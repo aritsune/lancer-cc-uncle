@@ -110,6 +110,11 @@ function actionFormat(object) {
   ${turndownService.turndown(object.detail)}`
 }
 
+function statusFormat(object) {
+  return `**${object.name}** (${object.type})
+  ${turndownService.turndown(object.effects)}`
+}
+
 module.exports = function (object) {
   console.log(object)
   switch (object.data_type) {
@@ -131,5 +136,7 @@ module.exports = function (object) {
       return tagFormat(object);
     case 'action':
       return actionFormat(object);
+    case 'status':
+      return statusFormat(object);
   }
 }
