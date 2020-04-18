@@ -55,6 +55,7 @@ CORE System: **${coreName}**`
 function coreFormat(core) {
   const coreName = core.name || core.passive_name || core.active_name
   let out = `**${coreName}** (${core.source} CORE System)\n`
+  if (core.integrated) out += `Integrated Weapon: ${weaponFormat(core.integrated)}\n`;
   if (core.passive_name) out += `Passive: **${core.passive_name}**
 ${turndownService.turndown(core.passive_effect)}\n`
   if (core.active_name) out += `Active: **${core.active_name}**
@@ -63,8 +64,8 @@ ${turndownService.turndown(core.active_effect)}`
 }
 
 function weaponFormat(weapon) {
-  console.log(weapon);
-  let out = `**${weapon.name}** (${[licenseFormat(weapon), itemTypeFormat(weapon)].join(' ').trim()})`
+  let out = `**${weapon.name}**`
+  if (!weapon.id.endsWith('_integrated')) out += ` (${[licenseFormat(weapon), itemTypeFormat(weapon)].join(' ').trim()})`
   let tagsEtc = [`${weapon.mount} ${weapon.type}`]
   if (weapon.sp) tagsEtc.push(`${weapon.sp} SP`)
   if (weapon.tags) tagsEtc = tagsEtc.concat(weapon.tags.map(tag => populateTag(tag)))
