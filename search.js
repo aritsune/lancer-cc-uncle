@@ -45,7 +45,9 @@ const options = {
   keys: [
     "name",
     "ranknames",
-    "integrated.name"
+    "integrated.name",
+    "active_name",
+    "passive_name"
   ]
 };
 
