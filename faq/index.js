@@ -27,7 +27,7 @@ function getQuestion(searchStr) {
   console.log(result);
   let out = `\n**${result.question}**
 ${result.answer}`
-  if (result.sources) {
+  if (result.sources.length > 0) {
     const sourcesStr = `\n\n*Source${result.sources.length === 1 ? '' : 's'}*:
 ${result.sources.join('\n')}`
     out += sourcesStr
