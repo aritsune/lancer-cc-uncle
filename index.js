@@ -56,10 +56,13 @@ class InviteCommand extends Commando.Command {
   }
 }
 
+const FaqCommand = require('./faq')
+
 
 client.registry
   .registerDefaults()
   .registerGroup('lancer', 'LANCER commands')
+  .registerCommand(FaqCommand)
   .registerCommand(SearchCommand)
   .registerCommand(InviteCommand)
 
