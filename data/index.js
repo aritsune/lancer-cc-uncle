@@ -38,7 +38,7 @@ const core_systems = frame_data.map(frame => ({
   data_type: 'core_system',
 }))
 
-module.exports = {
+let data = {
   ...lancer_data,
   frames: frame_data,
   weapons: weapon_data,
@@ -46,3 +46,9 @@ module.exports = {
   core_systems,
   talents: talent_data
 }
+
+const altNamesTransform = require('./altNames')
+
+data = altNamesTransform(data)
+
+module.exports = data

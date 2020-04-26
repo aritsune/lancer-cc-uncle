@@ -47,7 +47,8 @@ const options = {
     "ranknames",
     "integrated.name",
     "active_name",
-    "passive_name"
+    "passive_name",
+    "alt_names"
   ]
 };
 
