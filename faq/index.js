@@ -2,9 +2,9 @@ const Commando = require('discord.js-commando')
 const Fuse = require('fuse.js')
 
 
-const faqJson = require('./faq.json')
+const getFaqData = require('./getFaq')
 
-const fuse = new Fuse(faqJson, {
+const fuseOptions = {
   isCaseSensitive: false,
   findAllMatches: false,
   includeMatches: false,
@@ -18,10 +18,15 @@ const fuse = new Fuse(faqJson, {
   keys: [
     'question', 'answer'
   ]
-});
+}
 
-function getQuestion(searchStr) {
-  const results = fuse.search(searchStr)
+async function getQuestion(searchStr) {
+
+  const data = await getFaqData();
+  console.log('got data,');
+  const fuseInstance = new Fuse(data, fuseOptions)
+
+  const results = fuseInstance.search(searchStr)
   if (results.length === 0) return `No results found for *${searchStr.replace(/@/g, '\\@')}*.`
   const result = results[0].item
   console.log(result);
@@ -52,6 +57,9 @@ module.exports =
     }
     async run(msg, arg) {
       console.log(arg);
-      await msg.reply(getQuestion(arg))
+      msg.channel.startTyping();
+      const out = await getQuestion(arg);
+      msg.channel.stopTyping(true);
+      return msg.reply(out)
     }
   }
