@@ -69,13 +69,13 @@
     "damage": [
       {
         "type": "energy",
-        "val": 3
+        "val": 1
       }
     ],
     "range": [
       {
         "type": "Range",
-        "val": 20
+        "val": 10
       }
     ],
     "tags": [
@@ -86,20 +86,20 @@
     "source": "SSC",
     "license": "EMPEROR",
     "license_level": 1,
-    "effect": "Once this weapon hits a character, it gains the seeking and reliable 3 tags against that character until you attack a new character with this weapon.",
-    "description": "",
+    "effect": "Once this weapon hits a character, it gains Range 20 and the Seeking and Reliable 3 against that character only until you attack a new character with this weapon.<br>",
+    "description": "“But they denied him and hamstrung her. So their Lord brought down upon them destruction for their sin and made it equal/And he does not fear the consequences thereof.”<br>— Witnessed from the Cyrus 2.14 ferromemetic*<br>*EXMAT Note: crossref(TRUE): Quran, Surah 91:14-15 “ash-Shams” (pre-Meccan Reconstruction).",
     "data_type": "weapon",
     "aptitude": {}
   },
   {
     "id": "mw_emperor_integrated",
-    "name": "Arc Bow",
+    "name": "Marathon Arc Bow",
     "mount": "Main",
     "type": "Launcher",
     "range": [
       {
         "type": "line",
-        "val": 20
+        "val": 10
       }
     ],
     "damage": [
@@ -108,12 +108,8 @@
         "val": 2
       }
     ],
-    "effect": "Allied characters caught in the area are not attacked, but instead gain overshield 2. If they already have overshield, increase their overshield by +2, but this weapon can’t increase overshield past 10.",
-    "description": "",
-    "tags": [
-      {
-        "id": "tg_ordnance"
-      }
-    ]
+    "effect": "Allied characters caught in the area are not attacked, but instead gain overshield +2. This special overshield does not replace the last one created, but rather increases it, up to a maximum of overshield 10 (if an ally has no overshield, they go to overshield 2).<br><br>This weapon can be drawn back with a quick action to increase its range to line 20 on its next attack. This effect is lost if you move for any reason.",
+    "description": "“Directed Subjective Convergence Weapon, Pattern 3. Or as Visual calls it, the ‘Marathon Arc’. I suppose it is a better name. Imposing. Inaccurate but Visual has never been accurate. The Arc forces realignment along a superpositional plane, destabilizing targets without the correct pineal hash while imparting sympathetic lensing on those with the correct hash; a simple ‘weapon’ that emulates an Overmind’s corrective/imperative push.”",
+    "tags": []
   }
 ]

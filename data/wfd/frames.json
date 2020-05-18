@@ -74,8 +74,8 @@
       "Support",
       "Artillery"
     ],
-    "y_pos": 10,
-    "description": "",
+    "y_pos": 21,
+    "description": "“In Exotic Materials we don’t have problems. We have doors that are not yet open to us — a ‘problem’ presents endless branching paths; ‘doors’ are binary. Open and shut. The tyranny of the problem lies in the impossible breadth of possibility — a useless framing for tinkerers and hobbyists with time to fret over ethics as-defined by calcified, hand-wringing institutions. EXMAT instead is solutions-focused: there is no such thing as a problem, only a door, and the question: can we open it, or do we have to bash it down?<br>For the Emperor we had to bash the door down. Ugly process but the content beyond the door is more than worth it: Syncretic subjectivities, induced gestalt manifestation, H-NHP ontologic bridging, superpositional defensive lensing — look at what the battering ram gave us and tell me you’d rather puzzle out a problem then bash down the door.<br>Progress. The Corpro has always been about progress. Humanity has always been about progress. In service of progress, one must accept the necessity of teleological suspension, for it gives us wondrous, necessary things.<br> What else is there to say? Long live the Emperor, for in its creation did we find the method by which to fling open every locked door. Wondrous things are coming, and I’m glad as hell that they’ll be under our control.”<br>— Memo to personal records, Bala Shimano, CEO-1, Exotic Materials Group",
     "mounts": [
       "Main"
     ],
@@ -96,18 +96,18 @@
     "traits": [
       {
         "name": "Siege Armor",
-        "description": "The Emperor has resistance to all damage originating from over range 3"
+        "description": "The Emperor has resistance to all damage originating from distance greater than range 3."
       },
       {
-        "name": "Storm circuits",
-        "description": "1/round when the Emperor hits or is hit by a melee or ranged attack, it can release a burst 1 aoe that deals 1 energy damage to all characters other than the Emperor caught within the area."
+        "name": "Sovereign Presence",
+        "description": "1/round, when the Emperor hits or is hit by a melee or ranged attack, it can release a burst 1 AOE around itself (if it was hit) or its target (if it was the attacker) that deals 1 energy damage to all characters caught within other than the Emperor."
       }
     ],
     "core_system": {
-      "name": "Arc Charger",
+      "name": "Darian Regalia",
       "description": "",
-      "active_name": "Supercharge",
-      "active_effect": "For the rest of this scene, the arc bow deals 2 damage and increases overshield by 2 for each character size 1 or larger caught in in its area of effect, up to a maximum of 10 damage and +10 overshield. It’s overshield increase cap remains 10.",
+      "active_name": "Xerxes Apex",
+      "active_effect": "For the rest of this scene, when the Marathon Arc is drawn back, it deals 2 damage and increases Overshield by +2 on its next attack for <i>each</i> mech character caught in its line of effect. Its damage cannot increase past 10 and it cannot increase overshields past 10 as normal.",
       "tags": [],
       "integrated": {
         "id": "mw_emperor_integrated"
@@ -115,6 +115,6 @@
     },
     "data_type": "frame",
     "aptitude": {},
-    "image_url": ""
+    "image_url": "https://i.imgur.com/BGu6Vg6.png"
   }
 ]

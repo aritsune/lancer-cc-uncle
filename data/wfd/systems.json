@@ -91,8 +91,8 @@
     "aptitude": {}
   },
   {
-    "id": "ms_static_pulse",
-    "name": "STATIC PULSE",
+    "id": "ms_dominions_breadth",
+    "name": "DOMINION'S BREADTH",
     "type": "Tech",
     "sp": 2,
     "tags": [
@@ -112,14 +112,14 @@
     "source": "SSC",
     "license": "EMPEROR",
     "license_level": 1,
-    "effect": "A hostile character in sensor range gains overshield 4. When this overshield is lost for any reason, that character releases an electric pulse in a burst 1 area around them. All characters caught within, including the original character, must pass a systems save or take 4 AP energy damage and become impaired until the end of their next turn, or half and not impaired on a successful save.",
-    "description": "",
+    "effect": "A hostile character in sensor range and line of sight gains overshield 4. When this overshield is lost for any reason, that character releases an electric pulse in a burst 1 area around them. All characters caught within, including the original character, must pass a systems save or take 4 AP energy damage and become impaired until the end of their next turn, or half and not impaired on a successful save.",
+    "description": "“Our first door in was not, as we thought, from the subject’s neural mapping, but from an image of one of the igneomemetic samples returned by Perfect Execution during their deployment — Darius 1.11: The Golden Fulcrum. With it, we were able to crack the gestalt and begin to translate [Witness]; finding our way into the subject followed shortly thereafter.<br>“A curious note: both records used to reconstruct the Emperor’s subjective superstructure — the Darius and Cyrus memetics — include āyāt from the pre-Meccan Reconstruction Quran, likely from Crisis-era human-egregorian interaction.”",
     "data_type": "system",
     "aptitude": {}
   },
   {
-    "id": "ms_lightning_lash",
-    "name": "LIGHTNING LASH",
+    "id": "ms_the_imperial_eye",
+    "name": "THE IMPERIAL EYE",
     "type": "Tech",
     "sp": 2,
     "tags": [
@@ -133,14 +133,14 @@
     "source": "SSC",
     "license": "EMPEROR",
     "license_level": 2,
-    "effect": "An allied character in sensor range gains a disruptive charge until the start of your next turn.<br>When a hostile character moves to a space within range 3 of that character, the charge sparks to that character. Characters that start their turns within range 3 of the charged character are unaffected until they move outside of that area and re-enter it.<br>The character struck by the charge must pass an engineering save or take 1 energy damage, be knocked back 2 spaces, knocked prone, and shredded until the end of their next turn.",
-    "description": "",
+    "effect": "An allied character in sensor range gains a Disruptive Charge until the start of your next turn. When a hostile character moves to a space within range 3 of that character, the charge sparks to that character. Characters that start their turns within range 3 of the charged character are unaffected until they move outside of that area and re-enter it.<br>The character struck by the charge must pass an engineering save or take 1 energy damage, be knocked back 2 spaces, knocked prone, and shredded until the end of their next turn.",
+    "description": "Darius was the door in; Cyrus was the map. Navigation through the subject’s parasubjective topography was proven on paper. Using a particularized human-nonhuman ontologic bridge, EXMAT was able to demonstrate gestalt manifestation in test pilots; with help, we can do what they do — and do it better.<br>The walls between us and what comes next fall down. The work continues.",
     "data_type": "system",
     "aptitude": {}
   },
   {
-    "id": "ms_bless",
-    "name": "BLESS",
+    "id": "ms_shahnameh",
+    "name": "SHAHNAMEH",
     "type": "Tech",
     "sp": 2,
     "tags": [
@@ -157,14 +157,14 @@
     "source": "SSC",
     "license": "EMPEROR",
     "license_level": 2,
-    "effect": "An allied character in sensor range gains overshield 6. While they have this overshield, they are resistant to heat inflicted by other characters.",
-    "description": "",
+    "effect": "An allied character in sensor range and line of sight gains Overshield 6. While they have this Overshield, they are resistant to Heat inflicted by other characters.",
+    "description": "“Be recorded in my book of Kings; live into forever and beyond.”<br>— translated gestalt from the Cyrus Omega ferromemetic, no pre-contact text associated; likely a subject-original imperative/corrective impulse.",
     "data_type": "system",
     "aptitude": {}
   },
   {
-    "id": "ms_storm_generator",
-    "name": "STORM GENERATOR",
+    "id": "ms_ayah_of_the_syzygy",
+    "name": "Āyah of the Syzygy",
     "type": "System",
     "sp": 2,
     "tags": [
@@ -178,14 +178,14 @@
     "source": "SSC",
     "license": "EMPEROR",
     "license_level": 3,
-    "effect": "Create a blast 2 area in range that activates at the end of your turn and lasts until the end of the scene or until you take this action again. The first time each turn a hostile character in this area is struck by a ranged or melee attack, they release a discharge of energy in a burst 1 area around them. That character and any other character caught in the area take 1 energy damage.",
-    "description": "",
+    "effect": "Create a blast 2 area in range and line of sight that lasts until the end of the scene or until you take this action again. 1/turn when a hostile character in this area is hit by a ranged or melee attack, they release a discharge of energy. All hostile characters at least partly in the area, including the original character, take 1 energy damage.",
+    "description": "“So where are you going? Is it not except a reminder to the worlds<br>For whoever wills among you to take a right course.”<br>— Witnessed from the Darius 4.8 igneomemetic*<br>*EXMAT Note: crossref(TRUE): Quran, Surah 81:26-28 “at-Takwir” (pre-Meccan Reconstruction) ",
     "data_type": "system",
     "aptitude": {}
   },
   {
-    "id": "ms_purging_shield",
-    "name": "PURGING SHIELD",
+    "id": "ms_the_walk_of_kings",
+    "name": "THE WALK OF KINGS",
     "type": "Tech",
     "sp": 4,
     "tags": [
@@ -205,8 +205,8 @@
     "source": "SSC",
     "license": "EMPEROR",
     "license_level": 3,
-    "effect": "An allied character in sensor range and line of sight gains overshield 6. While they have this overshield, all their melee attacks gain the ap tag and the first time a turn they hit with a melee attack or take damage from a hostile character, they release a burst 1 aoe around them. All other characters caught within take 1 energy damage.",
-    "description": "",
+    "effect": "An allied character in sensor range and line of sight gains overshield 6. While they have this overshield, all their melee attacks gain the AP tag, and the first time each turn that they either hit with a melee attack or take damage from a hostile character, they release a burst 1 AOE centered on them. All other characters caught within take 1 Energy damage.",
+    "description": "“VERILY we established HIS power on earth and We gave HIM the ways and means to all ends.”<br>— Witnessed from the Darius 5.10 igneomemetic*<br>*EXMAT Note: crossref(TRUE): Quran, Surah 18:84 “al-Khaf” (pre-Meccan Reconstruction). Fascinating that this should appear from the gestalt — human/egregorian interaction on Hercynia post-Crisis must have been quite developed for this (and previous) excerpts to be so deep-set. Encouraging signs for further development.",
     "data_type": "system",
     "aptitude": {}
   }
