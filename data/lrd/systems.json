@@ -230,7 +230,7 @@
     "license": "KOBOLD",
     "license_level": 3,
     "effect": "Gain the following options for invasion.<br>Eject Slag: You force the target’s reactor to eject burning liquid in a Burst 2 area around them, not affecting the space they occupy. The affected area becomes difficult terrain and characters that start their turn in it or that enter it for the first time in a round must succeed on an ENGINEERING save or take 2 Heat and 1 Burn. The liquid cools, dissipating, at the end of your next turn.<br>Molten Puncture: Until the end of the target’s next turn, their reactor shielding is temporarily cracked. They take 2 Burn for each space they voluntarily move (to a maximum of 6 Burn).",
-    "description": "The Kobold PG’s code is unique in that it can be injected into existing civilian mining mechs, allowing them to interact with the full suite of largely improvised, adapted weaponry and systems. The process skips printers entirely; however, in avoiding the constraints of Unionmonitored printers, the process also eschews widely accepted safety standards – a common theme among HORUS PGs. With no governors or consistent standards on the operational envelope of the K-PG, some pilots have discovered the terminal limits of their chassis the hard way.",
+    "description": "The Kobold PG’s code is unique in that it can be injected into existing civilian mining mechs, allowing them to interact with the full suite of largely improvised, adapted weaponry and systems. The process skips printers entirely; however, in avoiding the constraints of Union-monitored printers, the process also eschews widely accepted safety standards – a common theme among HORUS PGs. With no governors or consistent standards on the operational envelope of the K-PG, some pilots have discovered the terminal limits of their chassis the hard way.",
     "data_type": "system",
     "aptitude": {}
   },
@@ -379,7 +379,7 @@
     "source": "HA",
     "license": "SUNZI",
     "license_level": 1,
-    "effect": "Expend a charge for one of the following effects:<br>Blink Mine (Mine): Once detonated, the character that triggered it must pass an ENGINEERING save or be teleported to a free, valid space of your choice within Range 5 of the mine and become JAMMED until the end of their next turn. If they pass, they still teleport but do not become JAMMED.<br>Warp Grenade (Grenade, Range 5, Blast 3): On impact, choose any character within the affected area and teleport them to any free, valid space within the same area. An unwilling character can pass an ENGINEERING save to avoid this effect",
+    "effect": "Expend a charge for one of the following effects:<br>Blink Mine (Mine): Once detonated, the character that triggered it must pass an ENGINEERING save or be teleported to a free, valid space of your choice within Range 5 of the mine and become JAMMED until the end of their next turn. If they pass, they still teleport but do not become JAMMED.<br>Warp Grenade (Grenade, Range 5, Blast 3): On impact, choose any character(s) within the affected area and teleport them to any free, valid space within the same area. An unwilling character can pass an ENGINEERING save to avoid this effect",
     "description": "Eso es lo que no se suena: usar el vacio contra la Ley de la Madre. Marcamos esta en nuestro historia con lagrimas, y ennegrecer la pagina.<br>[This is the thing un-thinkable: to use the nonshape against the Mother’s Law. With tears, we mark its need in our history, and then blacken the page]",
     "data_type": "system",
     "aptitude": {}
