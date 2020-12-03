@@ -7,7 +7,7 @@
       "Striker"
     ],
     "y_pos": 14,
-    "description": "Originally commissioned and tested as a dueling mech for the House of Smoke, the ATLAS blurs the line between mechanized chassis and powered personal armor. The result of a long project in SSC’s Exotic Materials group, the Atlas was able to utilize the bleeding edge of reactor miniaturization tech to produce a chassis resembling a large, sleek hard suit, almost skin-tight at points. Though sacrificing much of the durability of a larger frame, the mech’s essential systems are so closely melded with its user’s movements that it offers unparalleled maneuverability.<br>Though originally licensed for only select clientele, SSC allowed a small amount of Atlas chassis to be introduced to select Sparri mercenary groups after the pattern’s design was leaked by ExoMat personnel who accidentally lost a suit to a Sparri Espada in a hotly contested game of Kapkat. Following its limited release, demand from Sparri groups grew so vocal that SSC was forced to reconsider its licensing scheme; considered perfect warrior frames for hunting the native megafauna of Sparr, they are now widely perceived as the iconic frames of Sparri headhunters and daredevils across the Orion Arm, to the point that the Sparri invented a new martial art using the Atlas.<br>Considered heirlooms of great warriors, Atlas frames among the Sparri are tied to family — blood and chosen — and maintained by hand. Each suit on Sparr bears the history of its previous pilots, from the decorations and modifications, to the systemic: the suit’s powerful internal databanks remember the unique movements of all that have worn it before, enabling Sparri hunters to literally call upon their ancestors in battle.",
+    "description": "Originally commissioned as a dueling mech by the Baronic Houses of Smoke and Order, the Atlas blurs the line between mechanized chassis and powered personal armor. Thanks to a long-running research project from SSC's Exotic Materials Group, the designers were able to employ the bleeding edge of reactor miniaturization tech: the result was a chassis that resembled a large, sleek hardsuit, almost skintight in places. While the Atlas sacrifices the durability of a larger frame, its essential systems are so closely melded with its user's movements that it offers unparalleled maneuverability.</p> <p>Although the Atlas was initially licensed only to Baronic clients, its design was leaked when a group of ExoMat personnel lost a suit to a Sparri espada in an intense game of Kapkat. Despite their initial attempt to recover the suit, SSC relented, citing the eager demand from Sparri groups for access to the full license. </p> <p>Considered the perfect warrior frame for hunting the native megafauna of Sparr, the Atlas now enjoys a dual reputation among both the Sparri peoples and Karrakin nobility. To the Sparri, the Atlas &ndash; its combat efficacy notwithstanding &ndash; is highly valued for the direct access its systems allow to their ancestral memory; Atlas frames on Sparr are the heirlooms of great warriors, tied to family (blood and chosen) and maintained by hand. Each suit on Sparr bears the history of its previous pilots in both decorations and FCA-compliant machine learning, which enables Sparri hunters to almost literally call upon their ancestors in battle. The Atlas has become so popular among the Sparri that they even developed a new martial art based on the Atlas: Jäger Kunst. </p> <p>The Karrakin nobility, on the other hand, find the Atlas to be a perfect machine for noble heroism &ndash; that the Sparri have an affinity for it only makes the chassis that much more desirable among Karrakin Sparrist scholars. Commonly decorated with purchased Sparri saga discs, Vast pelts, and saga lines, Karrakin suits blend imagined profiles of Annorum Passacaglia and Annorum Tyrannus-era heroes with profiles of Sparri warriors, daredevils, vast-hunters, and espadas.",
     "mounts": [
       "Flex",
       "Main"
@@ -29,26 +29,26 @@
     "traits": [
       {
         "name": "Giantkiller",
-        "description": "The Atlas counts as size 1 for the purposes of ramming and grappling. It ignores engagement from actors larger than itself, can share space with larger actors (even hostile ones) and move through their spaces unimpeded. While sharing space with any character, it gains soft cover, even from that character."
+        "description": "The Atlas counts as SIZE 1 for RAM and GRAPPLE. It ignores engagement from larger characters and can freely move through and share the spaces they occupy (even if they’re hostile). While occupying the same spaces as any character, it gains soft cover, even from that character."
       },
       {
         "name": "Jäger Dodge",
-        "description": "1/round, when the Atlas takes damage from a character larger than itself, as a reaction it can gain resistance to that damage and move 3 spaces in any direction, ignoring engagement and reactions."
+        "description": "1/round, when you take damage from a larger character, gain RESISTANCE to that damage and move 3 spaces in any direction as a reaction. This ignores engagement and doesn’t provoke reactions."
       },
       {
         "name": "Finishing Blow",
-        "description": "1/round, the Atlas can deal +1d6 bonus damage with a successful melee attack against a prone target."
+        "description": "1/round, deal +1d6 bonus damage on a successful melee attack against a PRONE target."
       },
       {
         "name": "Exposed Reactor",
-        "description": "The Atlas takes +1 difficulty on all engineering checks and saves."
+        "description": "The Atlas receives +1 Difficulty on ENGINEERING checks and saves."
       }
     ],
     "core_system": {
-      "name": "BLOODLINE active assist",
-      "description": "The ATLAS extends microneedles into your musculature and ancillary nervous system, melding flesh, machine, and the memory of all who wore it before you.",
+      "name": "BLOODLINE Active Assist",
+      "description": "The ATLAS extends microneedles into the musculature and ancillary nervous system of its pilot, melding flesh, machine, and the memory of all who wore it before.",
       "active_name": "Final Hunt",
-      "active_effect": "When you take this action, until the end of the current scene gain the following effects:<li>The Atlas's movement from any source (moves, boosts, movement from systems or talents) increases by 1.<li>It always benefits from soft cover, no matter where it is.<li>The Atlas can hide even in the open, without requiring cover (the only way to reveal it is for an actor to search for it or it if breaks hiding the normal way - by boosting, attacking, forcing a save, or taking other actions that break hiding).<li>1/round, when the Atlas makes an attack from hiding, before the attack is rolled, its target must also pass a hull save or be knocked prone.",
+      "active_effect": "For the rest of the scene, you:<li>Move an additional 1 space when you voluntarily move for any reason (e.g. standard moves, BOOST, movement from systems or talents).<li>Benefits from soft cover at all times, no matter where you are.<li>Can HIDE even in the open, without requiring cover.<li>1/round, when you make a melee or ranged attack while HIDDEN, your target must also succeed on a HULL save or be knocked PRONE. This takes place before the attack is rolled ",
       "tags": [
         {
           "id": "tg_quick_action"
@@ -57,7 +57,7 @@
     },
     "data_type": "frame",
     "aptitude": {},
-    "image_url": "https://i.imgur.com/MWb5XtS.png"
+    "image_url": "https://compcon-image-assets.s3.amazonaws.com/frames/atlas_new.png"
   },
   {
     "id": "mf_caliban",
@@ -89,26 +89,26 @@
     "traits": [
       {
         "name": "Wrecking Ball",
-        "description": "The Caliban counts as size 3 when inflicting knock back from any ranged or melee attack."
+        "description": "The Caliban counts as Size 3 when inflicting knockback with any Ram, Ranged, or Melee Attack."
       },
       {
         "name": "Pursue Prey",
-        "description": "When the Caliban inflicts knock-back as part of any action, it can move the same number of spaces afterwards as a free action or reaction, as long as it moves towards its target by the most direct route possible. This movement ignores engagement and doesn’t provoke reactions."
+        "description": "When the Caliban inflicts KNOCKBACK as part of any action, it can move an equal number of spaces towards the same target by the most direct route possible. This movement is part of the same action, ignores engagement and doesn’t provoke reactions."
       },
       {
         "name": "Slam",
-        "description": "1/round when the Caliban knocks a character into a wall, mech, or other obstruction that would cause it to stop moving, it can cause its target to pass a hull save or take 1d6 kinetic damage and become impaired until the end of its next turn."
+        "description": "1/round, when the Caliban knocks a character into a wall, mech, or other obstruction that would cause it to stop moving, it may force its target to pass a HULL save or take 1d6 Kinetic Damage and become IMPAIRED until the end of its next turn."
       },
       {
         "name": "Weak computer",
-        "description": "The Caliban takes +1 difficulty on all systems saves and checks"
+        "description": "The Caliban has +1 Difficulty on all SYSTEMS saves and checks."
       }
     ],
     "core_system": {
       "name": "Flayer Shotgun",
-      "description": "The Heavy Howitzer-Shotgun is a compact, formalized version of the long-popular “Daisy Cutter” pattern howitzer-shotgun used by Trunk Security and other stellar marine security forces. Chambered to accept 75mm shot, shells, and sabots, the “Flayer” shotgun sacrifices some of the raw power of the DC in favor of control and a much-improved fire rate.",
+      "description": "The “Flayer” – officially the Heavy Howitzer-Shotgun 075 – is a compact, formalized version of the popular “Daisy Cutter” howitzer-shotgun used by Trunk Security and other stellar marine forces. Chambered to accept shot, shell, or sabot, the Flayer sacrifices some of the DaisyCutter’s raw power in favor of control and a much-improved fire rate.",
       "active_name": "Equip Autochoke",
-      "active_effect": "The Flayer shotgun comes pre-equipped with a muzzle-mounted auto-choke, which allows its user to better define the spread of shot issuing from the weapon. The extreme heat from equipping the choke renders it unusable in short order and it must be discarded.<br>For the rest of this scene, the flayer shotgun gains the following profile:<br>Main CQB, Accurate, Knockback 5<br>[Cone 3][threat 3][1d6+2 kinetic damage]",
+      "active_effect": "The Flayer shotgun comes pre-equipped with a muzzle-mounted auto-choke that allows its user to better define the spread of shot issuing from the weapon. The extreme heat from equipping the choke renders it unusable in short order and it must be discarded.<br>For the rest of this scene, the HHS-075 “Flayer” Shotgun gains the following profile:<br>Main CQB, Accurate, Knockback 5<br>[Cone 3] [Threat 3] [1d6+2 kinetic damage]",
       "tags": [
         {
           "id": "tg_protocol"
@@ -120,7 +120,7 @@
     },
     "data_type": "frame",
     "aptitude": {},
-    "image_url": "https://i.imgur.com/111stQO.png"
+    "image_url": "https://compcon-image-assets.s3.amazonaws.com/frames/caliban.png"
   },
   {
     "id": "mf_kobold",
@@ -151,22 +151,22 @@
     "traits": [
       {
         "name": "Mimic Carapace",
-        "description": "If the KOBOLD starts its turn adjacent to a piece of terrain or hard cover size 1 or larger it becomes invisible while it remains adjacent to that terrain or cover. This invisibility breaks if it attacks or takes damage."
+        "description": "When the Kobold starts its turn adjacent to a piece of terrain or hard cover of SIZE 1 or larger it becomes INVISIBLE as long as it remains adjacent. It ceases to be INVISIBLE if it attacks or takes damage."
       },
       {
         "name": "Slag Spray",
-        "description": "1/round as a quick action, the KOBOLD can create a size 1 piece of terrain (10 HP, evasion 5) within a free space within range 3 and line of sight. The semi-molten polymer grants hard cover."
+        "description": "1/round, as a quick action, the Kobold may create a SIZE 1 mound of semi-molten polymer in a free space within Range 3 and line of sight. This terrain has 10 HP, EVASION 5, and grants hard cover."
       },
       {
         "name": "Exposed Reactor",
-        "description": "The KOBOLD gets +1 difficulty on engineering checks and saves."
+        "description": "The Kobold gets +1 Difficulty on ENGINEERING checks and saves."
       }
     ],
     "core_system": {
       "name": "Terraform",
-      "description": "Screeching and venting steam, the KOBOLD digs into the earth. In moments, the very ground bends to the pilot’s will, and the air itself shrieks with agony — the cry of every dead Ungrateful, martyred or taken by the Dustmen.",
+      "description": "Screeching and venting steam, the Kobold digs into the earth. Moments later, the very ground bends to the pilot’s will, and the air itself shrieks with agony — the cry of every dead Ungrateful, martyred or taken by the Dustmen.",
       "active_name": "Terraform",
-      "active_effect": "The Kobold extrudes a massive amount of polymer and creates up to 10 size 1 cubes of terrain within free, open spaces within range 5 of it. These cubes can be separate or connected, and stacked up to 5 spaces high. If connected, they form a contiguous surface and can potentially block line of sight. They grant soft cover the turn they are extruded, each section is independently destructible, has evasion 5, and 10 HP. At the start of the Kobold’s next turn, they harden into hard cover and each size 1 section gains +10 HP (it keeps any damage it still had).",
+      "active_effect": "Your mech extrudes a massive amount of polymer, creating up to 10 SIZE 1 cubes in free spaces within Range 5. These cubes can be separate or connected and can be stacked up to 5 spaces high. If connected, they form a contiguous surface that can block line of sight. During the turn in which they are extruded, the cubes grant soft cover and each has EVASION 5 and 10 HP. At the start of your next turn, they harden, each cube granting hard cover and gaining +10 HP (but retaining any damage they had taken).",
       "tags": [
         {
           "id": "tg_full_action"
@@ -174,7 +174,8 @@
       ]
     },
     "data_type": "frame",
-    "aptitude": {}
+    "aptitude": {},
+    "image_url": "https://compcon-image-assets.s3.amazonaws.com/frames/kobold.png"
   },
   {
     "id": "mf_lich",
@@ -205,18 +206,18 @@
     "traits": [
       {
         "name": "Soul Vessel",
-        "description": "At the start of the Lich’s turn, set down a marker at it’s current location (any marker created this way replaces previous markers). Once per round, as a reaction to being hit by an attack, failing a saving throw or check, or taking damage or heat from any source (even self), the Lich can immediately become completely immune to all the damage, heat, or conditions from that effect. It then resets its position to the marker or as close as possible, counting as teleporting. The Lich can also take this reaction at the end of any turn, including its own, but if taken this way it merely resets its position. It can’t take this reaction if jammed, stunned, grappled, or unable to take reactions from some other means."
+        "description": "At the start of the Lich's turn, set down a SOUL VESSEL at its current location (replacing any previous markers). 1/round, as a reaction when the Lich is hit by an attack, fails a save or check, or takes damage or Heat from any source (even itself), it may immediately gain IMMUNITY to all damage, heat, or conditions from that effect. It then teleports to the marker or as close as possible. The Lich can also take this reaction at the end of any turn, including its own, but if it does so it only teleports and does not gain IMMUNITY. It can't take this reaction if it is JAMMED, STUNNED, GRAPPLED, or unable to take reactions for any reason."
       },
       {
         "name": "Immortal",
-        "description": "1/scene, If the Lich is destroyed, in the round after it is destroyed, as a reaction to the end of any turn, it immediately returns to the location of its soul vessel, counting as teleporting, heals to full HP, clears all heat, and goes to 1 structure and stress (even if it had more remaining when it was destroyed). It may takes this reaction even though it’s destroyed, and can only take this reaction once per scene. If its pilot is dead and died the same scene, they also return to life. If it chooses not to make this reaction in that round, it remains destroyed and the pilot remains dead."
+        "description": "1/scene, in the round after the Lich has been destroyed, it may return to the location of its SOUL VESSEL as a reaction at the end of any turn. This counts as teleporting; additionally, the Lich appears with full HP, no Heat, 1 STRUCTURE and 1 STRESS (even if it had more when it was destroyed). If its pilot died in the same scene, they also return to life. If the Lich does not take this reaction in that round, it remains destroyed and the pilot remains dead."
       }
     ],
     "core_system": {
       "name": "Chronostutter",
       "description": "“Drink Deep, and Descend.”",
       "active_name": "Glitch time",
-      "active_effect": "Once this action is taken, for the rest of this scene, 1/round when any attack, effect, or action is made by one character successfully against another character inside the lich’s sensor range (deals damage, inflicts a condition, etc), the lich can instantly disrupt time, interrupting that action before it fully resolves. This is not a reaction. Effects that target self cannot be interrupted this way.<br>The targeted character is pushed up to 3 spaces in a direction of the Lich’s choice, even if it is normally immune to involuntary movement. Then the Lich places itself in one of the spaces that character originally occupied, or as close as possible, no matter how far away it was, counting as teleporting.<br>The Lich becomes the new target of that attack, effect, or action. All damage, conditions, or effects of the action now affect the Lich, and the action must be performed as if targeting the original character. For example, if the effect was to teleport a friendly character to a space, the Lich is teleported instead to that space. If the effect was to repair the a character, the Lich is repaired instead. If the effect was to deal damage and knockback, the Lich takes the damage, using the Lich’s armor, resistance, etc, and is knocked back the same direction the original character would be. If the effect was a condition or status, the Lich takes that condition or status instead.",
+      "active_effect": "You gain the ability to disrupt time for the rest of this scene. 1/round, when any character successfully attacks, effects, or takes an action against another character within SENSORS, you may interrupt it before it resolves, with the following effects:<li>The character taking the action is pushed up to 3 spaces in a direction of your choice, even if they have IMMUNITY to involuntary movement<li>You teleport to one of the spaces originally occupied by that character, or as close as possible, no matter how far away it was.<li>The initial attack, effect, or action resolves with you as its target.<li>You receive all damage, conditions, statuses, and effects, and the action must be carried out without changes. For example, if the effect was to teleport an allied character to a certain space, you are teleported to that space instead; if the effect was to repair an allied character, you are repaired instead; if the effect was to deal damage and KNOCKBACK, you take the damage (using your ARMOR, RESISTANCE, etc.) and are knocked back in the same direction as the original target would be; if the effect was to inflict a condition or status, you receive that condition or status instead. Initiating this interruption does not count as a reaction. Effects that target the self cannot be interrupted this way ",
       "tags": [
         {
           "id": "tg_quick_action"
@@ -224,7 +225,8 @@
       ]
     },
     "data_type": "frame",
-    "aptitude": {}
+    "aptitude": {},
+    "image_url": "https://compcon-image-assets.s3.amazonaws.com/frames/lich_off.png"
   },
   {
     "id": "mf_sunzi",
@@ -256,22 +258,22 @@
     "traits": [
       {
         "name": "Safe Harbor",
-        "description": "Any character other than the Sunzi that teleports always considers free space adjacent to the Sunzi as valid space to teleport to, as long as the Sunzi is in range 50 from them."
+        "description": "When allied characters within Range 50 of the Sunzi teleport or are teleported, free spaces adjacent to the Sunzi are always valid end destinations."
       },
       {
         "name": "Anchor",
-        "description": "The Sunzi cannot be teleported unwillingly."
+        "description": "The Sunzi has Immunity to involuntary movement caused by other characters."
       },
       {
         "name": "Slip",
-        "description": "1/round the Sunzi can teleport 1 space as a free action"
+        "description": "1/round, the Sunzi can teleport 2 spaces as a free action."
       }
     ],
     "core_system": {
       "name": "Reality Carver",
       "description": "MEMO(TT_CLEARANCE_01): YOU’RE GOING TO READ SOME OBTUSE SHIT HERE. I’VE TRANSCRIBED ONLY THE USEFUL PARTS OF THE VOLS SAID. REFER TO THE VISUAL FOR CORRESPONDING HAND SIGNS. REFER TO REPORTS: VESSEL-PILOT-DOORWAY",
       "active_name": "Art of War",
-      "active_effect": "When you take this protocol, gain limited (6) charges until the rest of this scene. You can expend a charge to choose any hostile or allied character in sensor range and line of sight as a reaction to the start of their turn and teleport that character up to 3 spaces in any direction, as long as they end in a free valid space that they can stand on.",
+      "active_effect": "For the rest of the scene, this system gains 6 charges (you can use a die to track this). As a reaction at the start or end of any hostile or allied character’s turn within SENSORS and line of sight, expend a charge to teleport them up to 3 spaces in any direction, as long as they end in a free space in which they can stand.",
       "tags": [
         {
           "id": "tg_protocol"
@@ -285,10 +287,11 @@
         }
       ],
       "passive_name": "Blink Anchor",
-      "passive_effect": "The Sunzi has a blink anchor, a deployable system that is a size 1/2 object immune to all damage and effects (it is a stable point in space). It has limited (2) charges. It can be deployed or picked up and carried around by the Sunzi or any adjacent allied character as a quick action. When any character teleports within line of sight of the Sunzi, it can spend a reaction and a charge to change the end point of the teleport to free valid and adjacent space to the blink anchor instead of the teleporting character’s original target, as long as the character can safely stand in that space."
+      "passive_effect": "Blink Anchor (SIZE 1/2, Tags: DEPLOYABLE, IMMUNITY to all damage and effects, LIMITED 3)<br>You carry a single blink anchor that you can deploy as a quick action. When any character teleports within your line of sight, you may force them to appear in a free space adjacent to the blink anchor instead of their original destination, as long as they can safely stand there. If your target is hostile, this expends a charge.<br>Initiating this interruption does not count as a reaction. Once it’s deployed, you or any allied character can pick it up or put it down while adjacent to it as a quick action."
     },
     "data_type": "frame",
-    "aptitude": {}
+    "aptitude": {},
+    "image_url": "https://compcon-image-assets.s3.amazonaws.com/frames/sunzi.png"
   },
   {
     "id": "mf_zheng",
@@ -321,21 +324,21 @@
     "traits": [
       {
         "name": "Destructive Swings",
-        "description": "At the end of your turn, if you made at least one melee attack against another hostile character, create a size 1 piece of terrain that grants hard cover in a free adjacent space (10 HP, 5 evasion)"
+        "description": "At the end of the Zheng’s turn, if it made at least one melee attack against a hostile character, the force of its swings creates a SIZE 1 piece of terrain that grants hard coverin a free, adjacent space. It has 10 HP and EVASION 5."
       },
       {
         "name": "Weak Computer",
-        "description": "The Zheng gets +1 difficulty on all systems saves and checks"
+        "description": "The Zheng gets +1 Difficulty on all Systems saves and checks"
       }
     ],
     "core_system": {
-      "name": "Xiaoli-Type CQB Suite",
-      "description": "Using scavenged materials from a dying ship and surviving mostly on rations intended for colonists and an increasingly more radioactive air supply, Xiaoli was able to create modifications that gave her mech unprecedented unarmed striking power.",
+      "name": "XIONG-TYPE CQB SUITE",
+      "description": "Surviving mostly on colonial rations and an increasingly radioactive air supply, Xiaoli scavenged materials from a dying ship to create modifications that gave her mech unprecedented unarmed striking power.",
       "active_name": "Xiaoli’s Ingenuity",
-      "active_effect": "Gain 6 charges (you can use a die to track this). For the rest of this combat, you can spend a charge to take this frame's passive action again, ignoring the 1/turn limit. You can spend any number of charges a turn, then regain a charge for each unique target (character, object, or piece of terrain) you damaged with this action, up to a maximum of 6.",
+      "active_effect": "For the rest of the scene, this system gains 6 charges (you can use a die to track this). Expend a charge to use XIAOLI’S TENACITY again, ignoring the 1/Turn limit. You may spend any number of charges a turn. At the end of each turn, you regain a charge for each unique target (character, object, or piece of terrain) you damaged with this action, to a maximum of 6.",
       "tags": [],
-      "passive_name": "Xiaoli-Type CQB Suite",
-      "passive_effect": "Once during your turn as a free action, you can move up to 3 spaces then deal 2 kinetic damage to any adjacent character, object, or piece of terrain. This movement must obey engagement and does not ignore reactions.<br>If an object or piece of terrain took this damage, it instead takes 10 AP kinetic damage. If it's destroyed, it explodes, dealing 1d6 kinetic damage to all adjacent characters other than you and knocking them back 1 space."
+      "passive_name": "Xiaoli's Tenacity",
+      "passive_effect": "1/turn as a free action, you may move up to 3 spaces then deal 2 Kinetic to any adjacent character or 10 Kinetic AP to an object or piece of terrain. This movement prompts engagement and does not ignore reactions.<br>If this damage destroys an object or piece of terrain, it explodes, dealing 1d6 Kinetic to all adjacent characters other than you and knocking them back 1 space."
     },
     "data_type": "frame",
     "aptitude": {},
@@ -347,6 +350,7 @@
         "min": 0,
         "max": 6
       }
-    ]
+    ],
+    "image_url": "https://compcon-image-assets.s3.amazonaws.com/frames/zheng.png"
   }
 ]
