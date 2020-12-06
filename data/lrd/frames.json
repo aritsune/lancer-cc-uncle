@@ -106,7 +106,7 @@
     ],
     "core_system": {
       "name": "Flayer Shotgun",
-      "description": "The “Flayer” – officially the Heavy Howitzer-Shotgun 075 – is a compact, formalized version of the popular “Daisy Cutter” howitzer-shotgun used by Trunk Security and other stellar marine forces. Chambered to accept shot, shell, or sabot, the Flayer sacrifices some of the DaisyCutter’s raw power in favor of control and a much-improved fire rate.",
+      "description": "The “Flayer” – officially the Heavy Howitzer-Shotgun 075 – is a compact, formalized version of the popular “Daisy Cutter” howitzer-shotgun used by Trunk Security and other stellar marine forces. Chambered to accept shot, shell, or sabot, the Flayer sacrifices some of the Daisy Cutter’s raw power in favor of control and a much-improved fire rate.",
       "active_name": "Equip Autochoke",
       "active_effect": "The Flayer shotgun comes pre-equipped with a muzzle-mounted auto-choke that allows its user to better define the spread of shot issuing from the weapon. The extreme heat from equipping the choke renders it unusable in short order and it must be discarded.<br>For the rest of this scene, the HHS-075 “Flayer” Shotgun gains the following profile:<br>Main CQB, Accurate, Knockback 5<br>[Cone 3] [Threat 3] [1d6+2 kinetic damage]",
       "tags": [
@@ -324,7 +324,7 @@
     "traits": [
       {
         "name": "Destructive Swings",
-        "description": "At the end of the Zheng’s turn, if it made at least one melee attack against a hostile character, the force of its swings creates a SIZE 1 piece of terrain that grants hard coverin a free, adjacent space. It has 10 HP and EVASION 5."
+        "description": "At the end of the Zheng’s turn, if it made at least one melee attack against a hostile character, the force of its swings creates a SIZE 1 piece of terrain that grants hard cover in a free, adjacent space. It has 10 HP and EVASION 5."
       },
       {
         "name": "Weak Computer",
