@@ -14,7 +14,7 @@
     "discord.js-commando": "github:discordjs/Commando",
     "dotenv": "^8.2.0",
     "fuse.js": "^5.1.0",
-    "lancer-data": "^2.0.35",
+    "lancer-data": "2.0.19",
     "node-fetch": "^2.6.1",
     "object.fromentries": "^2.0.2",
     "turndown": "^5.0.3"
