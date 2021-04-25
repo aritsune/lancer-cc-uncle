@@ -69,7 +69,11 @@ let pilot_gear_data = pilot_items_data.filter(pg => pg.type === "Gear");
 let pilot_weapon_data = pilot_items_data.filter(pg => pg.type === "Weapon");
 
 //Strip out anything with an id starting with "missing_", as those are compcon-specific stubs
-
+[action_data, core_bonus_data, core_system_data, frame_data, mod_data, //glossary_data doesn't have IDs
+pilot_armor_data, pilot_gear_data, pilot_weapon_data, skill_data,
+status_data, system_data, tag_data, talent_data, weapon_data].forEach( data => ({
+  data.filter(x => !(x.id.startsWith("missing_")))
+}))
 
 //Assigns data_type to each object; data_type is used to pretty-print the object's type.
 //Previously data_type was an attribute of every kind of object. It was removed.
@@ -92,7 +96,7 @@ frame_data = frame_data.map(frame => ({
 }))
 glossary_data = glossary_data.map(g => ({
   ...g,
-  data_type: 'Glossary'
+  data_type: 'Glossary Entry'
 }))
 mod_data = mod_data.map(m => ({
   ...m,
