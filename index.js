@@ -3,12 +3,23 @@ const { search, getDetails } = require('./search')
 const format = require('./format')
 require('dotenv').config()
 
+/*
+/data/index.js is the importer, exporting the data object
+then /format.js looks like it reformats the data into pretty strings, and exports it as frame, weapon, etc
+then /search.js takes the output of /format.js and exports a search function
+finally, /index.js receives user's search commands, parses out the keyword, and uses the search function
+ */
+
 const client = new Commando.Client({
   owner: process.env.OWNER,
-  commandPrefix: '::'
+  commandPrefix: '::',
+  intents: ['GUILDS', 'GUILD_MESSAGES']
 })
 
-client.on('ready', () => console.log('UNCLE is ready!'))
+client.once('ready', () => {
+  console.log(`Logged in as ${client.user.tag}! (${client.user.id})`)
+  client.user.setActivity('LANCER | use [[brackets]]')
+})
 
 class SearchCommand extends Commando.Command {
   constructor(client) {
@@ -26,6 +37,7 @@ class SearchCommand extends Commando.Command {
   async run(msg) {
     console.log(msg.content)
     let targets = [];
+    //Entry point for searches.
     const re = /\[\[(.+?)\]\]/g
     let matches;
     while ((matches = re.exec(msg.content)) != null) {
@@ -67,7 +79,3 @@ client.registry
   .registerCommand(InviteCommand)
 
 client.login(process.env.TOKEN)
-
-client.on('ready', () => {
-  client.user.setPresence({ activity: { name: 'LANCER | use [[brackets]]' }, status: 'online' })
-})

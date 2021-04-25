@@ -2,6 +2,7 @@ const data = require('./data');
 const emoji = require('./emoji.json')
 const turndownService = new require('turndown')()
 
+//Just takes data_type and outputs a pretty-print version.
 function itemTypeFormat(object) {
   switch (object.data_type) {
     case 'weapon':
@@ -118,24 +119,34 @@ function statusFormat(object) {
 
 module.exports = function (object) {
   console.log(object)
+  //Additional data types we might like
+  //Subtypes of Action - Quick Tech - Invade/Skirmish/Lock On/etc
+  //Frame traits, in isolation
+  //Explicit prefacing, e.g. trait:neurolink vs cb:neurolink (neurolink targeting), or
+  //talent:skirmisher vs trait:skirmisher
+  //Rules: flight, hover, difficult terrain, dangerous terrain
+  
   switch (object.data_type) {
-    case 'frame':
+    case 'frame': //Need to adjust to account for alt-frames. Broken, and works ONLY for the Death's Head frame. Weird.
       return frameFormat(object);
-    case 'core_system':
+    case 'core_system': //Semi-broken; see Neural Shunt (missing the Mark for Death action), and superheated reactor feed/radiance
       return coreFormat(object);
     case 'weapon':
       return weaponFormat(object);
-    case 'system':
+    case 'system': //VERY broken. Test with horos, mule, noah, etc. Also things like Tempest Drone.
       return systemFormat(object);
-    case 'mod':
+    case 'mod': //Broken. test with shock wreathe
       return systemFormat(object);
     case 'talent':
       return talentFormat(object);
     case 'core_bonus':
       return cbFormat(object);
     case 'tag':
+      // Not exactly broken, but not super useful. e.g. looking up reaction states
+      // "This system can be used as a reaction"...when people might want reaction rules.
+      // Probably better to merge certain elements with a "rules" section.
       return tagFormat(object);
-    case 'action':
+    case 'action': //VERY broken.
       return actionFormat(object);
     case 'status':
       return statusFormat(object);
