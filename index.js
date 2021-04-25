@@ -64,7 +64,7 @@ class InviteCommand extends Commando.Command {
     client.on('ready', () => this.userID = client.user.id)
   }
   async run(msg) {
-    await msg.reply(`Invite me to your server: https://discordapp.com/api/oauth2/authorize?client_id=${this.userID}&permissions=0&scope=bot`)
+    await msg.reply(`Invite me to your server: https://discordapp.com/api/oauth2/authorize?client_id=${this.userID}&permissions=76800&redirect_uri=https://discord.com&scope=bot`)
   }
 }
 

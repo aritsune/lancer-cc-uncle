@@ -5,18 +5,18 @@ const turndownService = new require('turndown')()
 //Just takes data_type and outputs a pretty-print version.
 function itemTypeFormat(object) {
   switch (object.data_type) {
-    case 'weapon':
-      return 'Weapon'
-    case 'system':
-      return 'System'
-    case 'mod':
-      return 'Mod'
-    case 'tag':
-      return 'Equipment Tag'
-    case 'core_bonus':
-      return 'Core Bonus'
+    // case 'weapon':
+    //   return 'Weapon'
+    // case 'system':
+    //   return 'System'
+    // case 'mod':
+    //   return 'Mod'
+    // case 'tag':
+    //   return 'Equipment Tag'
+    // case 'core_bonus':
+    //   return 'Core Bonus'
     default:
-      return '';
+      return object.data_type ? object.data_type : 'Null data type'
   }
 }
 
@@ -119,12 +119,6 @@ function statusFormat(object) {
 
 module.exports = function (object) {
   console.log(object)
-  //Additional data types we might like
-  //Subtypes of Action - Quick Tech - Invade/Skirmish/Lock On/etc
-  //Frame traits, in isolation
-  //Explicit prefacing, e.g. trait:neurolink vs cb:neurolink (neurolink targeting), or
-  //talent:skirmisher vs trait:skirmisher
-  //Rules: flight, hover, difficult terrain, dangerous terrain
   
   switch (object.data_type) {
     case 'frame': //Need to adjust to account for alt-frames. Broken, and works ONLY for the Death's Head frame. Weird.

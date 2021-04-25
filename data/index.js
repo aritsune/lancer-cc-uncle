@@ -1,30 +1,25 @@
 //Extracts data, then feeds data into format.js
 
-/* In total, search.js expects
- weapons, --handled here
- systems,  --handled here
- mods, --handled here
- frames, --handled here
- talents, --handled here
- core_systems, --handled here
-
- --These would come from lancer-data directly, but may need to be overhauled b/c new data format
- tags,
- core_bonuses,
- actions,
- statuses
- */
-
+//Load data out of the lancer-data module.
 const lancer_data = require("lancer-data");
-const {
+let {
+  actions,
+  core_bonuses,
+  //core_systems are extracted from the frames later
   frames,
-  weapons,
-  systems,
+  glossary,
   mods,
+  pilot_gear,
+  skills,
+  statuses,
+  systems,
+  tags,
   talents,
+  weapons
 } = lancer_data
 
-//Ignoring these and working with just core data for now.
+//Load data out of supplemental modules (Long Rim, Wallflower, homebrew content packs)
+//TODO - Ignoring this and working with just core data for now.
 
 // const lr_frames = require("./lrd/frames.json");
 // const lr_weapons = require("./lrd/weapons.json");
@@ -36,6 +31,7 @@ const {
 // const wf_weapons = require("./wfd/weapons.json");
 // const wf_systems = require("./wfd/systems.json");
 
+//Compile data from all sources.
 // const frame_data = frames.concat(lr_frames).concat(wf_frames);
 // const weapon_data = weapons.concat(lr_weapons).concat(wf_weapons);
 // const system_data = systems
@@ -45,42 +41,130 @@ const {
 //   .concat(lr_mods);
 // const talent_data = talents.concat(lr_talents);
 
-const frame_data = frames;
-const weapon_data = weapons;
-const system_data = systems
-  .concat(mods);
-const talent_data = talents;
+//TODO - temporary stub while "concatenating other sources" is down.
+let action_data = actions;
+let core_bonus_data = core_bonuses;
+//core_systems are extracted from the frames later
+let frame_data = frames;
+let mod_data = mods;
+let pilot_items_data = pilot_gear; //pilot_gear is divided into subtypes later
+let skill_data = skills;
+let status_data = statuses;
+let system_data = systems;
+let tag_data = tags;
+let talent_data = talents;
+let weapon_data = weapons;
 
-//Assigns data_type to each object. The formatter changes its output depending on the data_type
+//Retrieves all core systems (core weapons included?), then gives each core system
+//a source attribute: "you come from this frame"
+let core_system_data = frame_data.map(frame => ({
+  id: `core_${frame.core_system.name.replace(' ', '_').toLowerCase()}`,
+  source: `${frame.source} ${frame.name}`,
+  ...frame.core_system
+}))
 
-//Locates core systems that are integrated weapons (e.g. Sherman's ZF4-Solidcore),
-//then goes to each weapon and says "this frame is where you came from".
+//Subdivide pilot gear
+let pilot_armor_data = pilot_items_data.filter(pg => pg.type === "Armor");
+let pilot_gear_data = pilot_items_data.filter(pg => pg.type === "Gear");
+let pilot_weapon_data = pilot_items_data.filter(pg => pg.type === "Weapon");
+
+//Strip out anything with an id starting with "missing_", as those are compcon-specific stubs
+
+
+//Assigns data_type to each object; data_type is used to pretty-print the object's type.
+//Previously data_type was an attribute of every kind of object. It was removed.
+//This also integrates the former itemTypeFormat function
+action_data = action_data.map(action => ({
+  ...action,
+  data_type: 'Action'
+}))
+core_bonus_data = core_bonus_data.map(cb => ({
+  ...cb,
+  data_type: 'Core Bonus'
+}))
+core_system_data = core_system_data.map(cs => ({
+  ...cs,
+  data_type: 'Core System'
+}))
+frame_data = frame_data.map(frame => ({
+  ...frame,
+  data_type: 'Frame'
+}))
+glossary_data = glossary_data.map(g => ({
+  ...g,
+  data_type: 'Glossary'
+}))
+mod_data = mod_data.map(m => ({
+  ...m,
+  data_type: 'Mod'
+}))
+pilot_armor_data = pilot_armor_data.map(pa => ({
+  ...pa,
+  data_type: 'Pilot Armor'
+}))
+pilot_gear_data = pilot_gear_data.map(pg => ({
+  ...pg,
+  data_type: 'Pilot Gear'
+}))
+pilot_weapon_data = pilot_weapon_data.map(pw => ({
+  ...pw,
+  data_type: 'Pilot Weapon'
+}))
+skill_data = skill_data.map(skill => ({
+  ...skill,
+  data_type: 'Pilot Skill'
+}))
+status_data = status_data.map(status => ({
+  ...status,
+  data_type: status.type
+}))
+system_data = system_data.map(system => ({
+  ...system,
+  data_type: 'System'
+}))
+tag_data = tag_data.map(tag => ({
+  ...tag,
+  data_type: 'Tag'
+}))
+talent_data = talent_data.map(talent => ({
+  ...talent,
+  data_type: 'Talent'
+}))
+weapon_data = weapon_data.map(weapon => ({
+    ...weapon,
+  data_type: 'Weapon'
+}))
+
+//Modifies weapon_data so that integrated weapons include their origin frame.
+
 integ_weapon_frames = frame_data.filter(frame => frame.core_system && frame.core_system.integrated)
+//Locates core systems that are integrated weapons (e.g. Sherman's ZF4-Solidcore)
 integ_weapons = integ_weapon_frames.map(
   frame => frame.core_system.integrated.map(integ_weapon =>
     ({integ_weapon_id: integ_weapon, frame: `${frame.source} ${frame.name}`})
-  ) //For each integrated weapon, create a simple object that is just "weapon and frame of origin"
+    //For each integrated weapon, create a simple object that is just "weapon_id and frame of origin"
+  )
 ).flat();
 integ_weapons.forEach(({integ_weapon_id, frame}) => {
   weapon_data.find(weap => weap.id === integ_weapon_id).frame_integrated = frame
-  })
-
-//Retrieves all core systems, core weapons included, then tells each core system
-//"you come from this frame"
-const core_systems = frame_data.map(frame => ({
-  id: `core_${frame.core_system.name.replace(' ', '_').toLowerCase()}`,
-  source: `${frame.source} ${frame.name}`,
-  ...frame.core_system,
-  data_type: 'core_system',
-}))
+})
 
 let data = {
-  ...lancer_data,
-  frames: frame_data,
-  weapons: weapon_data,
-  systems: system_data,
-  core_systems,
-  talents: talent_data
+  action_data,
+  core_bonus_data,
+  core_system_data,
+  frame_data,
+  glossary_data,
+  mod_data,
+  pilot_armor_data,
+  pilot_gear_data,
+  pilot_weapon_data,
+  skill_data,
+  status_data,
+  system_data,
+  tag_data,
+  talent_data,
+  weapon_data
 }
 
 const altNamesTransform = require('./altNames')
