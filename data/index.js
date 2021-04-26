@@ -46,6 +46,7 @@ let action_data = actions;
 let core_bonus_data = core_bonuses;
 //core_systems are extracted from the frames later
 let frame_data = frames;
+let glossary_data = glossary;
 let mod_data = mods;
 let pilot_items_data = pilot_gear; //pilot_gear is divided into subtypes later
 let skill_data = skills;
@@ -58,7 +59,7 @@ let weapon_data = weapons;
 //Retrieves all core systems (core weapons included?), then gives each core system
 //a source attribute: "you come from this frame"
 let core_system_data = frame_data.map(frame => ({
-  id: `core_${frame.core_system.name.replace(' ', '_').toLowerCase()}`,
+  //id: `core_${frame.core_system.name.replace(' ', '_').toLowerCase()}`,
   source: `${frame.source} ${frame.name}`,
   ...frame.core_system
 }))
@@ -69,11 +70,12 @@ let pilot_gear_data = pilot_items_data.filter(pg => pg.type === "Gear");
 let pilot_weapon_data = pilot_items_data.filter(pg => pg.type === "Weapon");
 
 //Strip out anything with an id starting with "missing_", as those are compcon-specific stubs
-[action_data, core_bonus_data, core_system_data, frame_data, mod_data, //glossary_data doesn't have IDs
+//glossary_data, core_system_data, statuses doesn't have IDs
+[action_data, core_bonus_data, frame_data, mod_data,
 pilot_armor_data, pilot_gear_data, pilot_weapon_data, skill_data,
-status_data, system_data, tag_data, talent_data, weapon_data].forEach( data => ({
-  data.filter(x => !(x.id.startsWith("missing_")))
-}))
+system_data, tag_data, talent_data, weapon_data].map( data_element =>
+  data_element = data_element.filter(data_entry => !(data_entry.id.startsWith("missing_")))
+)
 
 //Assigns data_type to each object; data_type is used to pretty-print the object's type.
 //Previously data_type was an attribute of every kind of object. It was removed.
@@ -140,18 +142,19 @@ weapon_data = weapon_data.map(weapon => ({
 }))
 
 //Modifies weapon_data so that integrated weapons include their origin frame.
+//TODO - move arbitrary integrated[] handling to search.js
 
-integ_weapon_frames = frame_data.filter(frame => frame.core_system && frame.core_system.integrated)
-//Locates core systems that are integrated weapons (e.g. Sherman's ZF4-Solidcore)
-integ_weapons = integ_weapon_frames.map(
-  frame => frame.core_system.integrated.map(integ_weapon =>
-    ({integ_weapon_id: integ_weapon, frame: `${frame.source} ${frame.name}`})
-    //For each integrated weapon, create a simple object that is just "weapon_id and frame of origin"
-  )
-).flat();
-integ_weapons.forEach(({integ_weapon_id, frame}) => {
-  weapon_data.find(weap => weap.id === integ_weapon_id).frame_integrated = frame
-})
+// integ_weapon_frames = frame_data.filter(frame => frame.core_system && frame.core_system.integrated)
+// //Locates core systems that are integrated weapons (e.g. Sherman's ZF4-Solidcore)
+// integ_weapons = integ_weapon_frames.map(
+//   frame => frame.core_system.integrated.map(integ_weapon =>
+//     ({integ_weapon_id: integ_weapon, frame: `${frame.source} ${frame.name}`})
+//     //For each integrated weapon, create a simple object that is just "weapon_id and frame of origin"
+//   )
+// ).flat();
+// integ_weapons.forEach(({integ_weapon_id, frame}) => {
+//   weapon_data.find(weap => weap.id === integ_weapon_id).frame_integrated = frame
+// })
 
 let data = {
   action_data,

@@ -4,10 +4,14 @@ const format = require('./format')
 require('dotenv').config()
 
 /*
-/data/index.js is the importer, exporting the data object
-then /format.js looks like it reformats the data into pretty strings, and exports it as frame, weapon, etc
-then /search.js takes the output of /format.js and exports a search function
-finally, /index.js receives user's search commands, parses out the keyword, and uses the search function
+/data/index.js is the data cleaner/importer. the result of /data/ is a data object.
+/data/index.js uses altNames.js to reformat/clean some items.
+
+/search.js imports the data object, and sets up a search function
+meanwhile, /format.js sets up a prettyprint function
+
+finally, /index.js receives user's messages, and calls /search.js. if a result is found,
+pass the result to the format function.
  */
 
 const client = new Commando.Client({
@@ -35,15 +39,16 @@ class SearchCommand extends Commando.Command {
     })
   }
   async run(msg) {
-    console.log(msg.content)
+    //console.log(msg.content)
     let targets = [];
-    //Entry point for searches.
+    //Identify a searchable term.
     const re = /\[\[(.+?)\]\]/g
     let matches;
     while ((matches = re.exec(msg.content)) != null) {
       targets.push(matches[1])
     }
     const results = targets.map((tgt, i) => {
+      //Entry point for searches.
       const results = search(tgt)
       if (results.length === 0) return `No results found for *${targets[i].replace(/@/g, '\\@')}*.`
       else return format(results[0].item)

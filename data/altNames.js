@@ -53,11 +53,13 @@ function nestedMap(dataArray, mapFn) {
 module.exports = function (originalData) {
   let outputData = nestedMap(originalData, item => {
 
+    item.alt_names = []
+    
     // apply statics
     const statics = staticsList.find(x => x.id === item.id)
 
     if (statics) {
-      item.alt_names = statics.names
+      item.alt_names = item.alt_names.concat(statics.names)
     }
 
 
@@ -84,7 +86,16 @@ module.exports = function (originalData) {
       if (!item.alt_names) item.alt_names = []
       item.alt_names = item.alt_names.concat([gmsAlt])
     }
-
+    
+    //Add invasion options as altnames (e.g. Logic Bomb, Banish as altnames for Viral Logic Suite)
+    if (item.actions && (
+        item.actions.every(action => action.activation === 'Invade') ||
+        item.actions.every(action => action.activation === 'Quick Tech')
+    )) {
+      item.actions.forEach(action => item.alt_names.push(action.name))
+    }
+    
+    //todo - Add traits as altnames to frames
 
     return item
   })
