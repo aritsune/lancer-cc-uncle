@@ -99,8 +99,15 @@ const options = {
 const fuse = new Fuse(searchable, options);
 
 module.exports = {
-  search(term) {
-    console.log("SEARCH TERM", term)
+  search(term, category) {
+    //TODO -- search namespacing
+    console.log("SEARCH CATEGORY", category, "SEARCH TERM", term)
+    
+    if (category) {
+      //TODO -- do some cleanup on user-specified categories
+      //convert casing to uniform casing, convert underscores to spaces, etc
+    }
+    
     return fuse.search(term)
   }
 }

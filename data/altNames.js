@@ -96,6 +96,8 @@ module.exports = function (originalData) {
     }
     
     //todo - Add traits as altnames to frames
+    
+    //todo - add talent ranks as altnames to ... talents
 
     return item
   })

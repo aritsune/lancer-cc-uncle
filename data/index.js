@@ -142,7 +142,7 @@ weapon_data = weapon_data.map(weapon => ({
 }))
 
 //Modifies weapon_data so that integrated weapons include their origin frame.
-//TODO - move arbitrary integrated[] handling to search.js
+//BUT NOT REALLY - we moved arbitrary integrated[] handling to search.js
 
 // integ_weapon_frames = frame_data.filter(frame => frame.core_system && frame.core_system.integrated)
 // //Locates core systems that are integrated weapons (e.g. Sherman's ZF4-Solidcore)

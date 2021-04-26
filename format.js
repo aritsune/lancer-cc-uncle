@@ -115,6 +115,9 @@ ${turndownService.turndown(cb.effect)}`
 }
 
 function coreFormat(core) {
+  console.log("debug: core formatter")
+  console.log("debug: name issues?", core.name)
+  
   //For core systems.
   const coreName = core.name || core.passive_name || core.active_name
   let out = `**${coreName}** (${core.source} CORE System)\n`
@@ -150,6 +153,8 @@ function coreFormat(core) {
   if (core.active_actions) {
     core.active_actions.forEach(aa => out += `\n${actionFormat(aa)}`)
   }
+  
+  console.log("debug: core formatter completed", out)
   
   return out
 }
@@ -304,18 +309,33 @@ module.exports = function format(object) {
   console.log("Formatting", object, "of type", object.data_type)
   
   //arbitrary integrated handling
-  //TODO - get this working
-  let integrated_formatted = []
+  //TODO - get integrated weapons/systems working
+  let integrated_formatted = ['']
+  
   if (object.integrated) {
     object.integrated.forEach(integrated_item_id => {
-        console.log("id",integrated_item_id)
-        let integrated_item = data.weapon_data.find(w => w.id === integrated_item_id) ||
-          data.system_data.find(s => s.id === integrated_item_id)
-        if (integrated_item) console.log("debug", format(integrated_item))
+      console.log("integrated item id:",integrated_item_id)
+      let integrated_item =
+        data.weapon_data.find(w => w.id === integrated_item_id) ||
+        data.system_data.find(s => s.id === integrated_item_id)
+      if (integrated_item) {
+        console.log("integrated item found", integrated_item)
       }
-    )}
+      if (integrated_item && integrated_item.data_type === 'Weapon') {
+        integrated_formatted = integrated_formatted.concat(weaponFormat(integrated_item))
+        console.log("debug", "weapon formatter completed")
+      }
+      else if (integrated_item && integrated_item.data_type === 'System') {
+        integrated_formatted = integrated_formatted.concat(systemFormat(integrated_item))
+        console.log("debug", "system formatter completed")
+      }
+      else console.log("Couldn't find an integrated item with that id");
+    }
+  )}
+  //At the moment we don't consider integrated items of other types, as many item
+  //don't make sense as integrated (integrated mods or integrated actions are weird).
   
-  let out = '';
+  console.log("debug: main object", object, object.data_type);
   
   switch (object.data_type) {
     case 'Action':
@@ -325,7 +345,9 @@ module.exports = function format(object) {
     case 'Core Bonus':
       return cbFormat(object);
     case 'Core System':
-      return coreFormat(object);
+      integrated_formatted = integrated_formatted.concat(coreFormat(object));
+      console.log("debug: coreFormatter returned and was concatenated", integrated_formatted)
+      return integrated_formatted.join('\n').trim();
     case 'Frame':
       return frameFormat(object);
     case 'Glossary Entry':
@@ -343,13 +365,13 @@ module.exports = function format(object) {
     case 'Status':
       return statusFormat(object);
     case 'System':
-      return systemFormat(object);
+      integrated_formatted.concat(systemFormat(object));
     case 'Tag':
       return tagFormat(object);
     case 'Talent':
       return talentFormat(object);
     case 'Weapon':
-      return weaponFormat(object);
+      integrated_formatted.concat(weaponFormat(object));
     default:
       return "Unrecognized type " + object.type; //+ "; Object was: " + (object.name || object.id);
   }
