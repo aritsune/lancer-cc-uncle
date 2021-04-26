@@ -304,7 +304,7 @@ module.exports = function format(object) {
   console.log("Formatting", object, "of type", object.data_type)
   
   //arbitrary integrated handling
-  //TODO - fuck this
+  //TODO - get this working
   let integrated_formatted = []
   if (object.integrated) {
     object.integrated.forEach(integrated_item_id => {
