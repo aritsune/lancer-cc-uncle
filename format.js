@@ -28,6 +28,12 @@ function populateTag(tag) {
   //return `${tagData["name"] + (tag.val? tag.val : '')}`
 }
 
+function toTitleCase(str) {
+  return str.replace(/\w\S*/g, function(txt){
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
+}
+
 function pilotMechActionType(action) {
   //Determines if an action is mech-only, pilot-only, or available to both.
   if (action.pilot && action.mech) { return 'Pilot and Mech' }
@@ -80,10 +86,10 @@ function deployableFormatter(dep) {
     out += `${dep.size? 'Size: '+ dep.size : ''} ${dep.hp? 'HP: ' + dep.hp : ''} ${dep.evasion? 'Evasion: ' + dep.evasion : ''}`
   }
   out += ` ${dep.edef ? "E-Defense: " + dep.edef : ''} ${dep.armor? "Armor: " + dep.armor : ''} ${dep.heatcap? "Heat Cap: " + dep.heatcap : ''}`
-  out += ` ${dep.speed ? "Speed: " + dep.speed : ''} ${dep.save? "Save Target: " + dep.save : ''}`
+  out += ` ${dep.speed ? "Speed: " + dep.speed : ''} ${dep.save? "Save Target: " + dep.save : ''}\n`
   
   //Details
-  out += `\n${dep.detail}\n\n`
+  out += `${turndownService.turndown(dep.detail)}\n`
   
   //Actions
   if (dep.actions) {
@@ -96,11 +102,10 @@ function deployableFormatter(dep) {
 function traitFormatter(trait) {
   //Formats a single trait.
   let out = '**' + trait.name + '**' + ': ' + trait.description;
-  if (trait.actions) {
-    out += "\nThis trait grants the following actions:\n"
-    out += trait.actions.forEach(act => actionFormat(act))
-  }
-  out += '\n'
+  // if (trait.actions) {
+  //   out += "\nThis trait grants the following actions:\n"
+  //   trait.actions.forEach(act => out += actionFormat(act) + "\n")
+  // }
   return out;
 }
 
@@ -167,7 +172,7 @@ SIZE ${stats.size}, ARMOR ${stats.armor}, SAVE ${stats.save}, SENSOR ${stats.sen
 HP ${stats.hp}, REPAIR CAP ${stats.repcap}        E-DEF ${stats.edef}, TECH ATTACK ${stats.tech_attack > 0 ? '+' : ''}${stats.tech_attack}, SP ${stats.sp}
 EVASION ${stats.evasion}, SPEED ${stats.speed}        HEATCAP ${stats.heatcap}
 Mounts: ${frame.mounts.join(', ')}`
-  out += `\n${frame.traits.map(trait => traitFormatter(trait)).join('\n')}`
+  out += `\n${frame.traits.map(trait => traitFormatter(trait)).join('\n')}\n`
   out += `CORE System: **${coreName}**`
   return out
 }
@@ -178,10 +183,10 @@ function glossaryFormat(glossaryEntry) {
 }
 
 function modFormat(mod) {
-  let out = `**${mod.name}**\n (${licenseFormat(mod)} Mod)`
+  let out = `**${mod.name}** (${licenseFormat(mod)} Mod)\n`
   //Tags, if any
   if(mod.tags) {
-    out += mod.tags.forEach(tag => tagFormat(tag))
+    out += `${mod.tags.map(tag => populateTag(tag)).join(', ').trim()}\n`;
   }
   //Type/size restrictions, if any
   let combined_types = []
@@ -198,26 +203,33 @@ function modFormat(mod) {
       combined_sizes = combined_sizes.filter(s => !mod.restricted_sizes.includes(s))
     }
   }
-  out += `${combined_types? 'Can be applied to these weapon types: ' + combined_types.join(', ').trim() + "\n" : ''}`
-  out += `${combined_sizes? 'Can be applied to these weapon sizes: ' + combined_sizes.join(', ').trim() + "\n" : ''}`
+  out += `${combined_types.length > 0? 'Can be applied to these weapon types: ' + combined_types.join(', ').trim() + "\n" : ''}`
+  out += `${combined_sizes.length > 0? 'Can be applied to these weapon sizes: ' + combined_sizes.join(', ').trim() + "\n" : ''}`
   
   out += `${mod.effect}`
   //Actions, if any
-  if(mod.actions) {
-    out += mod.actions.forEach(act => actionFormat(act))
-  }
+  // if(mod.actions) {
+  //   out += "This mod grants the following actions:\n"
+  //   mod.actions.forEach(act => out += actionFormat(act) + "\n")
+  // }
   
   return out
 }
 
 function pilotArmorFormat(parmor) {
   let out = `**${parmor.name}** (Pilot Armor)\n`
-  if (parmor.bonuses["pilot_hp"]) out += `Pilot HP: +${parmor.bonuses["pilot_hp"]}\n`
-  if (parmor.bonuses["pilot_armor"]) out += `Pilot Armor: ${parmor.bonuses["pilot_armor"]}\n`
-  if (parmor.bonuses["pilot_evasion"]) out += `Pilot Evasion: ${parmor.bonuses["pilot_evasion"]}\n`
-  if (parmor.bonuses["pilot_edef"]) out += `Pilot E-Def: ${parmor.bonuses["pilot_edef"]}\n`
-  if (parmor.bonuses["pilot_speed"]) out += `Pilot Speed: ${parmor.bonuses["pilot_speed"]}\n`
-  out += `\n${parmor.description}`
+  if (parmor.bonuses) {
+    //Iterate thru each bonus and prettyprint it
+    for (let bonus_indx in parmor.bonuses) {
+      let bonus = parmor.bonuses[bonus_indx]
+      let bonus_name = bonus.id.replace("_", " ")
+      bonus_name = toTitleCase(bonus_name)
+      out += `**${bonus_name}:** ${bonus.val}, `
+    }
+    out = out.replace(/,\s*$/, "")
+    out += '\n'
+  }
+  out += `${parmor.description}`
   return out;
 }
 
@@ -226,7 +238,7 @@ function pilotGearFormat(pgear) {
   if(pgear.tags) {
     out += pgear.tags.map(tag => populateTag(tag)).join(', ').trim() + "\n"
   }
-  out += pgear.description
+  out += turndownService.turndown(pgear.description)
   if(pgear.actions) {
     out += '\n\nGain the following actions: \n'
     out += pgear.actions.map(action => `${action.name} (${action.activation})`).join(', ').trim()
@@ -288,10 +300,10 @@ function weaponFormat(weapon) {
   out += '\n'
   
   //Description(s)
-  if (weapon.effect) out+= weapon.effect + "\n"
-  if (weapon.on_attack) out+= `On Attack: ${weapon.on_attack}\n`
-  if (weapon.on_hit) out+= `On Hit: ${weapon.on_hit}\n`
-  if (weapon.on_crit) out+= `On Crit: ${weapon.on_crit}\n`
+  if (weapon.effect) out+= turndownService.turndown(weapon.effect) + "\n"
+  if (weapon.on_attack) out+= `On Attack: ${turndownService.turndown(weapon.on_attack)}\n`
+  if (weapon.on_hit) out+= `On Hit: ${turndownService.turndown(weapon.on_hit)}\n`
+  if (weapon.on_crit) out+= `On Crit: ${turndownService.turndown(weapon.on_crit)}\n`
   
   //Recursively define profiles
   if (weapon.profiles) {
@@ -309,33 +321,28 @@ module.exports = function format(object) {
   console.log("Formatting", object, "of type", object.data_type)
   
   //arbitrary integrated handling
-  //TODO - get integrated weapons/systems working
   let integrated_formatted = ['']
+  
+  //TODO -- eventually refactor this method to use recursion
+  //to handle arbitrary actions and integrated <whatevers>
+  //Also, move tag handling to here since we do a lot of populateTag() calls or w/e
   
   if (object.integrated) {
     object.integrated.forEach(integrated_item_id => {
-      console.log("integrated item id:",integrated_item_id)
       let integrated_item =
         data.weapon_data.find(w => w.id === integrated_item_id) ||
         data.system_data.find(s => s.id === integrated_item_id)
-      if (integrated_item) {
-        console.log("integrated item found", integrated_item)
-      }
       if (integrated_item && integrated_item.data_type === 'Weapon') {
         integrated_formatted = integrated_formatted.concat(weaponFormat(integrated_item))
-        console.log("debug", "weapon formatter completed")
       }
       else if (integrated_item && integrated_item.data_type === 'System') {
         integrated_formatted = integrated_formatted.concat(systemFormat(integrated_item))
-        console.log("debug", "system formatter completed")
       }
       else console.log("Couldn't find an integrated item with that id");
     }
   )}
   //At the moment we don't consider integrated items of other types, as many item
   //don't make sense as integrated (integrated mods or integrated actions are weird).
-  
-  console.log("debug: main object", object, object.data_type);
   
   switch (object.data_type) {
     case 'Action':
@@ -346,7 +353,6 @@ module.exports = function format(object) {
       return cbFormat(object);
     case 'Core System':
       integrated_formatted = integrated_formatted.concat(coreFormat(object));
-      console.log("debug: coreFormatter returned and was concatenated", integrated_formatted)
       return integrated_formatted.join('\n').trim();
     case 'Frame':
       return frameFormat(object);
@@ -365,15 +371,16 @@ module.exports = function format(object) {
     case 'Status':
       return statusFormat(object);
     case 'System':
-      integrated_formatted.concat(systemFormat(object));
+      return systemFormat(object);
     case 'Tag':
       return tagFormat(object);
     case 'Talent':
       return talentFormat(object);
     case 'Weapon':
-      integrated_formatted.concat(weaponFormat(object));
+      return weaponFormat(object);
     default:
-      return "Unrecognized type " + object.type; //+ "; Object was: " + (object.name || object.id);
+      console.log("Unrecognized type", object.type, "Object was:", (object.name || object.id || "no name or id"))
+      break;
   }
   
   // if(integrated_formatted) out.concat(integrated_formatted.join())

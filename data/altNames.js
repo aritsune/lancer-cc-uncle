@@ -7,6 +7,9 @@ const staticsList = [
     "id": "ms_type_i_flight_system",
     "names": ["Flight"]
   }
+  
+  //todo -- add shortcut for tlottt, opCal, etc
+  
 ]
 
 const regexDynamics = {
