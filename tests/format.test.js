@@ -108,10 +108,16 @@ test('all frames at once', () => {
     //Required attributes: frame name
     expect(output).toEqual(expect.stringContaining(expectedDescription))
     
-    //Technically a frame could have 0 traits, but it seems like a reasonable test
-    if (frame.traits) {
+    //Traits aren't technically required, but it seems reasonable to test
+    if (frame.traits && frame.traits.length > 0) {
       frame.traits.forEach(trait => {
-        let traitDescription = turndownService.turndown(trait.description)
+        let traitDescription = undefined
+        if(trait.actions && trait.actions.length > 0) {
+          traitDescription = turndownService.turndown(trait.actions[0].detail)
+        }
+        else {
+          traitDescription = turndownService.turndown(trait.description)
+        }
         expect(output).toEqual(expect.stringContaining(traitDescription))
       })
     }
@@ -206,7 +212,18 @@ test('all talents at once', () => {
   talent_data.forEach(talent => {
     let output = format(talent)
     talent.ranks.forEach(rank => {
-      let expectedDescription = turndownService.turndown(rank.description)
+      let expectedDescription = ''
+      // if(rank.integrated && rank.integrated.length > 0) {
+      //   let integrated = searchStub(rank.integrated[0])
+      //   expectedDescription = turndownService.turndown(integrated.detail || integrated.effect || integrated.on_hit || integrated.on_crit || integrated.on_attack || '')
+      // }
+      if (rank.actions && rank.actions.length > 0) {
+        let action = rank.actions[0].detail
+        expectedDescription = turndownService.turndown(action)
+      }
+      else {
+        expectedDescription = turndownService.turndown(rank.description)
+      }
       expect(output).toEqual(expect.stringContaining(expectedDescription))
     })
   })
