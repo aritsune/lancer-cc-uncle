@@ -1,6 +1,6 @@
 const data = require('./data');
 const emoji = require('./emoji.json')
-const turndownService = new require('turndown')()
+const turndownService = require('turndown').default
 
 //Just takes data_type and outputs a pretty-print version.
 // function itemTypeFormat(object) {

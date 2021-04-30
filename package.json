@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "bot": "node index.js"
+    "bot": "node index.js",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -18,5 +19,8 @@
     "node-fetch": "^2.6.1",
     "object.fromentries": "^2.0.4",
     "turndown": "^5.0.3"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3"
   }
 }
