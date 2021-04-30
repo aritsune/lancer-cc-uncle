@@ -11,7 +11,7 @@ const turndownService = new require('turndown')()
 
 //Identifies the source of an item (e.g. SSC Metalmark 3, Talent - Ace)
 function licenseFormat(object) {
-  if (object.source && object.license_level === 0) return `${object.source}`
+  if (object.source && object.license_level === 0) return `${object.source}` //TODO - add "content-pack" string e.g. Suldan
   //else if (object.frame_integrated) return `${object.frame_integrated} Core Integrated`
   else if (object.source) return `${object.source} ${object.license} ${object.license_level}`
   else if (object.talent_id) {
@@ -45,10 +45,12 @@ function pilotMechActionType(action) {
 
 //todo - a nice activation subformatter
 
-function actionFormat(action) {
+function actionFormat(action, customActionName) {
   //Maps built-in activations to pretty-printed output.
   //Activation types that don't need to be renamed (e.g. protocol) are ignored
   // console.debug("action formatter", action.activation)
+  
+  //customActionName is optional and only used if the action lacks an action.name property
   
   const actionTypesPrettyPrint = {
     'Free': 'Free Action',
@@ -61,7 +63,7 @@ function actionFormat(action) {
   const activ = (actionTypesPrettyPrint[action.activation] ? actionTypesPrettyPrint[action.activation] : action.activation)
   const activType = `${pilotMechActionType(action)} ${activ}`
   
-  let out = `**${action.name ? action.name : 'Unnamed Action'}** (${activType})\n`
+  let out = `**${action.name || customActionName || 'Unnamed Action'}** (${activType})\n`
   if (action.trigger) out += `*Trigger:* ${action.trigger}\n`
   out += `${action.trigger? "*Effect:* " : ''}${turndownService.turndown(action.detail)}`
   return out;
@@ -120,9 +122,6 @@ ${turndownService.turndown(cb.effect)}`
 }
 
 function coreFormat(core) {
-  console.log("debug: core formatter")
-  console.log("debug: name issues?", core.name)
-  
   //For core systems.
   const coreName = core.name || core.passive_name || core.active_name
   let out = `**${coreName}** (${core.source} CORE System)\n`
@@ -158,8 +157,6 @@ function coreFormat(core) {
   if (core.active_actions) {
     core.active_actions.forEach(aa => out += `\n${actionFormat(aa)}`)
   }
-  
-  console.log("debug: core formatter completed", out)
   
   return out
 }
@@ -261,14 +258,17 @@ function systemFormat(system) {
   let out = `**${system.name}** (${[licenseFormat(system), system.data_type].join(' ').trim()})`
   let tagsEtc = []
   if (system.sp) tagsEtc.push(`${system.sp} SP`)
-  tagsEtc = tagsEtc.concat(system.tags.map(tag => populateTag(tag)))
+  if (system.tags) tagsEtc = tagsEtc.concat(system.tags.map(tag => populateTag(tag)))
   out += `\n${tagsEtc.join(', ')}\n`
   if (system.effect) out += '\n' + turndownService.turndown(system.effect) + "\n"
   if (system.actions) {
-    out += `\nGain the following actions: \n${system.actions.map(action => actionFormat(action)).join('\n')}\n`
+    out += `Gain the following actions: \n`
+    system.actions.forEach(action => {
+      out+= (action.name? actionFormat(action) : actionFormat(action, "Use " + system.name)) + "\n"
+    })
   }
   if (system.deployables) {
-    out += `\nGain the following deployables: \n${system.deployables.map(dep => deployableFormatter(dep)).join('\n')}\n`
+    out += `Gain the following deployables: \n${system.deployables.map(dep => deployableFormatter(dep)).join('\n')}\n`
   }
   return out
 }
@@ -304,6 +304,14 @@ function weaponFormat(weapon) {
   if (weapon.on_attack) out+= `On Attack: ${turndownService.turndown(weapon.on_attack)}\n`
   if (weapon.on_hit) out+= `On Hit: ${turndownService.turndown(weapon.on_hit)}\n`
   if (weapon.on_crit) out+= `On Crit: ${turndownService.turndown(weapon.on_crit)}\n`
+  
+  //Actions (e.g. autopod reaction)
+  if (weapon.actions) {
+    out += 'Gain the following actions:\n'
+    weapon.actions.forEach(act => out += actionFormat(act) + "\n")
+  }
+  
+  //Deployables (e.g. ghast drone) aaah screw it this should be done universally tbh
   
   //Recursively define profiles
   if (weapon.profiles) {
@@ -382,9 +390,4 @@ module.exports = function format(object) {
       console.log("Unrecognized type", object.type, "Object was:", (object.name || object.id || "no name or id"))
       break;
   }
-  
-  // if(integrated_formatted) out.concat(integrated_formatted.join())
-  // console.log(out)
-  // return out;
-  
 }

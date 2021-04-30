@@ -9,6 +9,7 @@ const staticsList = [
   }
   
   //todo -- add shortcut for tlottt, opCal, etc
+  //also add one for nailgun (impaler nailgun)
   
 ]
 
