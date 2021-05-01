@@ -133,7 +133,10 @@ function traitFormatter(trait) {
     //out += "\nThis trait grants the following actions:\n"
     trait.actions.forEach(act => out += actionFormat(act) + "\n")
   }
-  else {
+  if (trait.deployables && trait.deployables.length > 0) {
+    trait.deployables.forEach(dep => out += deployableFormatter(dep))
+  }
+  if (!trait.actions && !trait.deployables) {
     out += turndownService.turndown(trait.description)
   }
   if (trait.integrated) out += integratedFormat(trait.integrated)
