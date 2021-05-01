@@ -1,5 +1,5 @@
-const format = require('../format')
-const data = require('../data')
+const format = require('./format')
+const data = require('./data')
 const turndownService = require('turndown')()
 
 const {
@@ -92,7 +92,7 @@ test('all core systems at once', () => {
     }
     if (cs.integrated) { //Integrated weapons or systems.
       let integrated = searchStub(cs.integrated[0])
-      let integratedDescription = integrated.description || integrated.effect
+      let integratedDescription = integrated.effect || ''
       integratedDescription = turndownService.turndown(integratedDescription)
       expect(output).toEqual(expect.stringContaining(integratedDescription))
     }

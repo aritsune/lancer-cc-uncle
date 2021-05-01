@@ -18,9 +18,6 @@ let {
   weapons
 } = lancer_data
 
-//Load data out of supplemental modules (Long Rim, Wallflower, homebrew content packs)
-//TODO - Ignoring this and working with just core data for now.
-
 // const lr_frames = require("./lrd/frames.json");
 // const lr_weapons = require("./lrd/weapons.json");
 // const lr_systems = require("./lrd/systems.json");
@@ -41,7 +38,6 @@ let {
 //   .concat(lr_mods);
 // const talent_data = talents.concat(lr_talents);
 
-//TODO - temporary stub while "concatenating other sources" is down.
 let action_data = actions;
 let core_bonus_data = core_bonuses;
 //core_systems are extracted from the frames later
@@ -55,6 +51,74 @@ let system_data = systems;
 let tag_data = tags;
 let talent_data = talents;
 let weapon_data = weapons;
+
+//Load data out of supplemental modules (Long Rim, Wallflower, homebrew content packs)
+const { readdirSync } = require('fs')
+
+const getDirectories = source =>
+  readdirSync(source, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => source + dirent.name + "/")
+
+const getFiles = source =>
+  readdirSync(source, { withFileTypes: true })
+    .filter(fileent => fileent.isFile())
+    .map(fileent => fileent.name)
+
+let data_pack_paths = getDirectories('./data/')
+console.log("Found data packs", data_pack_paths)
+
+data_pack_paths.forEach(pack_path => {
+  let data_pack_files = getFiles(pack_path)
+  console.log("In path", pack_path, "found files", data_pack_files)
+  
+  data_pack_files.forEach(file => {
+    let file_path_regex = /\.\/data(.+\.json)/
+    let adjusted_file_name = "." + file_path_regex.exec(pack_path+file)[1]
+    //console.log("Adjusted file name", adjusted_file_name)
+    switch(file) {
+      case('actions.json'):
+        action_data = action_data.concat(require(adjusted_file_name))
+        break
+      case('core_bonuses.json'):
+        core_bonus_data = core_bonus_data.concat(require(adjusted_file_name))
+        break
+      case('frames.json'):
+        frame_data = frame_data.concat(require(adjusted_file_name))
+        break
+      case('glossary.json'):
+        glossary_data = glossary_data.concat(require(adjusted_file_name))
+        break
+      case('mods.json'):
+        mod_data = mod_data.concat(require(adjusted_file_name))
+        break
+      case('pilot_gear.json'):
+        pilot_items_data = pilot_items_data.concat(require(adjusted_file_name))
+        break
+      case('skills.json'):
+        skill_data = skill_data.concat(require(adjusted_file_name))
+        break
+      case('statuses.json'):
+        status_data = status_data.concat(require(adjusted_file_name))
+        break
+      case('systems.json'):
+        system_data = system_data.concat(require(adjusted_file_name))
+        break
+      case('tags.json'):
+        tag_data = tag_data.concat(require(adjusted_file_name))
+        break
+      case('talents.json'):
+        talent_data = talent_data.concat(require(adjusted_file_name))
+        break
+      case('weapons.json'):
+        weapon_data = weapon_data.concat(require(adjusted_file_name))
+        break
+      default:
+        console.log(adjusted_file_name, "doesn't correspond to a known LCP file, or was otherwise ignored")
+        break
+    }
+  })
+})
 
 //Retrieves all core systems (core weapons included?), then gives each core system
 //a source attribute: "you come from this frame"
