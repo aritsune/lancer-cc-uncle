@@ -52,7 +52,8 @@ module.exports =
         group: 'lancer',
         memberName: 'faq',
         description: 'Look up a FAQ item.',
-        argsType: 'single'
+        argsType: 'single',
+        guildOnly: false
       })
     }
     async run(msg, arg) {
