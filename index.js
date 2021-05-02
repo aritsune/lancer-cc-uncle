@@ -17,13 +17,29 @@ pass the result to the format function.
 const client = new Commando.Client({
   owner: process.env.OWNER,
   commandPrefix: '::',
-  intents: ['GUILDS', 'GUILD_MESSAGES']
+  intents: ['GUILDS', 'GUILD_MESSAGES', 'DIRECT_MESSAGES']
 })
 
 client.once('ready', () => {
   console.log(`Logged in as ${client.user.tag}! (${client.user.id})`)
   client.user.setActivity('LANCER | use [[brackets]]')
 })
+
+class DmCommand extends Commando.Command {
+  constructor(client) {
+    super(client, {
+      name: 'dm-me',
+      group: 'lancer',
+      memberName: 'dm-me',
+      aliases: ['dm_me', 'enable-dms', 'enable_dms', 'enable-dm', 'enable_dm'],
+      description: 'UNCLEBot DMs you one message, enabling you to send commands via DM.',
+      guildOnly: false
+    })
+  }
+  async run(msg) {
+    await msg.author.send("Added your DM to my cached channels. You can now DM me commands.")
+  }
+}
 
 class SearchCommand extends Commando.Command {
   constructor(client) {
@@ -35,7 +51,8 @@ class SearchCommand extends Commando.Command {
       description: 'Searches the LANCER compendium, including supplements.',
       patterns: [/\[\[(.+?)\]\]/],
       defaultHandling: false,
-      throttling: false
+      throttling: false,
+      guildOnly: false
     })
   }
   async run(msg) {
@@ -65,6 +82,7 @@ class InviteCommand extends Commando.Command {
       group: 'lancer',
       memberName: 'invite',
       description: 'Get an invite link for UNCLE',
+      guildOnly: false
     })
     client.on('ready', () => this.userID = client.user.id)
   }
@@ -82,5 +100,6 @@ client.registry
   .registerCommand(FaqCommand)
   .registerCommand(SearchCommand)
   .registerCommand(InviteCommand)
+  .registerCommand(DmCommand)
 
 client.login(process.env.TOKEN)
