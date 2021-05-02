@@ -8,8 +8,9 @@ const staticsList = [
     "names": ["Flight"]
   }
   
-  //todo -- add shortcut for tlottt, opCal, etc
-  //also add one for nailgun (impaler nailgun)
+  //todo -- add shortcut for tlottt, opCal, other elements from
+  //"Lancer Character Corner Common Abbreviations Guide"
+  //also add one for nailgun (impaler nailgun/railgun confusion)
   
 ]
 
@@ -36,6 +37,7 @@ const regexDynamics = {
       `TSS${roman}`,
     ]
   }
+  //todo add additional regex for jager kunst roman numeral to arabic numeral
 }
 
 

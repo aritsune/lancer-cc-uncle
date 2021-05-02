@@ -12,6 +12,8 @@ const turndownService = require('turndown')()
 //Identifies the source of an item (e.g. SSC Metalmark 3, Talent - Ace)
 function licenseFormat(object) {
   if (object.source && object.license_level === 0) return `${object.source}` //TODO - add "content-pack" string e.g. Suldan
+  else if (object.source && object.source.toUpperCase() === 'EXOTIC') return "Exotic"
+  else if (object.tags && object.tags.find(tag => tag.id === 'tg_exotic')) return "Exotic"
   //else if (object.frame_integrated) return `${object.frame_integrated} Core Integrated`
   else if (object.source) return `${object.source} ${object.license} ${object.license_level}`
   else if (object.talent_id) {
@@ -290,7 +292,7 @@ function statusFormat(object) {
 }
 
 function systemFormat(system) {
-  let out = `**${system.name}** (${[licenseFormat(system), system.data_type].join(' ').trim()})\n`
+  let out = `**${system.name}** (${licenseFormat(system)} ${system.data_type || system.type || ''})\n`
   let tagsEtc = []
   if (system.sp) tagsEtc.push(`${system.sp} SP`)
   if (system.tags) tagsEtc = tagsEtc.concat(system.tags.map(tag => populateTag(tag)))
