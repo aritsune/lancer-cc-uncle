@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "bot": "node index.js"
+    "bot": "node index.js",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -14,9 +15,12 @@
     "discord.js-commando": "github:discordjs/Commando",
     "dotenv": "^8.2.0",
     "fuse.js": "^5.1.0",
-    "lancer-data": "2.0.19",
+    "lancer-data": "^3.0.33",
     "node-fetch": "^2.6.1",
-    "object.fromentries": "^2.0.2",
+    "object.fromentries": "^2.0.4",
     "turndown": "^5.0.3"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3"
   }
 }

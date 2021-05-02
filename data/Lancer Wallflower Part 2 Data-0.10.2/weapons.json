@@ -1,0 +1,101 @@
+[
+  {
+    "id": "mw_bolt_nexus",
+    "name": "BOLT NEXUS",
+    "mount": "Main",
+    "type": "Nexus",
+    "tags": [
+      {
+        "id": "tg_smart"
+      }
+    ],
+    "profiles": [
+      {
+        "name": "Default",
+        "on_hit": "Once this weapon hits a character, it gains the Target Acquired profile against that character only until you attack a new character with this weapon.",
+        "damage": [
+          {
+            "type": "Energy",
+            "val": 1
+          }
+        ],
+        "range": [
+          {
+            "type": "Range",
+            "val": 10
+          }
+        ]
+      }, {
+        "name": "Target Acquired",
+        "on_hit": "Once this weapon hits a character, it gains the Target Acquired profile against that character only until you attack a new character with this weapon.",
+        "damage": [{
+          "type": "Energy",
+          "val": 1
+        }],
+        "range": [{
+          "type": "Range",
+          "val": 20
+        }],
+        "tags": [
+          {
+            "id": "tg_seeking"
+          },
+          {
+            "id": "tg_reliable",
+            "val": 3
+          }
+        ]
+      }
+    ],
+    "source": "SSC",
+    "license": "EMPEROR",
+    "license_level": 1,
+    "description": "“But they denied him and hamstrung her. So their Lord brought down upon them destruction for their sin and made it equal/And he does not fear the consequences thereof.”<br>— Witnessed from the Cyrus 2.14 ferromemetic*<br>*EXMAT Note: crossref(TRUE): Quran, Surah 91:14-15 “ash-Shams” (pre-Meccan Reconstruction).",
+    "data_type": "weapon",
+    "aptitude": {}
+  },
+  {
+    "id": "mw_emperor_integrated",
+    "name": "Marathon Arc Bow",
+    "mount": "Main",
+    "type": "Launcher",
+    "profiles": [
+      {
+        "name": "Default",
+        "on_attack": "Allied characters caught in the area are not attacked, but instead gain overshield +2. This special overshield does not replace the last one created, but rather increases it, up to a maximum of overshield 12 (if an ally has no overshield, they go to overshield 2).",
+        "range": [
+          {
+            "type": "Line",
+            "val": 10
+          }
+        ],
+        "damage": [
+          {
+            "type": "Energy",
+            "val": "1d6"
+          }
+        ]
+      }, {
+        "name": "Drawn Back",
+        "on_attack": "Allied characters caught in the area are not attacked, but instead gain overshield +4. This special overshield does not replace the last one created, but rather increases it, up to a maximum of overshield 12 (if an ally has no overshield, they go to overshield 4).",
+        "damage": [{
+          "type": "Energy",
+          "val": "1d6"
+        }],
+        "range": [{
+          "type": "Line",
+          "val": 20
+        }]
+      }
+    ],
+    "actions": [{
+      "name": "Draw Back",
+      "activation": "Quick",
+      "detail": "This weapon can be drawn back with a quick action to use the Drawn Back profile on its next attack. This effect is lost if you move for any reason."
+    }],
+    "description": "“Directed Subjective Convergence Weapon, Pattern 3. Or as Visual calls it, the ‘Marathon Arc’. I suppose it is a better name. Imposing. Inaccurate but Visual has never been accurate. The Arc forces realignment along a superpositional plane, destabilizing targets without the correct pineal hash while imparting sympathetic lensing on those with the correct hash; a simple ‘weapon’ that emulates an Overmind’s corrective/imperative push.”",
+    "tags": [{
+      "id": "tg_ap"
+    }]
+  }
+]
