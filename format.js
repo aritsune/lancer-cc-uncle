@@ -37,7 +37,7 @@ function toTitleCase(str) {
   return str.replace(/\w\S*/g, function(txt){
     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
   });
-}
+} //https://stackoverflow.com/a/4878800
 
 function pilotMechActionType(action) {
   //Determines if an action is mech-only, pilot-only, or available to both.
@@ -76,8 +76,7 @@ function activationFormat(activation) {
     'Downtime': 'Downtime Action'
   }
   
-  const activPretty = (actionTypesPrettyPrint[activation] || activation)
-  return activPretty
+  return (actionTypesPrettyPrint[activation] || activation)
   
 }
 
@@ -136,7 +135,10 @@ function traitFormatter(trait) {
     trait.actions.forEach(act => out += actionFormat(act) + "\n")
   }
   if (trait.deployables && trait.deployables.length > 0) {
-    trait.deployables.forEach(dep => out += deployableFormatter(dep))
+    //Need to include the description of the trait because of Destructive Swings on Zheng
+    out += trait.description + "\n"
+    //Do we actually need the deployable description...?
+    //trait.deployables.forEach(dep => out += deployableFormatter(dep))
   }
   if (!trait.actions && !trait.deployables) {
     out += turndownService.turndown(trait.description)

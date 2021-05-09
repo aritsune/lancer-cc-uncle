@@ -1,6 +1,8 @@
 const Commando = require('discord.js-commando')
 const { search, getDetails } = require('./search')
 const format = require('./format')
+const structureDamage = require('./util/structure-damage')
+const stressDamage = require('./util/stress-damage')
 require('dotenv').config()
 
 /*
@@ -93,6 +95,63 @@ class InviteCommand extends Commando.Command {
 
 const FaqCommand = require('./faq')
 
+class StructureCommand extends Commando.Command {
+  constructor(client) {
+    super(client, {
+      name: 'structure',
+      aliases: ['structure-check', 'structure_check', 'structure-damage', 'structure_damage'],
+      group: 'lancer',
+      memberName: 'structure',
+      description: 'Look up an entry on the structure check table. Parameters: Lowest dice rolled, Mech\'s remaining structure',
+      guildOnly: false,
+      args: [
+        {
+          key: 'lowest_dice_roll',
+          prompt: 'Lowest dice rolled in the structure check',
+          type: 'integer'
+        },
+        {
+          key: 'structure_remaining',
+          prompt: "Mech's remaining structure",
+          type: 'integer'
+        }
+      ]
+    })
+  }
+  
+  async run(msg, {lowest_dice_roll, structure_remaining}) {
+    await msg.reply(structureDamage(lowest_dice_roll, structure_remaining))
+  }
+}
+
+class StressCommand extends Commando.Command {
+  constructor(client) {
+    super(client, {
+      name: 'stress',
+      aliases: ['stress-check', 'stress_check', 'overheating'],
+      group: 'lancer',
+      memberName: 'stress',
+      description: 'Look up an entry on the Stress/Overheating table. Parameters: Lowest dice rolled, Mech\'s remaining stress',
+      guildOnly: false,
+      args: [
+        {
+          key: 'lowest_dice_roll',
+          prompt: 'Lowest dice rolled in the structure check',
+          type: 'integer'
+        },
+        {
+          key: 'stress_remaining',
+          prompt: "Mech's remaining stress",
+          type: 'integer'
+        }
+      ]
+    })
+  }
+  
+  async run(msg, {lowest_dice_roll, stress_remaining}) {
+    await msg.reply(stressDamage(lowest_dice_roll, stress_remaining))
+  }
+}
 
 client.registry
   .registerDefaults()
@@ -101,5 +160,7 @@ client.registry
   .registerCommand(SearchCommand)
   .registerCommand(InviteCommand)
   .registerCommand(DmCommand)
+  .registerCommand(StructureCommand)
+  .registerCommand(StressCommand)
 
 client.login(process.env.TOKEN)

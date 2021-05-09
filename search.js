@@ -88,7 +88,7 @@ const options = {
   ignoreLocation: true,
   keys: [
     "name",
-    "ranknames",
+    //"ranknames",
     "integrated.name",
     "active_name",
     "passive_name",

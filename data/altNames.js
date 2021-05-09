@@ -4,13 +4,140 @@ const staticsList = [
     "names": ["Breaching Charges"]
   },
   {
-    "id": "ms_type_i_flight_system",
-    "names": ["Flight"]
-  }
+    "id": "mw_impaler_nailgun",
+    "names": ["nailgun"]
+  }, //"nailgun" brings up Railgun sometimes
   
-  //todo -- add shortcut for tlottt, opCal, other elements from
+  //https://docs.google.com/document/d/1UQRVRKkldAnoKQvDrXWGAAptA8yyv46mUh9FK-g8P1I/edit
   //"Lancer Character Corner Common Abbreviations Guide"
-  //also add one for nailgun (impaler nailgun/railgun confusion)
+  {
+    "id": "cb_auto_stabilizing_hardpoints",
+    "names": ["autostab", "autostabs"]
+  },
+  {
+    "id": "cb_overpower_caliber",
+    "names": ["opcal"]
+  },
+  {
+    "id": "cb_all_theater_movement_suite",
+    "names": ["atms"]
+  },
+  {
+    "id": "cb_full_subjectivity_sync",
+    "names": ["fss"]
+  },
+  {
+    "id": "cb_the_lesson_of_disbelief",
+    "names": ["tlod", "disbelief"]
+  },
+  {
+    "id": "cb_the_lesson_of_the_open_door",
+    "names": ["tlotod", "open door"]
+  },
+  {
+    "id": "cb_the_lesson_of_the_held_image",
+    "names": ["tlothi", "held image"]
+  },
+  {
+    "id": "cb_the_lesson_of_thinking_tomorrows_thought",
+    "names": ["tlottt", "thinking tomorrow's thought", "thinking tomorrows thought"]
+  },
+  {
+    "id": "cb_the_lesson_of_transubstantiation",
+    "names": ["tlot", "transubstantiation"]
+  },
+  {
+    "id": "cb_the_lesson_of_shaping",
+    "names": ["tlos", "shaping"]
+  },
+  {
+    "id": "cb_armory_sculpted_chassis",
+    "names": ["asc"]
+  },
+  {
+    "id": "cb_integrated_ammo_feeds",
+    "names": ["iaf"]
+  },
+  {
+    "id": "cb_superior_by_design",
+    "names": ["sbd"]
+  },
+  {
+    "id": "mw_assault_cannon",
+    "names": ["asscan"]
+  },
+  {
+    "id": "mw_leviathan_heavy_assault_cannon",
+    "names": ["levican"]
+  },
+  {
+    "id": "mw_deck_sweeper_automatic_shotgun",
+    "names": ["dsas"]
+  },
+  {
+    "id": "ms_perimeter_command_plate",
+    "names": ["pcp"]
+  },
+  {
+    "id": "ms_multi_gear_maneuver_system",
+    "names": ["mgms"]
+  },
+  {
+    "id": "mw_gravity_gun",
+    "names": ["gravgun, grav gun"]
+  },
+  {
+    "id": "ms_redundant_systems_upgrade",
+    "names": ["rsu"]
+  },
+  {
+    "id": "ms_deep_well_heat_sink",
+    "names": ["dwhs"]
+  },
+  {
+    "id": "ms_external_batteries",
+    "names": ["exbatts", "exbats"]
+  },
+  {
+    "id": "ms_field_approved_brass_ignorant_modifications",
+    "names": ["fabi", "fabi mods"]
+  },
+  {
+    "id": "mw_cyclone_pulse_rifle",
+    "names": ["cpr"]
+  },
+  {
+    "id": "mw_heavy_machine_gun",
+    "names": ["hmg"]
+  },
+  {
+    "id": "mw_nexus_hunter_killer",
+    "names": ["hk nexus"]
+  },
+  {
+    "id": "mw_rocket_propelled_grenade",
+    "names": ["rpg"]
+  },
+  {
+    "id": "t_hacker",
+    "names": ["laok"] //last argument of kings
+  },
+  {
+    "id": "t_gunslinger",
+    "names": ["ikwmh"] //i kill with my heart
+  },
+  {
+    "id": "t_nuclear_cavalier",
+    "names": ["nukecav", "nuke cav", "nucav"]
+  },
+  {
+    "id": "mf_raleigh",
+    "names": ["fmj"]
+  },
+  {
+    "id": "mf_pegasus",
+    "names": ["btwike"]
+  }
   
 ]
 
@@ -94,6 +221,7 @@ module.exports = function (originalData) {
     }
     
     //Add invasion options as altnames (e.g. Logic Bomb, Banish as altnames for Viral Logic Suite)
+    //and quick tech options (e.g. Pinpoint Focus as altname for Tesseract)
     if (item.actions && (
         item.actions.every(action => action.activation === 'Invade') ||
         item.actions.every(action => action.activation === 'Quick Tech')
@@ -101,9 +229,15 @@ module.exports = function (originalData) {
       item.actions.forEach(action => item.alt_names.push(action.name))
     }
     
-    //todo - Add traits as altnames to frames
+    //Add traits as altnames to frames
+    if (item.data_type === 'Frame' && item.traits && item.traits.length > 0) {
+      item.traits.forEach(trait => item.alt_names.push(trait.name))
+    }
     
-    //todo - add talent ranks as altnames to ... talents
+    //Add talent ranks as altnames to ... talents
+    if (item.data_type === 'Talent' && item.ranks && item.ranks.length > 0) {
+      item.ranks.forEach(rank => item.alt_names.push(rank.name))
+    }
 
     return item
   })
