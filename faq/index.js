@@ -6,37 +6,50 @@ const getFaqData = require('./getFaq')
 
 const fuseOptions = {
   isCaseSensitive: false,
-  findAllMatches: false,
+  findAllMatches: true,
   includeMatches: false,
-  includeScore: false,
+  includeScore: true,
   useExtendedSearch: false,
   minMatchCharLength: 1,
   shouldSort: true,
-  threshold: 0.6,
+  threshold: 0.3, //matches should be more precise than the default 0.6
+  ignoreFieldNorm: true, //by default the shorter the field the higher the relevance
+  //ignoreLocation: true,
   location: 0,
-  distance: 5000,
+  distance: 500,
   keys: [
-    'question', 'answer'
+    'question'
   ]
 }
 
 async function getQuestion(searchStr) {
 
   const data = await getFaqData();
-  console.log('got data,');
+  console.log('got data from cached FAQ');
   const fuseInstance = new Fuse(data, fuseOptions)
 
-  const results = fuseInstance.search(searchStr)
+  let results = fuseInstance.search(searchStr)
+  console.log(results.length)
+  let out = ''
+  let original_length = results.length
+  let too_long_flag = (results.length > 3)
   if (results.length === 0) return `No results found for *${searchStr.replace(/@/g, '\\@')}*.`
-  const result = results[0].item
-  console.log(result);
-  let out = `\n**${result.question}**
-${result.answer}`
-  if (result.sources.length > 0) {
-    const sourcesStr = `\n\n*Source${result.sources.length === 1 ? '' : 's'}*:
-${result.sources.join('\n')}`
-    out += sourcesStr
+  else if (too_long_flag) {
+    results = results.slice(0,3)
   }
+  
+  results.forEach(result => {
+    console.log(result.item.question)
+    out += `**${result.item.question}**\n${result.item.answer}`
+    if (result.item.sources && result.item.sources.length > 0) {
+      out += `\n*Source${result.item.sources.length === 1 ? '' : 's'}*:\n`
+      result.item.sources.forEach(source => out += source + "\n")
+    }
+    out += '\n'
+  })
+  
+  if (too_long_flag) out += `**${original_length} entries found, only returning the first 3.**`
+  
   return out
 }
 
@@ -58,9 +71,7 @@ module.exports =
     }
     async run(msg, arg) {
       console.log(arg);
-      msg.channel.startTyping();
       const out = await getQuestion(arg);
-      msg.channel.stopTyping(true);
-      return msg.reply(out)
+      await msg.reply(out, { split: true })
     }
   }
