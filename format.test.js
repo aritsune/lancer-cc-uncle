@@ -116,10 +116,6 @@ test('all frames at once', () => {
           traitDescription = turndownService.turndown(trait.actions[0].detail)
           expect(output).toEqual(expect.stringContaining(traitDescription))
         }
-        if(trait.deployables && trait.deployables.length > 0) {
-          traitDescription = turndownService.turndown(trait.deployables[0].detail)
-          expect(output).toEqual(expect.stringContaining(traitDescription))
-        }
         if (!trait.actions && !trait.deployables) {
           traitDescription = turndownService.turndown(trait.description)
           expect(output).toEqual(expect.stringContaining(traitDescription))

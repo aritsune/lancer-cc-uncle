@@ -51,7 +51,7 @@ class SearchCommand extends Commando.Command {
       memberName: 'search',
       aliases: ['search', 'compendium'],
       description: 'Searches the LANCER compendium, including supplements.',
-      patterns: [/\[\[(.+?)\]\]/],
+      patterns: [/\[\[(.+:)?(.+?)\]\]/],
       defaultHandling: false,
       throttling: false,
       guildOnly: false
@@ -61,15 +61,16 @@ class SearchCommand extends Commando.Command {
     //console.log(msg.content)
     let targets = [];
     //Identify a searchable term.
-    const re = /\[\[(.+?)\]\]/g
+    const re = /\[\[(.+:)?(.+?)\]\]/g
     let matches;
     while ((matches = re.exec(msg.content)) != null) {
-      targets.push(matches[1])
+      targets.push({term: matches[2], category: matches[1]})
     }
-    const results = targets.map((tgt, i) => {
+    
+    const results = targets.map(tgt => {
       //Entry point for searches.
-      const results = search(tgt)
-      if (results.length === 0) return `No results found for *${targets[i].replace(/@/g, '\\@')}*.`
+      const results = search(tgt.term, tgt.category)
+      if (results.length === 0) return `No results found for *${tgt.term.replace(/@/g, '\\@')}*.`
       else return format(results[0].item)
     }).join('\n--\n')
 

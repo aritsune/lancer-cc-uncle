@@ -98,16 +98,32 @@ const options = {
 
 const fuse = new Fuse(searchable, options);
 
+function identifyContent(message_content) {
+
+}
+
 module.exports = {
   search(term, category) {
-    //TODO -- search namespacing
-    console.log("SEARCH CATEGORY", category, "SEARCH TERM", term)
-    
-    if (category) {
-      //TODO -- do some cleanup on user-specified categories
-      //convert casing to uniform casing, convert underscores to spaces, etc
+    let sanitized_category  = (category ? category.replace(/[:_ ]/g, '').toLowerCase() : category)
+    console.log("SEARCH CATEGORY", sanitized_category, "SEARCH TERM", term)
+  
+    //Special switch-case for some shortcuts
+    const category_shortcuts = {
+      'cb': 'corebonus',
+      'core': 'coresystem'
     }
     
-    return fuse.search(term)
+    if (sanitized_category) {
+      //Replace shortcutted category with longer version
+      sanitized_category = (category_shortcuts[sanitized_category] || sanitized_category)
+      
+      let unfiltered_items = fuse.search(term)
+      //Filter search results by data_type
+      return unfiltered_items.filter(x =>
+        x.item.data_type.toLowerCase() === sanitized_category) //sanitized_category is already lowercase
+    }
+    else {
+      return fuse.search(term)
+    }
   }
 }
