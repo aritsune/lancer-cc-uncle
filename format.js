@@ -21,6 +21,12 @@ function licenseFormat(object) {
   else return ''
 }
 
+//TODO - use this in places
+function contentPackFormat(object) {
+  if (object.content_pack) return `(From *${object.content_pack}*)`
+  else return ''
+}
+
 function populateTag(tag) {
   //This is for weapons and systems that have tags, though not the tag's entry itself.
   //It reformats the tag's name, not including the tag definition.
