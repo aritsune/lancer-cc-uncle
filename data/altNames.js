@@ -141,12 +141,22 @@ const staticsList = [
   
 ]
 
+const romanToDecimal = {
+  'I': 1,
+  'II': 2,
+  'III': 3,
+  'IV': 4,
+  'V': 5
+}
+
+//These altnames are pre-generated during the bot setup, not used live.
 const regexDynamics = {
-  '^H0R_OS SYSTEM UPGRADE (I+)$': function (match) {
+  '^H0R_OS SYSTEM UPGRADE (.+)$': function (match) {
     const horosRoman = match[1]
-    const horosNumber = horosRoman.length
+    const horosNumber = romanToDecimal[horosRoman]
 
     return [
+      //H0R_OS SYSTEM UPGRADE horosRoman is the base name of the thing
       `H0R_OS SYSTEM UPGRADE ${horosNumber}`,
       `HOROS SYSTEM UPGRADE ${horosNumber}`,
       `HOROS SYSTEM UPGRADE ${horosRoman}`,
@@ -154,17 +164,34 @@ const regexDynamics = {
       `HOROS ${horosRoman}`,
     ]
   },
-  '^TOTAL STRENGTH SUITE (I+)$': function (match) {
+  '^TOTAL STRENGTH SUITE (.+)$': function (match) {
     const roman = match[1]
-    const number = roman.length
+    const number = romanToDecimal[roman]
 
     return [
+      //TOTAL STRENGTH SUITE roman is the base name of the thing
       `TOTAL STRENGTH SUITE ${number}`,
       `TSS${number}`,
       `TSS${roman}`,
+      `TSS ${number}`,
+      `TSS ${roman}`
+    ]
+  },
+  '^JÄGER KUNST (.+)$': function (match) {
+    const roman = match[1]
+    const number = romanToDecimal[roman]
+    
+    return [
+      //JÄGER KUNST Roman is the base name of the thing
+      `JÄGER KUNST ${number}`,
+      `JAGER KUNST ${roman}`,
+      `JAGER KUNST ${number}`,
+      `JK${roman}`,
+      `JK${number}`,
+      `JK ${roman}`,
+      `JK ${number}`
     ]
   }
-  //todo add additional regex for jager kunst roman numeral to arabic numeral
 }
 
 
@@ -204,8 +231,6 @@ module.exports = function (originalData) {
         const match = new RegExp(rx).exec(item.name)
         if (match) {
           const newAlts = fn(match)
-
-          if (!item.alt_names) item.alt_names = []
           item.alt_names = item.alt_names.concat(newAlts)
 
         }
