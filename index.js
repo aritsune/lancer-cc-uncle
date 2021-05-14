@@ -70,7 +70,7 @@ class SearchCommand extends Commando.Command {
     const results = targets.map(tgt => {
       //Entry point for searches.
       const results = search(tgt.term, tgt.category)
-      if (results.length === 0) return `No results found for *${tgt.term.replace(/@/g, '\\@')}*.`
+      if (results.length === 0) return `No results found for *${(tgt.category || '')}${tgt.term.replace(/@/g, '\\@')}*.`
       else return format(results[0].item)
     }).join('\n--\n')
 

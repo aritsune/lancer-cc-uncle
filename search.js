@@ -110,7 +110,8 @@ module.exports = {
     //Special switch-case for some shortcuts
     const category_shortcuts = {
       'cb': 'corebonus',
-      'core': 'coresystem'
+      'core': 'coresystem',
+      'glossary': 'glossary entry'
     }
     
     if (sanitized_category) {

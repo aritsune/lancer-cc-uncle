@@ -38,6 +38,9 @@ async function getQuestion(searchStr) {
     results = results.slice(0,3)
   }
   
+  //TODO - adjust this so the first three questions + answers are displayed,
+  //then the remaining [however many] questions -- but only the question titles -- are displayed.
+  
   results.forEach(result => {
     console.log(result.item.question)
     out += `**${result.item.question}**\n${result.item.answer}`
