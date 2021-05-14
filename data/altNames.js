@@ -6,10 +6,16 @@ const staticsList = [
   {
     "id": "ms_type_i_flight_system",
     "names": ["Flight"]
-  }
+  },
   
   //todo -- add shortcut for tlottt, opCal, etc
   //also add one for nailgun (impaler nailgun)
+  
+  {
+    "id": "mf_black_witch_alt_orchidea",
+    "names": ["orchis", "orchidea", "orchid"]
+    //fuse's search matches orochi and horos before "ssc baronic interest orchidea"
+  }
   
 ]
 
