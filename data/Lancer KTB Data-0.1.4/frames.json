@@ -82,7 +82,7 @@
     "id": "mf_black_witch_alt_orchidea",
     "source": "SSC",
     "variant": "BLACK WITCH",
-    "name": "ORCHIDEA",
+    "name": "BARONIC INTEREST ORCHIS",
     "mechtype": [
       "Controller",
       "Defender"
@@ -98,12 +98,12 @@
       "stress": 4,
       "structure": 4,
       "armor": 1,
-      "hp": 6,
+      "hp": 8,
       "evasion": 10,
-      "edef": 12,
+      "edef": 10,
       "heatcap": 6,
-      "repcap": 3,
-      "sensor_range": 15,
+      "repcap": 4,
+      "sensor_range": 10,
       "tech_attack": -1,
       "save": 12,
       "speed": 5,
@@ -111,73 +111,57 @@
     },
     "traits": [
       {
-        "name": "KINETIC DENIAL",
-        "description": "The Orchidea is immune to kinetic damage. This trait deactivates if the Orchidea is hit by an attack that deals any amount of kinetic damage. It reactivates at the end of its next turn.",
+        "name": "Perfect Parry",
+        "description": "The Orchis is immune to all damage and effects from missed attacks. This effect extends to all adjacent allied characters.",
         "synergies": [{
           "locations": ["active_effects"],
-          "detail": "The Orchidea is immune to kinetic damage. This trait deactivates if the Orchidea is hit by an attack that deals any amount of kinetic damage. It reactivates at the end of its next turn."
+          "detail": "The Orchis is immune to all damage and effects from missed attacks. This effect extends to all adjacent allied characters."
         }]
       },
       {
-        "name": "HOPLON THROW",
-        "description": "As a quick action, the Orchidea can throw its shield at any character in range 5 and line of sight as a ranged attack. On hit, the character is knocked Prone, Slowed, and loses any Resistance to kinetic damage it has. These effects last until the end of its next turn.",
-        "actions": [{
-          "name": "Hoplon Throw",
-          "activation": "Quick",
-          "detail": "The Orchidea can throw its shield at any character in range 5 and line of sight as a ranged attack. On hit, the character is knocked Prone, Slowed, and loses any Resistance to kinetic damage it has. These effects last until the end of its next turn."
-        }]
+        "name": "Guardian",
+        "description": "The Orchis can be used as hard cover by allied characters"
+      },
+      {
+        "name": "Royal Guard",
+        "description": "When an allied mech character adjacent to the Orchis moves, the Orchis can also move with that character as long as it doesn’t break adjacency, mirroring that character’s movement. This effect doesn’t take reaction to trigger, doesn’t provoke reactions or follow engagement, and can be taken on different characters. However, it must still obey obstruction and the Orchis can only move a total number of spaces with this ability between turns equal to its speed +1."
       }
     ],
     "core_system": {
-      "name": "Charge Hoplon",
+      "name": "Charged Hoplon",
       "description": "",
-      "active_name": "Wrath of the Ancients",
-      "active_effect": "When this action is taken, and for the rest of the scene as a quick action, the Orchidea gains 1 charge in charged Hoplon and can repeat the activation effect of its shield. Characters that fail the Hull save additionally take 2 kinetic damage and are Stunned until the end of their next turn instead of knocked Prone when they collide with other characters or objects, though they can only be Stunned this way once a scene and are knocked Prone if they suffer this effect again.",
+      "active_name": "Ajax",
+      "active_effect": "<b>Efficient:</b> This ability refunds 1 CP at the end of any scene in which it’s used.",
       "activation": "Quick",
       "active_actions": [{
-        "name": "Wrath of the Ancients",
+        "name": "Ajax Ram",
         "activation": "Quick",
-        "detail": "The Orchidea gains 1 charge in charged Hoplon and can repeat the activation effect of its shield. Characters that fail the Hull save additionally take 2 kinetic damage and are Stunned until the end of their next turn instead of knocked Prone when they collide with other characters or objects, though they can only be Stunned this way once a scene and are knocked Prone if they suffer this effect again."
+        "detail": "The Orchis hurls its shield with a mighty throw, targeting a mech character, allied or hostile, in range 6, making a special ram attack with +1 accuracy and knock back 3 instead of 1. This could cause characters to collide with obstructions as normal."
       }],
-	    "passive_name": "Charged Hoplon",
-      "passive_effect": "When the Orchidea or any adjacent ally is hit by an attack or effect that deals at least partly kinetic damage, it stores a charge in its Hoplon. It can store up to 6 charges at once (you can use a die to track this), carrying over between scenes, and loses all charges on a Full Repair.",
-      "passive_actions": [
-        {
-          "name": "Hoplon Field",
-          "activation": "Full",
-          "detail": "<p>As a full action, the Orchidea can spend any number of charges in its Hoplon to create a shimmering magnetic field in any space with at least 1 square sharing its space with Size equal to the number of charges expended. The shield has the following effects:<ul><li>Allied characters inside have Resistance to kinetic damage.</li><li>Hostile characters inside the area are Slowed and cannot take reactions.</li></ul><p>Additionally, when the shield is activated, hostile characters inside its area of effect must pass a Hull save or be pushed outside of its space, or as far as possible otherwise. If this movement would force them to collide with an obstacle or another character, they are additionally knocked Prone.</p><p>The shield lasts until the end of the scene or until this action is taken again.</p>"
-        },
-        {
-        "name": "Expand Hoplon Field",
-        "activation": "Protocol",
-        "detail": "The Orchidea can spend any number of Hoplon charges while inside the shield as a protocol to increase its Size by 1 per charge spent, up to a maximum of Size 6."
-        }
-      ]
+	    "passive_name": "Hunting Eagle",
+      "passive_actions": [{
+        "name": "Hunting Eagle",
+        "activation": "Free",
+        "frequency": "1/round",
+        "detail": "1/round when the Orchis causes a character to collide with another obstacle or character, in addition to any other effects, it can throw its shield at that character, smashing into that character for 3 kinetic damage and causing that character to be unable to take reactions until the end of its next turn. The shield then returns to the Orchis. This effect doesn’t take an action or reaction to activate."
+      }]
+
     },
     "data_type": "frame",
     "aptitude": {},
-	"image_url": "https://i.imgur.com/4Os1ZCY.png",
-	 "counters": [
-      {
-        "id": "ctr_orchidea_hoplon",
-        "name": "HOPLON DIE",
-        "default_value": 1,
-        "min": 1,
-        "max": 6
-      }
-    ]
+	"image_url": "https://i.imgur.com/4Os1ZCY.png"
   },
    {
     "id": "mf_minotaur_alt_wraith",
     "source": "HORUS",
     "variant": "MINOTAUR",
-    "name": "WRAITH",
+    "name": "B.I. WRAITH",
     "mechtype": [
       "Controller"
     ],
     "y_pos": 25,
     "license_level": 2,
-    "description": "Ungrateful pattern group. This frame can be taken as an alternate frame instead of the base frame at Minotaur License Level 2.",
+    "description": "This frame can be taken as an alternate frame instead of the base frame at Minotaur License Level 2.",
     "mounts": [
       "Main/Aux"
     ],
@@ -199,36 +183,33 @@
     },
     "traits": [
       {
-        "name": "LEAVE HUSK",
-        "description": "1/round as a quick action, the Wraith can crystallize space around itself. When it next moves out of the space it occupies, it leaves behind a Void Husk, an object with the same Size as itself. Husks have 6+Grit HP, Evasion 5 and E-defense 5. The husk emits a Burst 2 aura around it while active. Hostile characters are Slowed while at least partly in the area. The Wraith can create any number of husks, though all disintegrate at the end of the scene.",
-        "actions": [{
-          "name": "Leave Husk",
-          "activation": "Quick",
-          "frequency": "1/round",
-          "detail": "The Wraith can crystallize space around itself. When it next moves out of the space it occupies, it leaves behind a Void Husk."
+        "name": "Sculptor of Fate",
+        "description": "1/round when the Wraith hits target with a tech attack, it can create a <b>void husk</b> in a free valid space in range 3 from its target, an <b>intangible</b> object that doesn’t cause obstruction. The husk is the same size as its target, immune to all damage and effects, and emits a burst 2 aura around it while active that effects all characters, intangible or not. Hostile characters are slowed while at least partly in the area. The Wraith can create any number of husks, though all disintegrate at the end of the scene.",
+        "synergies": [{
+          "locations": ["tech_attack"],
+          "detail": "1/round when the Wraith hits target with a tech attack, it can create a <b>void husk</b> in a free valid space in range 3 from its target, an <b>intangible</b> object that doesn’t cause obstruction. The husk is the same size as its target, immune to all damage and effects, and emits a burst 2 aura around it while active that effects all characters, intangible or not. Hostile characters are slowed while at least partly in the area. The Wraith can create any number of husks, though all disintegrate at the end of the scene."
         }],
         "deployables": [{
           "name": "Void Husk",
           "type": "Void Husk",
           "instances": 1,
-          "evasion": 5,
-          "edef": 5,
-          "hp": "6+{grit}",
-          "detail": "The husk emits a Burst 2 aura around it while active. Hostile characters are Slowed while at least partly in the area. The Wraith can create any number of husks, though all disintegrate at the end of the scene."
+          "evasion": "",
+          "edef": "",
+          "hp": "",
+          "detail": "The <b>void husk</b> is an <b>intangible</b> object that doesn’t cause obstruction. The husk is the same size as its target, immune to all damage and effects, and emits a burst 2 aura around it while active that effects all characters, intangible or not. Hostile characters are slowed while at least partly in the area."
         }]
       },
       {
-        "name": "LAW OF THE DEAD",
+        "name": "Grammaton Law",
         "description": "Slowed hostile characters are also Shredded while within range 3 of the Wraith."
       },
       {
-        "name": "SUPPLICATION BEFORE THE CRESCENT HORNS",
-        "description": "As a protocol, the Wraith can take 2 Heat and become Intangible (see below) until the end of its current turn.",
+        "name": "Grammaton Mantle",
+        "description": "As a protocol, the Wraith becomes <b>intangible</b> until the start of its next turn.",
         "actions": [{
-          "name": "Supplication Before the Crescent Horns",
+          "name": "Grammaton Mantle",
           "activation": "Protocol",
-          "heat_cost": 2,
-          "detail": "As a protocol, the Wraith can take 2 Heat and become Intangible (see below) until the end of its current turn."
+          "detail": "The Wraith becomes <b>intangible</b> until the start of its next turn."
         }]
       }
     ],
@@ -236,20 +217,19 @@
       "name": "Execration of the Names of the Unworthy Dead",
       "description": "",
       "active_name": "Weighing of Inequitable Hearts",
-      "active_effect": "For the rest of this scene, gain the <b>Intangibility</b> protocol.",
+      "active_effect": "<b>Efficient:</b> Refund 1 CP at the end of any scene in which this ability was used.",
       "activation": "Quick",
       "active_actions": [{
-        "name": "Intangibility",
-        "activation": "Protocol",
-        "detail": "Up to two characters of your choice within line of sight and Range 5 of either you or a Void Husk become Intangible (no save). They can end this status as above."
+        "name": "Execration of the Names of the Unworthy Dead",
+        "activation": "Quick",
+        "detail": "A hostile character and an allied character, both in range 5 and line of sight of the Wraith, become <b>intangible</b> until the end of your next turn. Both characters must be chosen for this move to be valid."
       }],
       "passive_name": "Execrate",
-      "passive_effect": "Gain the <b>Execrate</b> quick tech option.",
       "passive_actions": [{
         "name": "Execrate",
         "activation": "Quick Tech",
         "frequency": "1/round",
-        "detail": "You may target another character in line of sight within Range 5 of either your mech or a Void Husk, and attempt to banish them to an interstitial space. Allies can choose whether or not to be affected, enemies can pass a Systems save to avoid being affected. A banished character exists in a shadowy gray realm and gains the Intangible status. While Intangible, you can move through obstructions but not end your turn in them. An Intangible character cannot interact with or target any other object or character or be interacted with or targeted (eg taking or dealing damage) in any way. There is one exception to this rule - Intangible characters can interact with each other normally. Any banished character can immediately end the Intangible effect on themselves by moving adjacent to or starting their turn adjacent to either your mech or a Void Husk returning to physical space. If neither your mech or any husks remain on the battlefield, this effect ends on all characters."
+        "detail": "You may target another character in line of sight within range 3 and line of sight of a <b>void husk</b>, banishing them to an interstitial space. Allies can choose whether or not to be affected, enemies can pass a systems save to avoid being affected. A banished character exists in a shadowy gray realm and gains the <b>intangible</b> status.<br>Any banished character can immediately end the intangible effect on themselves by moving adjacent to or starting their turn adjacent to a void husk, returning to physical space and ending the intangible status."
       }]
     },
     "data_type": "frame",

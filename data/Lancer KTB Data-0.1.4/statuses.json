@@ -1,0 +1,9 @@
+[
+  {
+    "name": "INTANGIBLE",
+    "icon": "",
+    "type": "Status",
+    "terse": "Cannot interact with anything which isn't also intangible.",
+    "effects": "While intangible, a character can move through obstructions but not end their turn in them. Non-intangible characters can move through intangible characters but not end their turns inside their spaces. An intangible character cannot interact with, affect, or target any other object or character (e.g. taking or dealing damage) in any way, and vice versa. They cannot capture points or count for zones (for sitreps) and don’t count as adjacent to other characters.<br>There is one exception to this rule - intangible characters can interact with each other normally."
+  }
+]
