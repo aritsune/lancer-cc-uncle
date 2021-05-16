@@ -111,6 +111,10 @@ const staticsList = [
     "names": ["hmg"]
   },
   {
+    "id": "mw_nexus_light",
+    "names": ["light nexus"]
+  }, //the default name is Nexus (Light) which is annoying
+  {
     "id": "mw_nexus_hunter_killer",
     "names": ["hk nexus"]
   },
