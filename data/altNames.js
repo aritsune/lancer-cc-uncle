@@ -137,6 +137,11 @@ const staticsList = [
   {
     "id": "mf_pegasus",
     "names": ["btwike"]
+  },
+  {
+    "id": "mf_black_witch_alt_orchidea",
+    "names": ["orchis", "orchidea", "orchid"]
+    //fuse's search matches orochi and horos before "ssc baronic interest orchidea"
   }
   
 ]
