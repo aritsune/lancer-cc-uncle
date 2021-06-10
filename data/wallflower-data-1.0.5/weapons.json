@@ -27,6 +27,7 @@
     "id": "mw_tokugawa_alt_enkidu_integrated",
     "name": "Plasma Talons",
     "mount": "Auxiliary",
+    "source": "HA",
     "type": "Melee",
     "range": [{
       "type": "Threat",
@@ -34,7 +35,7 @@
     }],
     "damage": [{
       "type": "Energy",
-      "val": "1d3+1"
+      "val": "1d3+2"
     }],
     "effect": "",
     "description": "These molten talons are long, whiplike plasma lashes that the Enkidu can extend or retract. They can only be used in the DANGER ZONE.",
@@ -44,12 +45,13 @@
       "id": "tg_danger_zone"
     }, {
       "id": "tg_reliable",
-      "val": 1
+      "val": 2
     }]
   }, {
     "id": "mw_exo_plasma_maul",
     "name": "Plasma Maul",
     "mount": "Heavy",
+    "source": "EXOTIC",
     "type": "Melee",
     "range": [{
       "type": "Threat",
@@ -72,6 +74,7 @@
     "id": "mw_exo_sting_heavy_anti_armor_rifle",
     "name": "“Sting” Heavy Anti-Armor Rifle",
     "mount": "Superheavy",
+    "source": "EXOTIC",
     "type": "Rifle",
     "range": [{
       "type": "Range",
@@ -97,6 +100,7 @@
   }, {
     "id": "mw_exo_steelpunch_heavy_needlebeam",
     "name": "“Steelpunch” Heavy Needlebeam",
+    "source": "EXOTIC",
     "mount": "Heavy",
     "type": "Rifle",
     "range": [{
@@ -107,7 +111,7 @@
       "type": "Energy",
       "val": "4"
     }],
-    "effect": "This weapon deals +1d6 bonus damage against targets with a least 1 Armor.",
+    "effect": "This weapon deals +1d6 bonus damage against targets with at least 1 Armor.",
     "description": "The “steelpunch”, as it’s affectionately known, is a twin-beam directed-energy weapon developed by HUC engineers for use against the heavily reinforced hulls of remnant chassis and other hardened targets. The earliest models were derived from Second Committee–era mineral surveying lasers. An initial beam flash-vaporizes the target’s outer layer and the plasma bloom is instantly analyzed for material density and structural composition, following which the needlebeam fires a focused, highintensity pulsed beam tuned to defeat heavy armor. Performance against softer targets is significantly reduced, however, as excessive material ablation disrupts the secondary beam before an optimal effect can be achieved.",
     "tags": [{
       "id": "tg_ap"
@@ -118,6 +122,7 @@
   {
     "id": "mw_exo_brood_siblings_molt",
     "name": "Brood-Sibling’s Molt",
+    "source": "EXOTIC",
     "mount": "Main",
     "type": "Melee",
     "range": [{

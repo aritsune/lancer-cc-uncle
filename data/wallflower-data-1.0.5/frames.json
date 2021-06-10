@@ -60,7 +60,7 @@
       "name": "The Jolly Roger",
       "description": "",
       "active_name": "Skull and Bones",
-      "active_effect": "For the rest of the scene the Kidd, the Roger’s first two effects become blast 2 and its beam weapon affects all characters in a line 15 area.",
+      "active_effect": "For the rest of the scene, Plunder and Swindle become Blast 2 and Shiver Timbers affects all characters in a Line 10 path.",
       "activation": "Free",
       "use": "Encounter",
       "passive_name": "Jolly Roger",
@@ -102,7 +102,7 @@
     "source": "GMS",
     "name": "SAGARMATHA",
     "mechtype": [
-      "Balanced"
+      "Defender"
     ],
     "y_pos": 25,
     "license_level": 0,
@@ -185,12 +185,12 @@
       "size": 2,
       "stress": 4,
       "structure": 4,
-      "armor": 0,
+      "armor": 1,
       "hp": 10,
       "evasion": 8,
       "edef": 8,
       "heatcap": 8,
-      "repcap": 3,
+      "repcap": 5,
       "sensor_range": 5,
       "tech_attack": -2,
       "save": 10,
@@ -200,7 +200,7 @@
     "traits": [
       {
         "name": "Primal Fury",
-        "description": "<p>When the Enkidu ends its turn in the DANGER ZONE, it rears up, extends its PLASMA TALONS (see below), and enters a state of primal fury with the following effects:</p> <ul> <li>On hit, targets struck by the Enkidu&rsquo;s PLASMA TALONS immediately become IMMOBILIZED until the start of its next turn.</li> <li>As a reaction, the Enkidu must use its PLASMA TALONS to attack any character (hostile or allied) that enters, exits or moves more than 1 space within its THREAT. The Enkidu can take this reaction 1/turn, but any number of times a round.</li> <li>The Enkidu cannot take any other reactions, including OVERWATCH.</li> </ul> <p>This state ends at the start of the Enkidu&rsquo;s turn, or if the Enkidu exits the DANGER ZONE.</p>",
+        "description": "<p>When the Enkidu ends its turn in the DANGER ZONE, it rears up, extends its PLASMA TALONS (see below), and enters a state of primal fury with the following effects:</p> <ul> <li>On hit, characters struck by the Enkidu&rsquo;s PLASMA TALONS immediately become IMMOBILIZED until the end of their next turn.</li> <li>As a special reaction, the Enkidu must use its PLASMA TALONS to attack any character (hostile or allied) that enters, exits or moves more than 1 space within its THREAT. This special reaction can be used once a turn, any number of times a round, and doesn’t count against the maximum number of reactions a turn, so the Enkidu can take other reactions normally.</li> </ul> <p>This state ends at the start of the Enkidu&rsquo;s turn, or if the Enkidu exits the DANGER ZONE.</p>",
         "synergies": [{
           "locations": ["heat"],
           "detail": "When the Enkidu ends its turn in the Danger Zone, it enters the Primal Fury state."
@@ -365,7 +365,7 @@
       "name": "Gaia Inheritance",
       "description": "Outnumbered, outgunned, and lacking the ability to mass-produce mechs, the rangers have had to rely on the legacy of Hercynia itself to protect them. Each of their Swallowtails is an ingenious, fast-moving suite of meshed software and gear, uniquely tweaked by generations of hardened warriors – imperfect in a way that would make any SSC smith shiver. Each wears its own unique name, has its own unique ballad, and is recorded in the osteomemetics of its home city.",
       "passive_name": "Grounded",
-      "passive_effect": "When you end your turn in a zone that grants soft cover, you become INVISIBLE until you leave that cover, attack, force a save, or take any other hostile action that affects another character.",
+      "passive_effect": "When you end your turn in a zone that grants soft cover, you become INVISIBLE until you leave that cover, take damage, attack, force a save, or take any other hostile action that affects another character.",
       "active_name": "Guerrilla Warfare",
       "active_effect": "<p>You create three Burst 1 patches of smoke in spaces within line of sight and Range 5. These patches grant soft cover to characters at least partly within them. They last for the rest of the scene.</p> <p>Additionally, for the rest of the scene, allied characters within SENSORS gain the benefits of GROUNDED.</p>",
       "activation": "Protocol",
