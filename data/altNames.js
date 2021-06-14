@@ -116,7 +116,7 @@ const staticsList = [
   }, //the default name is Nexus (Light) which is annoying
   {
     "id": "mw_nexus_hunter_killer",
-    "names": ["hk nexus"]
+    "names": ["hk nexus", "hunter killer nexus"]
   },
   {
     "id": "mw_rocket_propelled_grenade",
@@ -146,6 +146,10 @@ const staticsList = [
     "id": "mf_black_witch_alt_orchidea",
     "names": ["orchis", "orchidea", "orchid"]
     //fuse's search matches orochi and horos before "ssc baronic interest orchidea"
+  },
+  {
+    "id": "mf_swallowtail_alt_swallowtail_ranger_variant",
+    "names": ["ranger", "ranger swallowtail"]
   }
   
 ]
@@ -256,7 +260,7 @@ module.exports = function (originalData) {
     
     //Add invasion options as altnames (e.g. Logic Bomb, Banish as altnames for Viral Logic Suite)
     //and quick tech options (e.g. Pinpoint Focus as altname for Tesseract)
-    if (item.actions && (
+    if (item.actions && item.actions.length > 1 && (
         item.actions.every(action => action.activation === 'Invade') ||
         item.actions.every(action => action.activation === 'Quick Tech')
     )) {
@@ -265,7 +269,8 @@ module.exports = function (originalData) {
     
     //Add traits as altnames to frames
     if (item.data_type === 'Frame' && item.traits && item.traits.length > 0) {
-      item.traits.forEach(trait => item.alt_names.push(trait.name))
+      // TODO - ensure traits like "Slow" or "Guardian" are NOT included as altnames
+      // item.traits.forEach(trait => item.alt_names.push(trait.name))
     }
     
     //Add talent ranks as altnames to ... talents

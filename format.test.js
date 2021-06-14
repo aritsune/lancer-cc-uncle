@@ -54,6 +54,8 @@ function searchStub(id) {
 // I got too lazy to write each action as an individual unit test,
 // since for each unit test, the setup was very similar
 
+// TODO - reformat these to use the test.each() structure
+
 test('all actions at once', () => {
   action_data.forEach(action => {
     let output = format(action)

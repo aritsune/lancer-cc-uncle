@@ -99,7 +99,7 @@ function actionFormat(action, customActionName) {
   const activCombined = `${pilotMechActionType(action)}${activationFormat(action.activation)}`
   
   let out = `**${action.name || customActionName || 'Unnamed Action'}** (${activCombined})\n`
-  if (action.trigger) out += `*Trigger:* ${action.trigger}\n` //For reactions
+  if (action.trigger) out += `*Trigger:* ${turndownService.turndown(action.trigger)}\n` //For reactions
   out += `${action.trigger? "*Effect:* " : ''}${turndownService.turndown(action.detail)}\n`
   return out;
 }

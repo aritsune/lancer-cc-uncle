@@ -31,27 +31,40 @@ async function getQuestion(searchStr) {
   let results = fuseInstance.search(searchStr)
   console.log(results.length)
   let out = ''
-  let original_length = results.length
-  let too_long_flag = (results.length > 3)
-  if (results.length === 0) return `No results found for *${searchStr.replace(/@/g, '\\@')}*.`
-  else if (too_long_flag) {
-    results = results.slice(0,3)
+  let trimmed_results = [];
+  let additional_results = [];
+
+  //The first three questions + answers are displayed;
+  //If there are additional results, the next three questions (no answers) are displayed.
+  if (results.length > 3) {
+    trimmed_results = results.slice(0,3);
+    additional_results = results.slice(3,6);
+  }
+  else {
+    trimmed_results = results
   }
   
-  //TODO - adjust this so the first three questions + answers are displayed,
-  //then the remaining [however many] questions -- but only the question titles -- are displayed.
+  // No results, return early.
+  if (results.length === 0) return `No results found for *${searchStr.replace(/@/g, '\\@')}*.`
   
-  results.forEach(result => {
+  // First three results have questions and answers displayed.
+  trimmed_results.forEach(result => {
     console.log(result.item.question)
     out += `**${result.item.question}**\n${result.item.answer}`
     if (result.item.sources && result.item.sources.length > 0) {
       out += `\n*Source${result.item.sources.length === 1 ? '' : 's'}*:\n`
       result.item.sources.forEach(source => out += source + "\n")
     }
-    out += '\n'
+    out += '\n\n'
   })
   
-  if (too_long_flag) out += `**${original_length} entries found, only returning the first 3.**`
+  // Remaining results have only question titles displayed.
+  if (additional_results.length > 0) {
+    out += `**${results.length} entries found, only showing the first 3.**\n\nRelated questions:\n`
+    additional_results.forEach(result => {
+      out += `* ${result.item.question}\n`
+    })
+  }
   
   return out
 }

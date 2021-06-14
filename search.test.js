@@ -1,5 +1,11 @@
 const {search, getDetails} = require('./search')
 const format = require('./format')
+const data = require('./data')
+
+let searchable = []
+Object.keys(data).forEach(key => {
+  searchable = searchable.concat(data[key])
+})
 
 test('testing the search function itself, no category', () => {
   let search_result = search("blackbeard")[0].item
@@ -44,4 +50,30 @@ test('shortcut category', () =>{
   //core is a shortcut for Core System
   let search_result_2 = search("hyperspec", "core")[0].item
   expect(search_result_2.name).toEqual("Hyperspec Fuel Injector")
+})
+
+test.each(searchable)( 'test searching items by exact name', (item) => {
+  let term = item.name
+  if (term && term.length > 0 ) {
+    let search_result = search(term)[0].item
+    if (search_result.id) expect(search_result.id).toEqual(item.id)
+  }
+})
+
+test('test all names as-is', () => {
+  searchable.forEach(item => {
+
+  })
+})
+
+test('altNames test', () => {
+  searchable.forEach(item => {
+    if (item.alt_names && item.alt_names.length > 0) {
+      item.alt_names.forEach(name => {
+        console.log(`Tested item: ${item.id || item.name || item} // Tested altname: ${name}`)
+        let search_result = search(name)[0].item
+        expect(search_result.id).toEqual(item.id)
+      })
+    }
+  })
 })

@@ -37,6 +37,7 @@ function markdownToJson(markdownstr) {
 }
 
 async function refreshCache() {
+  // TODO - revert this to pull from the JSON instead of using the markdown
   const res = await fetch('https://raw.githubusercontent.com/aritsune/lancer-faq/master/src/index.md')
   const markdown_data = await res.text()
   //console.log(markdown_data)
