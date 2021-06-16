@@ -23,6 +23,7 @@ function licenseFormat(object) {
   else return ''
 }
 
+//TODO - use this in places
 function contentPackFormat(object) {
   if (object.content_pack) return `(From *${object.content_pack}*)`
   else return ''
