@@ -66,14 +66,12 @@ test('test all names as-is', () => {
   })
 })
 
-test('altNames test', () => {
-  searchable.forEach(item => {
-    if (item.alt_names && item.alt_names.length > 0) {
-      item.alt_names.forEach(name => {
-        console.log(`Tested item: ${item.id || item.name || item} // Tested altname: ${name}`)
-        let search_result = search(name)[0].item
-        expect(search_result.id).toEqual(item.id)
-      })
-    }
-  })
+test.each(searchable)('altNames test', (item) => {
+  if (item.alt_names && item.alt_names.length > 0) {
+    item.alt_names.forEach(name => {
+      console.log(`Tested item: ${item.id || item.name || item} // Tested altname: ${name}`)
+      let search_result = search(name)[0].item
+      expect(search_result.id).toEqual(item.id)
+    })
+  }
 })

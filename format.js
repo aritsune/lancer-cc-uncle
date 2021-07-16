@@ -16,14 +16,10 @@ function licenseFormat(object) {
   else if (object.tags && object.tags.find(tag => tag.id === 'tg_exotic')) return "Exotic"
   //else if (object.frame_integrated) return `${object.frame_integrated} Core Integrated`
   else if (object.source) return `${object.source} ${object.license} ${object.license_level}`
-  else if (object.talent_id) {
-    const talentData = data.talent_data.find(t => t.id === object.talent_id)
-    return `${talentData.name} Talent`
-  }
   else return ''
 }
 
-//TODO - use this in places
+//TODO (Search Namespacing) - use this in places
 function contentPackFormat(object) {
   if (object.content_pack) return `(From *${object.content_pack}*)`
   else return ''

@@ -98,10 +98,6 @@ const options = {
 
 const fuse = new Fuse(searchable, options);
 
-function identifyContent(message_content) {
-
-}
-
 module.exports = {
   search(term, category) {
     let sanitized_category  = (category ? category.replace(/[:_ ]/g, '').toLowerCase() : category)
@@ -115,13 +111,21 @@ module.exports = {
     }
     
     if (sanitized_category) {
-      //Replace shortcutted category with longer version
-      sanitized_category = (category_shortcuts[sanitized_category] || sanitized_category)
+      /* TODO (Search Namespacing) - Reenable search namespacing once I can be bothered to figure out a use case for it.
+        There was going to be a feature where you could restrict searches to certain categories, so
+        you could search for a term but only in the Frames, or in the Core Bonuses, etc.
+        This was only ever really useful for core bonus Neurolink Targeting and death's head frame trait Neurolink
+        but caused search quality to go down, so I just took it out.
+       */
+      return fuse.search(term)
       
-      let unfiltered_items = fuse.search(term)
-      //Filter search results by data_type
-      return unfiltered_items.filter(x =>
-        x.item.data_type.toLowerCase() === sanitized_category) //sanitized_category is already lowercase
+      // //Replace shortcutted category with longer version
+      // sanitized_category = (category_shortcuts[sanitized_category] || sanitized_category)
+      //
+      // let unfiltered_items = fuse.search(term)
+      // //Filter search results by data_type
+      // return unfiltered_items.filter(x =>
+      //   x.item.data_type.toLowerCase() === sanitized_category) //sanitized_category is already lowercase
     }
     else {
       return fuse.search(term)

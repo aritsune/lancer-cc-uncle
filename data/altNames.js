@@ -1,5 +1,9 @@
 const staticsList = [
   {
+    "id": "ms_pattern_b_hex_charges",
+    "names": ["Hex Charges"]
+  },
+  {
     "id": "ms_bb_breach_blast_charges",
     "names": ["Breaching Charges"]
   },
@@ -265,13 +269,19 @@ module.exports = function (originalData) {
     //Add invasion options as altnames (e.g. Logic Bomb, Banish as altnames for Viral Logic Suite)
     //and quick tech options (e.g. Pinpoint Focus as altname for Tesseract)
     //also adds deployables and grenades as altnames to charges (e.g. bouncing mine for roller directed payload charges)
-    if ((item.actions || item.deployables) && (item.actions.length + item.deployables.length > 1)) {
-      item.actions.forEach(action => item.alt_names.push(action.name))
+    //test cases: viral logic suite, tesseract, hex charges, roller charges, portable bunker, blinkshield
+    if (item?.actions?.length > 1) {
+      item.actions.forEach(action => {
+        if (action.name) item.alt_names.push(action.name)
+      })
+    }
+    if (item?.deployables?.length > 0) {
+      item.deployables.forEach(dep => item.alt_names.push(dep.name))
     }
     
     //Add traits as altnames to frames
     if (item.data_type === 'Frame' && item.traits && item.traits.length > 0) {
-      // TODO - ensure traits like "Slow" or "Guardian" are NOT included as altnames
+      // TODO (Search Namespacing) - ensure traits like "Slow" or "Guardian" are NOT included as altnames
       // item.traits.forEach(trait => item.alt_names.push(trait.name))
     }
     

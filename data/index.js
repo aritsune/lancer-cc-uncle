@@ -68,7 +68,7 @@ data_pack_paths.forEach(pack_path => {
     let adjusted_file_name = "." + file_path_regex.exec(pack_path+file)[1]
     //console.log("Adjusted file name", adjusted_file_name)
   
-    //Adjust the directory name to have a prettyprint format --TODO -- figure this out later
+    //Adjust the directory name to have a prettyprint format --TODO (Search Namespacing) -- figure this out later
     let pack_path_pretty_regex = /^.\/data\/(.+)(-|_| )(.+)\/$/
     let pack_path_pretty = pack_path_pretty_regex.exec(pack_path)[1]
     
