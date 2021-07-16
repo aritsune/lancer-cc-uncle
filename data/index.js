@@ -18,26 +18,6 @@ let {
   weapons
 } = lancer_data
 
-// const lr_frames = require("./lrd/frames.json");
-// const lr_weapons = require("./lrd/weapons.json");
-// const lr_systems = require("./lrd/systems.json");
-// const lr_mods = require("./lrd/mods.json");
-// const lr_talents = require("./lrd/talents.json");
-//
-// const wf_frames = require("./wfd/frames.json");
-// const wf_weapons = require("./wfd/weapons.json");
-// const wf_systems = require("./wfd/systems.json");
-
-//Compile data from all sources.
-// const frame_data = frames.concat(lr_frames).concat(wf_frames);
-// const weapon_data = weapons.concat(lr_weapons).concat(wf_weapons);
-// const system_data = systems
-//   .concat(lr_systems)
-//   .concat(wf_systems)
-//   .concat(mods)
-//   .concat(lr_mods);
-// const talent_data = talents.concat(lr_talents);
-
 let action_data = actions;
 let core_bonus_data = core_bonuses;
 //core_systems are extracted from the frames later
@@ -52,6 +32,12 @@ let tag_data = tags;
 let talent_data = talents;
 let weapon_data = weapons;
 
+[action_data, core_bonus_data, frame_data, glossary_data,
+mod_data, pilot_items_data, skill_data, status_data, system_data,
+tag_data, talent_data, weapon_data].forEach(array =>
+  array.forEach(entry => entry.content_pack = 'Lancer Core')
+)
+
 //Load data out of supplemental modules (Long Rim, Wallflower, homebrew content packs)
 const { readdirSync } = require('fs')
 
@@ -59,6 +45,7 @@ const getDirectories = source =>
   readdirSync(source, { withFileTypes: true })
     .filter(dirent => dirent.isDirectory())
     .map(dirent => source + dirent.name + "/")
+//https://stackoverflow.com/a/26832802
 
 const getFiles = source =>
   readdirSync(source, { withFileTypes: true })
@@ -69,13 +56,22 @@ let data_pack_paths = getDirectories('./data/')
 console.log("Found data packs", data_pack_paths)
 
 data_pack_paths.forEach(pack_path => {
+  
+  //Get files from pack_path directory
   let data_pack_files = getFiles(pack_path)
   console.log("In path", pack_path, "found files", data_pack_files)
   
   data_pack_files.forEach(file => {
+    
+    //Adjust the filename to have the "/<directory>/<filename>.json" format
     let file_path_regex = /\.\/data(.+\.json)/
     let adjusted_file_name = "." + file_path_regex.exec(pack_path+file)[1]
     //console.log("Adjusted file name", adjusted_file_name)
+  
+    //Adjust the directory name to have a prettyprint format --TODO (Search Namespacing) -- figure this out later
+    let pack_path_pretty_regex = /^.\/data\/(.+)(-|_| )(.+)\/$/
+    let pack_path_pretty = pack_path_pretty_regex.exec(pack_path)[1]
+    
     switch(file) {
       case('actions.json'):
         action_data = action_data.concat(require(adjusted_file_name))
@@ -135,11 +131,84 @@ let pilot_weapon_data = pilot_items_data.filter(pg => pg.type === "Weapon");
 
 //Strip out anything with an id starting with "missing_", as those are compcon-specific stubs
 //glossary_data, core_system_data, statuses doesn't have IDs
-[action_data, core_bonus_data, frame_data, mod_data,
-pilot_armor_data, pilot_gear_data, pilot_weapon_data, skill_data,
-system_data, tag_data, talent_data, weapon_data].map( data_element =>
-  data_element = data_element.filter(data_entry => !(data_entry.id.startsWith("missing_")))
-)
+
+action_data = action_data.filter(data_entry => !(data_entry.id.startsWith("missing_")))
+core_bonus_data = core_bonus_data.filter(data_entry => !(data_entry.id.startsWith("missing_")))
+core_system_data = core_system_data.filter(data_entry => !(data_entry.name === "ERR: MISSING DATA"))
+frame_data = frame_data.filter(data_entry => !(data_entry.id.startsWith("missing_")))
+mod_data = mod_data.filter(data_entry => !(data_entry.id.startsWith("missing_")))
+pilot_armor_data = pilot_armor_data.filter(data_entry => !(data_entry.id.startsWith("missing_")))
+pilot_gear_data = pilot_gear_data.filter(data_entry => !(data_entry.id.startsWith("missing_")))
+pilot_weapon_data = pilot_weapon_data.filter(data_entry => !(data_entry.id.startsWith("missing_")))
+skill_data = skill_data.filter(data_entry => !(data_entry.id.startsWith("missing_")))
+system_data = system_data.filter(data_entry => !(data_entry.id.startsWith("missing_")))
+tag_data = tag_data.filter(data_entry => !(data_entry.id.startsWith("missing_")))
+talent_data = talent_data.filter(data_entry => !(data_entry.id.startsWith("missing_")))
+weapon_data = weapon_data.filter(data_entry => !(data_entry.id.startsWith("missing_")))
+
+
+//Manually modify structure and stress glossary entries to include the tables
+glossary_data.find(glossary_entry => glossary_entry.name === 'STRUCTURE')
+  .description += `
+
+Roll 1d6 per point of structure damage marked, including the structure damage that has just been taken. Choose the lowest result and check the structure damage chart to determine the outcome.
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-0lax">5-6</th>
+    <th class="tg-0lax">Glancing Blow</th>
+    <th class="tg-0lax">Mech is IMPAIRED until the end of its next turn.</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0lax">2-4</td>
+    <td class="tg-0lax">System Trauma</td>
+    <td class="tg-0lax">Roll 1d6. On 1-3, all weapons on one mount (of choice) are destroyed. On 4-6, one system (of choice) is destroyed. <br>(Weapons or systems with no LIMITED charges are not valid choices.) <br>If there are no valid weapons, destroy a system; if there are no valid systems, destroy a weapon.<br>If there are no valid weapons or systems, this becomes a Direct Hit instead.<br></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">1</td>
+    <td class="tg-0lax">Direct Hit</td>
+    <td class="tg-0lax">The result depends on the mech's remaining structure:<br>3+ Structure: Mech is STUNNED until the end of its next turn.<br>2 Structure: Roll a HULL Check. On success, mech is STUNNED until the end of its next turn. On failure, mech is destroyed.<br>1 Structure: Mech is destroyed.<br></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Multiple 1s</td>
+    <td class="tg-0lax">Crushing Hit</td>
+    <td class="tg-0lax"> Mech is destroyed.</td>
+  </tr>
+</tbody>
+</table>`
+
+glossary_data.find(glossary_entry => glossary_entry.name === 'STRESS')
+  .description += `
+
+Roll 1d6 per point of stress damage marked, including the stress damage that has just been taken. Choose the lowest result and check the overheating chart to determine the outcome.
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-0pky">5-6</th>
+    <th class="tg-0pky">Emergency Shunt<br></th>
+    <th class="tg-0pky">Mech becomes IMPAIRED until end of its next turn.<br></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0pky">2-4</td>
+    <td class="tg-0pky">Destabilized Power Plant</td>
+    <td class="tg-0pky">Mech becomes EXPOSED until the status is cleared.</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">1</td>
+    <td class="tg-0pky">Meltdown</td>
+    <td class="tg-0pky">The result depends on the mech's remaining stress:<br>3+ Stress: Mech becomes EXPOSED.<br>2 Stress: Roll an ENGINEERING Check. On success, mech is EXPOSED. On failure, mech suffers Reactor Meltdown after 1d6 of the mech's turns. Reactor Meltdown can be prevented by retrying the ENGINEERING check as a free action.<br>1 Stress: Mech suffers a Reactor Meltdown at end of its next turn.<br></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Multiple 1s</td>
+    <td class="tg-0pky">Irreversible Meltdown</td>
+    <td class="tg-0pky">Mech suffers Reactor Meltdown at end of its next turn.</td>
+  </tr>
+</tbody>
+</table>`
 
 //Assigns data_type to each object; data_type is used to pretty-print the object's type.
 //Previously data_type was an attribute of every kind of object. It was removed.
@@ -150,11 +219,11 @@ action_data = action_data.map(action => ({
 }))
 core_bonus_data = core_bonus_data.map(cb => ({
   ...cb,
-  data_type: 'Core Bonus'
+  data_type: 'CoreBonus'
 }))
 core_system_data = core_system_data.map(cs => ({
   ...cs,
-  data_type: 'Core System'
+  data_type: 'CoreSystem'
 }))
 frame_data = frame_data.map(frame => ({
   ...frame,
@@ -162,7 +231,7 @@ frame_data = frame_data.map(frame => ({
 }))
 glossary_data = glossary_data.map(g => ({
   ...g,
-  data_type: 'Glossary Entry'
+  data_type: 'GlossaryEntry'
 }))
 mod_data = mod_data.map(m => ({
   ...m,
@@ -170,19 +239,19 @@ mod_data = mod_data.map(m => ({
 }))
 pilot_armor_data = pilot_armor_data.map(pa => ({
   ...pa,
-  data_type: 'Pilot Armor'
+  data_type: 'PilotArmor'
 }))
 pilot_gear_data = pilot_gear_data.map(pg => ({
   ...pg,
-  data_type: 'Pilot Gear'
+  data_type: 'PilotGear'
 }))
 pilot_weapon_data = pilot_weapon_data.map(pw => ({
   ...pw,
-  data_type: 'Pilot Weapon'
+  data_type: 'PilotWeapon'
 }))
 skill_data = skill_data.map(skill => ({
   ...skill,
-  data_type: 'Pilot Skill'
+  data_type: 'PilotSkill'
 }))
 status_data = status_data.map(status => ({
   ...status,
@@ -206,7 +275,7 @@ weapon_data = weapon_data.map(weapon => ({
 }))
 
 //Modifies weapon_data so that integrated weapons include their origin frame.
-//BUT NOT REALLY - we moved arbitrary integrated[] handling to search.js
+//BUT NOT REALLY - we moved integrated[] handling to search.js
 
 // integ_weapon_frames = frame_data.filter(frame => frame.core_system && frame.core_system.integrated)
 // //Locates core systems that are integrated weapons (e.g. Sherman's ZF4-Solidcore)
