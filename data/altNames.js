@@ -7,6 +7,19 @@ const staticsList = [
     "id": "mw_impaler_nailgun",
     "names": ["nailgun"]
   }, //"nailgun" brings up Railgun sometimes
+  {
+    "id": "mf_black_witch_alt_orchidea",
+    "names": ["orchis", "orchidea", "orchid"]
+    //fuse's search matches orochi and horos before "ssc baronic interest orchidea"
+  },
+  {
+    "id": "mf_swallowtail_alt_swallowtail_ranger_variant",
+    "names": ["ranger", "ranger swallowtail"]
+  },
+  {
+    "id": "ms_roller_directed_payload_charges",
+    "names": ["roller charges"]
+  },
   
   //https://docs.google.com/document/d/1UQRVRKkldAnoKQvDrXWGAAptA8yyv46mUh9FK-g8P1I/edit
   //"Lancer Character Corner Common Abbreviations Guide"
@@ -141,15 +154,6 @@ const staticsList = [
   {
     "id": "mf_pegasus",
     "names": ["btwike"]
-  },
-  {
-    "id": "mf_black_witch_alt_orchidea",
-    "names": ["orchis", "orchidea", "orchid"]
-    //fuse's search matches orochi and horos before "ssc baronic interest orchidea"
-  },
-  {
-    "id": "mf_swallowtail_alt_swallowtail_ranger_variant",
-    "names": ["ranger", "ranger swallowtail"]
   }
   
 ]
@@ -260,10 +264,8 @@ module.exports = function (originalData) {
     
     //Add invasion options as altnames (e.g. Logic Bomb, Banish as altnames for Viral Logic Suite)
     //and quick tech options (e.g. Pinpoint Focus as altname for Tesseract)
-    if (item.actions && item.actions.length > 1 && (
-        item.actions.every(action => action.activation === 'Invade') ||
-        item.actions.every(action => action.activation === 'Quick Tech')
-    )) {
+    //also adds deployables and grenades as altnames to charges (e.g. bouncing mine for roller directed payload charges)
+    if ((item.actions || item.deployables) && (item.actions.length + item.deployables.length > 1)) {
       item.actions.forEach(action => item.alt_names.push(action.name))
     }
     
