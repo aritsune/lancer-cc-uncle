@@ -7,21 +7,19 @@ const turndownService = require('turndown')()
 //   return object.data_type ? object.data_type : ''
 // }
 
-//HELPERS
+// ===== HELPERS =====
 
 //Identifies the source of an item (e.g. SSC Metalmark 3, Talent - Ace)
 function licenseFormat(object) {
-  if (object.source && object.license_level === 0) return `${object.source}` //TODO - add "content-pack" string e.g. Suldan
+  if (object.source && object.license_level === 0) return `${object.source}`
+  else if (object.source && object.source.toUpperCase() === 'EXOTIC') return "Exotic"
+  else if (object.tags && object.tags.find(tag => tag.id === 'tg_exotic')) return "Exotic"
   //else if (object.frame_integrated) return `${object.frame_integrated} Core Integrated`
   else if (object.source) return `${object.source} ${object.license} ${object.license_level}`
-  else if (object.talent_id) {
-    const talentData = data.talent_data.find(t => t.id === object.talent_id)
-    return `${talentData.name} Talent`
-  }
   else return ''
 }
 
-//TODO - use this in places
+//TODO (Search Namespacing) - use this in places
 function contentPackFormat(object) {
   if (object.content_pack) return `(From *${object.content_pack}*)`
   else return ''
@@ -41,7 +39,7 @@ function toTitleCase(str) {
   return str.replace(/\w\S*/g, function(txt){
     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
   });
-}
+} //https://stackoverflow.com/a/4878800
 
 function pilotMechActionType(action) {
   //Determines if an action is mech-only, pilot-only, or available to both.
@@ -72,6 +70,9 @@ function integratedFormat(integrated) {
 }
 
 function activationFormat(activation) {
+  //Maps built-in activations to pretty-printed output.
+  //Activation types that don't need to be renamed (e.g. protocol) are ignored
+  // console.debug("action formatter", action.activation)
   const actionTypesPrettyPrint = {
     'Free': 'Free Action',
     'Quick': 'Quick Action',
@@ -80,22 +81,22 @@ function activationFormat(activation) {
     'Downtime': 'Downtime Action'
   }
   
-  const activPretty = (actionTypesPrettyPrint[activation] || activation)
-  return activPretty
+  return (actionTypesPrettyPrint[activation] || activation)
   
 }
 
+// ===== FORMATTERS EMBEDDED IN OTHER FORMATTERS =====
+// Systems, weapons, etc, can have Actions and Deployables embedded in them.
+// Frames have Traits embedded in them.
+
 function actionFormat(action, customActionName) {
-  //Maps built-in activations to pretty-printed output.
-  //Activation types that don't need to be renamed (e.g. protocol) are ignored
-  // console.debug("action formatter", action.activation)
-  
+  //Formats an action.
   //customActionName is optional and only used if the action lacks an action.name property
   
   const activCombined = `${pilotMechActionType(action)}${activationFormat(action.activation)}`
   
   let out = `**${action.name || customActionName || 'Unnamed Action'}** (${activCombined})\n`
-  if (action.trigger) out += `*Trigger:* ${action.trigger}\n`
+  if (action.trigger) out += `*Trigger:* ${turndownService.turndown(action.trigger)}\n` //For reactions
   out += `${action.trigger? "*Effect:* " : ''}${turndownService.turndown(action.detail)}\n`
   return out;
 }
@@ -133,7 +134,7 @@ function deployableFormatter(dep) {
 }
 
 function traitFormatter(trait) {
-  //Formats a single trait.
+  //Formats a single Frame Trait.
   let out = `**${trait.name}:** `
   if (trait.actions && trait.actions.length > 0) {
     //out += "\nThis trait grants the following actions:\n"
@@ -149,13 +150,13 @@ function traitFormatter(trait) {
   return out.trim();
 }
 
-//MAIN FORMATTERS
-//Formatters by data_type, organized alphabetically.
-//actionFormatter is handled above
+// ===== MAIN FORMATTERS =====
+// Formatters by data_type, organized alphabetically.
+// actionFormatter is handled above
 
 function cbFormat(cb) {
   //For core bonuses.
-  let out = `**${cb.name}** (${cb.source} ${cb.data_type})
+  let out = `**${cb.name}** (${cb.source} Core Bonus)
 ${turndownService.turndown(cb.effect)}\n`
   if (cb.integrated) out += integratedFormat(cb.integrated)
   return out
@@ -296,7 +297,7 @@ function statusFormat(object) {
 }
 
 function systemFormat(system) {
-  let out = `**${system.name}** (${[licenseFormat(system), system.data_type].join(' ').trim()})\n`
+  let out = `**${system.name}** (${licenseFormat(system)} ${system.data_type || system.type || ''})\n`
   let tagsEtc = []
   if (system.sp) tagsEtc.push(`${system.sp} SP`)
   if (system.tags) tagsEtc = tagsEtc.concat(system.tags.map(tag => populateTag(tag)))
@@ -404,31 +405,31 @@ module.exports = function format(object) {
     case 'Condition':
       integrated_formatted = integrated_formatted.concat(statusFormat(object));
       break;
-    case 'Core Bonus':
+    case 'CoreBonus':
       integrated_formatted = integrated_formatted.concat(cbFormat(object));
       break;
-    case 'Core System':
+    case 'CoreSystem':
       integrated_formatted = integrated_formatted.concat(coreFormat(object));
       break;
     case 'Frame':
       integrated_formatted = integrated_formatted.concat(frameFormat(object));
       break;
-    case 'Glossary Entry':
+    case 'GlossaryEntry':
       integrated_formatted = integrated_formatted.concat(glossaryFormat(object));
       break;
     case 'Mod':
       integrated_formatted = integrated_formatted.concat(modFormat(object));
       break;
-    case 'Pilot Armor':
+    case 'PilotArmor':
       integrated_formatted = integrated_formatted.concat(pilotArmorFormat(object));
       break;
-    case 'Pilot Gear':
+    case 'PilotGear':
       integrated_formatted = integrated_formatted.concat(pilotGearFormat(object));
       break;
-    case 'Pilot Weapon':
+    case 'PilotWeapon':
       integrated_formatted = integrated_formatted.concat(weaponFormat(object));
       break;
-    case 'Pilot Skill':
+    case 'PilotSkill':
       integrated_formatted = integrated_formatted.concat(skillFormat(object));
       break;
     case 'Status':
@@ -447,7 +448,8 @@ module.exports = function format(object) {
       integrated_formatted = integrated_formatted.concat(weaponFormat(object));
       break;
     default:
-      console.log("Unrecognized type", object.type, "Object was:", (object.name || object.id || "no name or id"))
+      console.log("Unrecognized type", (object.data_type || object.type),
+        "Object was:", (object.name || object.id || "no name or id"))
       break;
   }
   

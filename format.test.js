@@ -54,6 +54,8 @@ function searchStub(id) {
 // I got too lazy to write each action as an individual unit test,
 // since for each unit test, the setup was very similar
 
+// TODO - reformat these to use the test.each() structure
+
 test('all actions at once', () => {
   action_data.forEach(action => {
     let output = format(action)
@@ -114,11 +116,12 @@ test('all frames at once', () => {
         let traitDescription = undefined
         if(trait.actions && trait.actions.length > 0) {
           traitDescription = turndownService.turndown(trait.actions[0].detail)
+          expect(output).toEqual(expect.stringContaining(traitDescription))
         }
-        else {
+        if (!trait.actions && !trait.deployables) {
           traitDescription = turndownService.turndown(trait.description)
+          expect(output).toEqual(expect.stringContaining(traitDescription))
         }
-        expect(output).toEqual(expect.stringContaining(traitDescription))
       })
     }
     
