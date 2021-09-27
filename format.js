@@ -225,10 +225,13 @@ function glossaryFormat(glossaryEntry) {
 }
 
 function modFormat(mod) {
-  let out = `**${mod.name}** (${licenseFormat(mod)} Mod)\n`
+  let out = `**${mod.name}** (${licenseFormat(mod)} Mod)\n${mod.sp} SP`
   //Tags, if any
   if(mod.tags) {
-    out += `${mod.tags.map(tag => populateTag(tag)).join(', ').trim()}\n`;
+    out += `, ${mod.tags.map(tag => populateTag(tag)).join(', ').trim()}\n`;
+  }
+  else {
+    out += '\n'
   }
   //Type/size restrictions, if any
   let combined_types = []

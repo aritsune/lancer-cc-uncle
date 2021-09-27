@@ -258,3 +258,10 @@ test('Reactions should display frequency - 1/scene', () => {
   expect(empath_output).toEqual(expect.stringContaining("1/scene"))
 })
 
+test.each(mod_data)('Mods should have SP', (item) => {
+  // let supermassive = searchable.filter(item => item.id === "wm_supermassive_mod")[0]
+  // let supermassive_output = format(supermassive)
+  // expect(supermassive_output).toEqual(expect.stringContaining("1 SP"))
+  let output = format(item)
+  expect(output).toEqual(expect.stringContaining(item.sp + " SP"))
+})
