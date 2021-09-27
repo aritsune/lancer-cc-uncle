@@ -244,3 +244,17 @@ test('all weapons at once', () => {
     //TODO -- figure out how to test tags, range, damage, effects, etc...
   })
 })
+
+test('Reactions should display frequency - 1/round', () => {
+  let jk2 = searchable.filter(item => item.id === "ms_jäger_kunst_ii")[0]
+  let jk2_output = format(jk2)
+  expect(jk2_output).toEqual(expect.stringContaining("1/round"))
+
+})
+
+test('Reactions should display frequency - 1/scene', () => {
+  let empath = searchable.filter(item => item.id === "t_empath")[0]
+  let empath_output = format(empath)
+  expect(empath_output).toEqual(expect.stringContaining("1/scene"))
+})
+

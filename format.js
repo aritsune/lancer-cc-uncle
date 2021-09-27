@@ -93,9 +93,13 @@ function actionFormat(action, customActionName) {
   //Formats an action.
   //customActionName is optional and only used if the action lacks an action.name property
   
-  const activCombined = `${pilotMechActionType(action)}${activationFormat(action.activation)}`
+  let activCombined = `${pilotMechActionType(action)}${activationFormat(action.activation)}`
+  //Activation string, e.g. "Pilot and Mech Quick Action", or "Quick Tech (Invade))"
+  if (action.frequency) activCombined += `, *${action.frequency}*`
   
   let out = `**${action.name || customActionName || 'Unnamed Action'}** (${activCombined})\n`
+  //Output is Action Name (Activation Type)
+  
   if (action.trigger) out += `*Trigger:* ${turndownService.turndown(action.trigger)}\n` //For reactions
   out += `${action.trigger? "*Effect:* " : ''}${turndownService.turndown(action.detail)}\n`
   return out;
