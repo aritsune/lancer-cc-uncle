@@ -131,19 +131,19 @@
     "traits": [
       {
         "name": "Guardian",
-        "description": "Adjacent allied characters can use the Sagarmartha as hard cover."
+        "description": "Adjacent allied characters can use the Sagarmatha as hard cover."
       },
       {
         "name": "Heroism",
-        "description": "1/scene the Sagarmartha can brace without sacrificing any actions or movement on its following turn.",
+        "description": "1/scene the Sagarmatha can brace without sacrificing any actions or movement on its following turn.",
         "synergies": [{
           "locations": ["active_effects"],
-          "detail": "1/scene the Sagarmartha can brace without sacrificing any actions or movement on its following turn."
+          "detail": "1/scene the Sagarmatha can brace without sacrificing any actions or movement on its following turn."
         }]
       },
       {
         "name": "Replaceable Parts",
-        "description": "While resting, the Sagarmartha can be repaired at a rate of 1 repair per structure damage instead of 2.",
+        "description": "While resting, the Sagarmatha can be repaired at a rate of 1 repair per structure damage instead of 2.",
         "bonuses": [{
           "id": "cheap_struct",
           "val": 1
