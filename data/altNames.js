@@ -290,6 +290,11 @@ module.exports = function (originalData) {
       item.ranks.forEach(rank => item.alt_names.push(rank.name))
     }
 
+    //Add "X" in tags that have "{VAL}" (e.g. "{VAL}/round" gets the altname "X/Round")
+    if (item.data_type === 'Tag' && item.name && item.name.includes("{VAL}")) {
+      item.alt_names.push(item.name.replace("{VAL}", "X"))
+    }
+
     return item
   })
 
