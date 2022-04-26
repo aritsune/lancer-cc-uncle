@@ -1,0 +1,187 @@
+[{
+    "id": "mw_ferrofluid_lance",
+    "name": "FERROFLUID LANCE",
+    "mount": "Main",
+    "type": "Melee",
+    "damage": [{
+      "type": "Kinetic",
+      "val": "1d6"
+    }],
+    "range": [{
+      "type": "Threat",
+      "val": 2
+    }],
+    "tags": [{
+      "id": "tg_round",
+      "val": 1
+    }],
+    "source": "SSC",
+    "license": "WHITE WITCH",
+    "license_level": 1,
+    "on_hit": "1/round, you may force a character hit by this weapon to make a Hull save. On a failure, both you and your target are Immobilized and cannot be moved in any way. For the duration, the target always considers you within range for melee attacks. On any subsequent turn, you can end this effect as a protocol, knocking your target 4 spaces in any direction, or your target can end it by successfully hitting you with a ranged or melee attack. This condition can’t be removed any other way.",
+    "actions": [{
+      "name": "Ferrofluid Lance Fling",
+      "activation": "Protocol",
+      "frequency": "1/round",
+      "detail": "End the immobilization effect of the Ferrofluid Lance on both you and your target to knock them back 4 spaces in any direction."
+    }],
+    "description": "“To say we can pull this needle from ‘thin air’ is the best-fit phrase, but it’s not accurate. Not entirely. There’s no such thing as thin air, not in the way one means it when they use that phrase. ‘Agreeable atomic space’ – that’s what ‘thin air’ really is. A place where one could – if one could – coalesce utility from useless particulate mass with a thought. With a snap of our finger. Here, watch this –”",
+    "data_type": "weapon",
+    "aptitude": {}
+  },
+  {
+    "id": "mw_retort_loop",
+    "name": "RETORT LOOP",
+    "mount": "Heavy",
+    "type": "Cannon",
+    "profiles": [{
+      "name": "0 Charges",
+      "on_attack": "When fired, the weapon deals an additional 1d6 kinetic damage per charge, up to a maximum of 3 charges. Once fired, the charges deplete to 0, hit or miss. They also deplete to 0 if you take structure or stress damage.",
+      "range": [{
+        "type": "Range",
+        "val": 10
+      }],
+      "damage": [{
+        "type": "Kinetic",
+        "val": "3"
+      }]
+    }, {
+      "name": "1 Charge",
+      "on_attack": "When fired, the weapon deals an additional 1d6 kinetic damage per charge, up to a maximum of 3 charges. Once fired, the charges deplete to 0, hit or miss. They also deplete to 0 if you take structure or stress damage.",
+      "range": [{
+        "type": "Range",
+        "val": 10
+      }],
+      "damage": [{
+        "type": "Kinetic",
+        "val": "1d6+3"
+      }],
+      "tags": [{
+          "id": "tg_reliable",
+          "val": 2
+        },
+        {
+          "id": "tg_knockback",
+          "val": 1
+        }
+      ]
+    }, {
+      "name": "2 Charges",
+      "on_attack": "When fired, the weapon deals an additional 1d6 kinetic damage per charge, up to a maximum of 3 charges. Once fired, the charges deplete to 0, hit or miss. They also deplete to 0 if you take structure or stress damage.",
+      "range": [{
+        "type": "Range",
+        "val": 10
+      }],
+      "damage": [{
+        "type": "Kinetic",
+        "val": "2d6+3"
+      }],
+      "tags": [{
+          "id": "tg_reliable",
+          "val": 4
+        },
+        {
+          "id": "tg_knockback",
+          "val": 2
+        }
+      ]
+    }, {
+      "name": "3 Charges",
+      "on_attack": "When fired, the weapon deals an additional 1d6 kinetic damage per charge, up to a maximum of 3 charges. Once fired, the charges deplete to 0, hit or miss. They also deplete to 0 if you take structure or stress damage.",
+      "range": [{
+        "type": "Range",
+        "val": 10
+      }],
+      "damage": [{
+        "type": "Kinetic",
+        "val": "3d6+3"
+      }],
+      "tags": [{
+          "id": "tg_reliable",
+          "val": 6
+        },
+        {
+          "id": "tg_knockback",
+          "val": 3
+        }
+      ]
+    }],
+    "source": "SSC",
+    "license": "WHITE WITCH",
+    "license_level": 3,
+    "effect": "Any time you take damage from a hostile source you may choose to store a charge in this weapon. It fires with an additional +1d6 kinetic damage, Reliable 2, and Knockback 1 for each charge stored, to a maximum of 3 charges. Once fired, it clears all charges, hit or miss.",
+    "description": "“Ultimately, I have to return to the core of what we made, the code we cracked when we finally figured out NO/EM. From a simple prompt, we created a terrible engine. I am more proud of what we did than anything I’ve ever worked on before, but it should never see the light of day. Working with Visual convinced me of this: it’s their job to translate our work to sales, and they could not. If the translator cannot understand the text … then who are they to rewrite it? Who is the reader to attempt to access it? I conclude my summary with this: mothball the platform. There are less terrible paths we can walk.”",
+    "counters": [{
+      "id": "ctr_mw_retort_loop",
+      "name": "Retort Loop",
+      "min": 0,
+      "max": 3
+    }],
+    "data_type": "weapon",
+    "aptitude": {}
+  },
+  {
+    "id": "mw_bolt_nexus",
+    "name": "BOLT NEXUS",
+    "mount": "Main",
+    "type": "Nexus",
+    "tags": [{
+      "id": "tg_smart"
+    }],
+    "profiles": [{
+      "name": "Default",
+      "on_hit": "Once this weapon hits a character, it gains the Target Acquired profile against that character only until you attack a new character with this weapon.",
+      "damage": [{
+        "type": "Energy",
+        "val": 1
+      }],
+      "range": [{
+        "type": "Range",
+        "val": 10
+      }]
+    }, {
+      "name": "Target Acquired",
+      "on_hit": "",
+      "damage": [{
+        "type": "Energy",
+        "val": 4
+      }],
+      "range": [{
+        "type": "Range",
+        "val": 20
+      }],
+      "tags": [{
+          "id": "tg_seeking"
+        },
+        {
+          "id": "tg_reliable",
+          "val": 4
+        }
+      ]
+    }],
+    "source": "SSC",
+    "license": "EMPEROR",
+    "license_level": 1,
+    "description": "“But they denied Him. So their Lord brought down upon them destruction for their sin, and did not fear retribution, for He was the LORD, and above reproach. Put out your eye if you think otherwise.”<br>— Witnessed from the Cyrus 2.14 ferromemetic",
+    "data_type": "weapon",
+    "aptitude": {}
+  }, {
+    "id": "mw_emperor_integrated",
+    "name": "Marathon Arc Bow",
+    "mount": "Main",
+    "type": "Launcher",
+    "on_attack": "Allied characters caught in the area are not attacked, but instead have any Overshield supercharged, increasing it by +4, but clearing all Overshield at the end of their next turn. If they have no Overshield, they instead gain Overshield 2.",
+    "range": [{
+      "type": "Line",
+      "val": 15
+    }],
+    "damage": [{
+      "type": "Energy",
+      "val": "1d6"
+    }],
+    "description": "“Directed Subjective Convergence Weapon, Pattern 3. Or as Visual calls it, the ‘Marathon Arc’. I suppose it is a better name. Imposing. Inaccurate but Visual has never been accurate. The Arc forces realignment along a superpositional plane, destabilizing targets without the correct pineal hash while imparting sympathetic lensing on those with the correct hash; a simple ‘weapon’ that emulates an Overmind’s corrective/imperative push.”",
+    "tags": [{
+      "id": "tg_ap"
+    }]
+  }
+]

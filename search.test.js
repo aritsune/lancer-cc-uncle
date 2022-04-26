@@ -2,6 +2,11 @@ const {search, getDetails} = require('./search')
 const format = require('./format')
 const data = require('./data')
 
+// a lot of these tests are broken because of one of two things
+// 1) the "search category" feature, which is implemented, just not rolled out,
+// 2) things w/ same names (e.g. skill trigger Patch vs pilot item Patch)
+// dont worry about it
+
 let searchable = []
 Object.keys(data).forEach(key => {
   searchable = searchable.concat(data[key])

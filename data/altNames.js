@@ -158,6 +158,14 @@ const staticsList = [
   {
     "id": "mf_pegasus",
     "names": ["btwike"]
+  },
+  {
+    "id": "mf_minotaur_alt_wraith",
+    "names": ["wraith"]
+  },
+  {
+    "id": "ms_ayah_of_the_syzygy",
+    "names": ["ayah of the syzygy"]
   }
   
 ]

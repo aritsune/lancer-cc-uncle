@@ -1,0 +1,50 @@
+[{
+    "id": "t_house_guard",
+    "name": "HOUSE GUARD",
+    "terse": "Improve your ability to defend your allies.",
+    "description": "You fight at the side of your allies, your mech a bulwark that grants them unbreakable resolve and bolsters them up to greater glory.",
+    "ranks": [{
+        "name": "FRONT RANK",
+        "description": "You count as adjacent when you are within Range 2 for the purposes of your effects on allied characters (from your traits, talents, systems, or weapons) that require adjacency to your mech."
+      },
+      {
+        "name": "GREATER GUARDIAN",
+        "description": "Your mech gains the Guardian trait if it doesn’t already have it (adjacent allies can use your mech as hard cover). Guardian now additionally grants soft cover to all adjacent allies from all directions."
+      },
+      {
+        "name": "SHIELD OF THE LEGION",
+        "description": "1/round, when you reduce damage to an allied character, cancel an attack against them, or cause one to miss, you may deal 2 energy damage to the attacker and knock them Prone."
+      }
+    ]
+  },
+  {
+    "id": "t_pankrati",
+    "name": "PANKRATI",
+    "terse": "Rush and overpower slower opponents",
+    "description": "Your fighting is as flashy as the greatest fighters of the Kreoss, and your mech leaps into battle with great aplomb.",
+    "ranks": [{
+        "name": "VENI",
+        "description": "You gain +1 Accuracy to melee attacks against Immobilized or Slowed targets.",
+        "synergies": [{
+          "locations": ["weapon"],
+          "detail": "Your melee attacks against Immobilized or Slowed characters gain +1 Accuracy.",
+          "weapon_types": ["Melee"]
+        }]
+      },
+      {
+        "name": "VIDI",
+        "description": "1/scene, you can make a Valiant Charge as a free action on your turn, moving up to twice your Speed and ignoring terrain penalties. You must move in a straight line and end your charge adjacent to a hostile character, and you cannot start your charge adjacent to any hostile characters. When you end your charge, any adjacent hostile characters are Slowed until the end of their next turn.",
+        "actions": [{
+          "name": "Valiant Charge",
+          "activation": "Free",
+          "frequency": "1/scene",
+          "detail": "You charge, moving up to twice your Speed and ignoring terrain penalties. You must move in a straight line and end your charge adjacent to a hostile character, and you cannot start your charge adjacent to any hostile characters. When you end your charge, any adjacent hostile characters are Slowed until the end of their next turn."
+        }]
+      },
+      {
+        "name": "VICI",
+        "description": "If you start your Valiant Charge adjacent to any allied characters, they may immediately Boost as a reaction after your charge resolves."
+      }
+    ]
+  }
+]

@@ -1,0 +1,7 @@
+[{
+  "name": "INTANGIBLE",
+  "icon": "",
+  "type": "Status",
+  "terse": "Cannot interact with anything which isn't also intangible.",
+  "effects": "INTANGIBLE characters can move through obstructions such as characters or terrain but not end their turns in them. They, their actions, and any effects they own or control can only affect other Intangible characters and objects. Tangible characters can move through INTANGIBLE characters and objects but not end their turns inside their spaces and can’t affect them in any way. INTANGIBLE characters cannot capture points or count for zones (for sitreps) and don’t count as adjacent to tangible characters.<br>Effects that are already active on a character when they become INTANGIBLE, such as statuses, remain active, but effects that require an ongoing interaction between two characters or objects (like traps or force fields) end. If a mech becomes INTANGIBLE, its pilot remains INTANGIBLE for the same duration."
+}]
