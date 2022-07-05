@@ -11,8 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^12.5.3",
-    "discord.js-commando": "^0.12.3",
+    "@iceprod/discord.js-commando": "^0.15.1",
+    "discord.js": "^13.8.1",
     "dotenv": "^8.2.0",
     "fuse.js": "^5.1.0",
     "lancer-data": "^3.0.33",
