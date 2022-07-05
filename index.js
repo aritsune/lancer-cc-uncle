@@ -1,4 +1,4 @@
-const Commando = require('discord.js-commando')
+const Commando = require('@iceprod/discord.js-commando')
 const { search, getDetails } = require('./search')
 const format = require('./format')
 const structureDamage = require('./util/structure-damage')

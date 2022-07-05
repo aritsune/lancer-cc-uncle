@@ -1,4 +1,4 @@
-const Commando = require('discord.js-commando')
+const Commando = require('@iceprod/discord.js-commando')
 const Fuse = require('fuse.js')
 
 
