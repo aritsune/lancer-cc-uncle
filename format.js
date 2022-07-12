@@ -461,7 +461,7 @@ module.exports = function format(object) {
   }
   
   integrated_formatted = integrated_formatted.join('\n').trim();
-  console.log("Formatted", objName, "\n", integrated_formatted)
+  console.log("Formatted", objName) // "\n", integrated_formatted)
   return integrated_formatted
   
 }

@@ -4,6 +4,7 @@ const format = require('./format')
 const structureDamage = require('./util/structure-damage')
 const stressDamage = require('./util/stress-damage')
 require('dotenv').config()
+const { Util } = require("discord.js")
 
 /*
 /data/index.js is the data cleaner/importer. the result of /data/ is a data object.
@@ -73,8 +74,11 @@ class SearchCommand extends Commando.Command {
       if (results.length === 0) return `No results found for *${(tgt.category || '')}${tgt.term.replace(/@/g, '\\@')}*.`
       else return format(results[0].item)
     }).join('\n--\n')
-
-    await msg.reply('\n' + results, { split: true })
+    
+    const splitMessages = Util.splitMessage('\n' + results)
+    for (let i = 0; i < splitMessages.length; ++i) {
+      await msg.reply(splitMessages[i])
+    }
   }
 }
 
