@@ -25,7 +25,7 @@ const client = new Commando.Client({
 
 client.once('ready', () => {
   console.log(`Logged in as ${client.user.tag}! (${client.user.id})`)
-  client.user.setActivity('LANCER | use [[brackets]]')
+  client.user.setActivity('LANCER | use /commands')
 })
 
 class DmCommand extends Commando.Command {
@@ -36,11 +36,14 @@ class DmCommand extends Commando.Command {
       memberName: 'dm-me',
       aliases: ['dm_me', 'enable-dms', 'enable_dms', 'enable-dm', 'enable_dm'],
       description: 'UNCLEBot DMs you one message, enabling you to send commands via DM.',
-      guildOnly: false
+      guildOnly: false,
+      interactions: [{ type: "slash" }]
     })
   }
   async run(msg) {
-    await msg.author.send("Added your DM to my cached channels. You can now DM me commands.")
+      msg.reply("Adding your DM to my cached channels.").then(async () => {
+          await msg.author.send("Added your DM to my cached channels. You can now DM me commands.")
+      })
   }
 }
 
@@ -52,20 +55,28 @@ class SearchCommand extends Commando.Command {
       memberName: 'search',
       aliases: ['search', 'compendium'],
       description: 'Searches the LANCER compendium, including supplements.',
-      patterns: [/\[\[(.+:)?(.+?)\]\]/],
       defaultHandling: false,
       throttling: false,
-      guildOnly: false
+      guildOnly: false,
+      interactions: [{ type: "slash" }],
+      argsType: "single",
+      args: [{
+        type: "string",
+        prompt: "Search the LANCER compendium, including supplements.",
+        key: "search"
+      }]
     })
   }
-  async run(msg) {
-    //console.log(msg.content)
+  async run(msg, args) {
+    const searchTerm = `${args.search}`
+    // console.log(searchTerm)
     let targets = [];
     //Identify a searchable term.
-    const re = /\[\[(.+:)?(.+?)\]\]/g
-    let matches;
-    while ((matches = re.exec(msg.content)) != null) {
-      targets.push({term: matches[2], category: matches[1]})
+    const matches = searchTerm.split(":")
+    if (matches.length > 1) {
+      targets.push({term: matches[1], category: matches[0]})
+    } else {
+      targets.push({term: matches[0], category: undefined})
     }
     
     const results = targets.map(tgt => {
@@ -76,8 +87,9 @@ class SearchCommand extends Commando.Command {
     }).join('\n--\n')
     
     const splitMessages = Util.splitMessage('\n' + results)
+    let currentMessage = msg
     for (let i = 0; i < splitMessages.length; ++i) {
-      await msg.reply(splitMessages[i])
+      currentMessage = await currentMessage.reply(splitMessages[i])
     }
   }
 }
@@ -89,7 +101,8 @@ class InviteCommand extends Commando.Command {
       group: 'lancer',
       memberName: 'invite',
       description: 'Get an invite link for UNCLE',
-      guildOnly: false
+      guildOnly: false,
+      interactions: [{ type: "slash" }]
     })
     client.on('ready', () => this.userID = client.user.id)
   }
@@ -107,8 +120,9 @@ class StructureCommand extends Commando.Command {
       aliases: ['structure-check', 'structure_check', 'structure-damage', 'structure_damage'],
       group: 'lancer',
       memberName: 'structure',
-      description: 'Look up an entry on the structure check table. Parameters: Lowest dice rolled, Mech\'s remaining structure',
+      description: 'Look up an entry on the structure check table.', // Parameters: Lowest dice rolled, Mech's remaining structure
       guildOnly: false,
+      interactions: [{ type: "slash" }],
       args: [
         {
           key: 'lowest_dice_roll',
@@ -136,8 +150,9 @@ class StressCommand extends Commando.Command {
       aliases: ['stress-check', 'stress_check', 'overheating'],
       group: 'lancer',
       memberName: 'stress',
-      description: 'Look up an entry on the Stress/Overheating table. Parameters: Lowest dice rolled, Mech\'s remaining stress',
+      description: 'Look up an entry on the Stress/Overheating table.', //  Parameters: Lowest dice rolled, Mech's remaining stress
       guildOnly: false,
+      interactions: [{ type: "slash" }],
       args: [
         {
           key: 'lowest_dice_roll',
@@ -161,11 +176,15 @@ class StressCommand extends Commando.Command {
 client.registry
   .registerDefaults()
   .registerGroup('lancer', 'LANCER commands')
-  .registerCommand(FaqCommand)
-  .registerCommand(SearchCommand)
-  .registerCommand(InviteCommand)
-  .registerCommand(DmCommand)
-  .registerCommand(StructureCommand)
-  .registerCommand(StressCommand)
+  .registerCommands([
+      FaqCommand,
+      SearchCommand,
+      InviteCommand,
+      DmCommand,
+      StructureCommand,
+      StressCommand
+  ])
 
-client.login(process.env.TOKEN)
+client.login(process.env.TOKEN).then(async () => {
+  await client.registry.registerSlashGlobally()
+})

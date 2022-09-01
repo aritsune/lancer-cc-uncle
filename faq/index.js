@@ -82,12 +82,19 @@ module.exports =
         memberName: 'faq',
         description: 'Look up an entry in the Lancer FAQ/Errata, available here: https://lancer-faq.netlify.app',
         argsType: 'single',
-        guildOnly: false
+        guildOnly: false,
+        interactions: [{ type: "slash" }],
+        args: [{
+          type: "string",
+          prompt: "Look up an entry in the Lancer FAQ/Errata.",
+          key: "question"
+        }]
       })
     }
     async run(msg, arg) {
-      console.log(arg);
-      const out = await getQuestion(arg);
+      const question = arg.question
+      console.log(question);
+      const out = await getQuestion(question);
       await msg.reply(out, { split: true })
     }
   }
