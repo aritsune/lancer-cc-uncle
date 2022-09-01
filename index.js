@@ -36,7 +36,7 @@ class DmCommand extends Commando.Command {
       memberName: 'dm-me',
       aliases: ['dm_me', 'enable-dms', 'enable_dms', 'enable-dm', 'enable_dm'],
       description: 'UNCLEBot DMs you one message, enabling you to send commands via DM.',
-      guildOnly: true,
+      guildOnly: false,
       interactions: [{ type: "slash" }]
     })
   }
@@ -55,9 +55,10 @@ class SearchCommand extends Commando.Command {
       memberName: 'search',
       aliases: ['search', 'compendium'],
       description: 'Searches the LANCER compendium, including supplements.',
+      patterns: [/\[\[(.+:)?(.+?)\]\]/],
       defaultHandling: false,
       throttling: false,
-      guildOnly: true,
+      guildOnly: false,
       interactions: [{ type: "slash" }],
       argsType: "single",
       args: [{
@@ -68,15 +69,14 @@ class SearchCommand extends Commando.Command {
     })
   }
   async run(msg, args) {
-    const searchTerm = `${args.search}`
-    // console.log(searchTerm)
-    let targets = [];
-    //Identify a searchable term.
-    const matches = searchTerm.split(":")
-    if (matches.length > 1) {
-      targets.push({term: matches[1], category: matches[0]})
+    const searchTerm = args.search
+    console.log(searchTerm)
+
+    let targets;
+    if (searchTerm) {
+      targets = this.splitCommandArg(searchTerm)
     } else {
-      targets.push({term: matches[0], category: undefined})
+      targets = this.parseBrackets(msg)
     }
     
     const results = targets.map(tgt => {
@@ -92,6 +92,35 @@ class SearchCommand extends Commando.Command {
       currentMessage = await currentMessage.reply(splitMessages[i])
     }
   }
+
+  splitCommandArg(searchTerm) {
+    let targets = [];
+    //Identify a searchable term.
+    const matches = searchTerm.split(":")
+    if (matches.length > 1) {
+      targets.push({term: matches[1], category: matches[0]})
+    } else {
+      targets.push({term: matches[0], category: undefined})
+    }
+    return targets
+  }
+
+  parseBrackets(msg) {
+    let targets = [];
+    const re = /\[\[(.+:)?(.+?)\]\]/g
+    let matches;
+    let content;
+    try {
+      content = msg.content
+    } catch (e) {
+      console.error("Cannot parse message content")
+      content = ""
+    }
+    while ((matches = re.exec(content)) != null) {
+      targets.push({term: matches[2], category: matches[1]})
+    }
+    return targets
+  }
 }
 
 class InviteCommand extends Commando.Command {
@@ -101,7 +130,7 @@ class InviteCommand extends Commando.Command {
       group: 'lancer',
       memberName: 'invite',
       description: 'Get an invite link for UNCLE',
-      guildOnly: true,
+      guildOnly: false,
       interactions: [{ type: "slash" }]
     })
     client.on('ready', () => this.userID = client.user.id)
@@ -121,7 +150,7 @@ class StructureCommand extends Commando.Command {
       group: 'lancer',
       memberName: 'structure',
       description: 'Look up an entry on the structure check table.', // Parameters: Lowest dice rolled, Mech's remaining structure
-      guildOnly: true,
+      guildOnly: false,
       interactions: [{ type: "slash" }],
       args: [
         {
@@ -151,7 +180,7 @@ class StressCommand extends Commando.Command {
       group: 'lancer',
       memberName: 'stress',
       description: 'Look up an entry on the Stress/Overheating table.', //  Parameters: Lowest dice rolled, Mech's remaining stress
-      guildOnly: true,
+      guildOnly: false,
       interactions: [{ type: "slash" }],
       args: [
         {
@@ -185,6 +214,15 @@ client.registry
       StressCommand
   ])
 
-client.login(process.env.TOKEN).then(async () => {
-  await client.registry.registerSlashGlobally()
-})
+client.login(process.env.TOKEN)
+    .then(async () => {
+      client.guilds.cache.forEach((guild) => {
+        console.log(`registering commands to guild ${guild.id}`)
+        client.registry.registerSlashInGuild(guild)
+      })
+
+      client.on("guildCreate", async (guild) => {
+        console.log(`Joining guild ${guild.id}`)
+        await client.registry.registerSlashInGuild(guild)
+      })
+    })
