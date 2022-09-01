@@ -36,7 +36,7 @@ class DmCommand extends Commando.Command {
       memberName: 'dm-me',
       aliases: ['dm_me', 'enable-dms', 'enable_dms', 'enable-dm', 'enable_dm'],
       description: 'UNCLEBot DMs you one message, enabling you to send commands via DM.',
-      guildOnly: false,
+      guildOnly: true,
       interactions: [{ type: "slash" }]
     })
   }
@@ -57,7 +57,7 @@ class SearchCommand extends Commando.Command {
       description: 'Searches the LANCER compendium, including supplements.',
       defaultHandling: false,
       throttling: false,
-      guildOnly: false,
+      guildOnly: true,
       interactions: [{ type: "slash" }],
       argsType: "single",
       args: [{
@@ -101,7 +101,7 @@ class InviteCommand extends Commando.Command {
       group: 'lancer',
       memberName: 'invite',
       description: 'Get an invite link for UNCLE',
-      guildOnly: false,
+      guildOnly: true,
       interactions: [{ type: "slash" }]
     })
     client.on('ready', () => this.userID = client.user.id)
@@ -121,7 +121,7 @@ class StructureCommand extends Commando.Command {
       group: 'lancer',
       memberName: 'structure',
       description: 'Look up an entry on the structure check table.', // Parameters: Lowest dice rolled, Mech's remaining structure
-      guildOnly: false,
+      guildOnly: true,
       interactions: [{ type: "slash" }],
       args: [
         {
@@ -151,7 +151,7 @@ class StressCommand extends Commando.Command {
       group: 'lancer',
       memberName: 'stress',
       description: 'Look up an entry on the Stress/Overheating table.', //  Parameters: Lowest dice rolled, Mech's remaining stress
-      guildOnly: false,
+      guildOnly: true,
       interactions: [{ type: "slash" }],
       args: [
         {
