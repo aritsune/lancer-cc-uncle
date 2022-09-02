@@ -5,6 +5,7 @@ const structureDamage = require('./util/structure-damage')
 const stressDamage = require('./util/stress-damage')
 require('dotenv').config()
 const { Util } = require("discord.js")
+const { Routes } = require('discord-api-types/v9');
 
 /*
 /data/index.js is the data cleaner/importer. the result of /data/ is a data object.
@@ -216,13 +217,23 @@ client.registry
 
 client.login(process.env.TOKEN)
     .then(async () => {
-      client.guilds.cache.map(async (guild) => {
-        console.log(`registering commands to guild ${guild.id}`)
-        await client.registry.registerSlashInGuild(guild)
-      })
-
-      client.on("guildCreate", async (guild) => {
-        console.log(`Joining guild ${guild.id}`)
-        await client.registry.registerSlashInGuild(guild)
-      })
+      await registerCommandsToAllGuilds()
     })
+
+// this is a hack, liable to break. it is based on the implementation of client.registry.registerSlashGlobally(),
+// but it explicitly sets dm_permission for slash commands to false, which commando does not support doing.
+async function registerCommandsToAllGuilds() {
+  const commands = client.registry._prepareCommandsForSlash().map((command) => {
+    // slash commands are type 1
+    if (command.type === 1) {
+      return { ...command, dm_permission: false }
+    } else {
+      return command
+    }
+  })
+
+  await client.registry.rest.put(
+      Routes.applicationCommands(client.user.id),
+      { body: commands }
+  );
+}
