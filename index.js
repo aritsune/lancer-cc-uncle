@@ -216,9 +216,9 @@ client.registry
 
 client.login(process.env.TOKEN)
     .then(async () => {
-      client.guilds.cache.forEach((guild) => {
+      client.guilds.cache.map(async (guild) => {
         console.log(`registering commands to guild ${guild.id}`)
-        client.registry.registerSlashInGuild(guild)
+        await client.registry.registerSlashInGuild(guild)
       })
 
       client.on("guildCreate", async (guild) => {
