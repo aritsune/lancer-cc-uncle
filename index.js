@@ -55,9 +55,7 @@ class SearchCommand extends Commando.Command {
       group: 'lancer',
       memberName: 'search',
       aliases: ['search', 'compendium'],
-      description: 'Searches the LANCER compendium, including supplements.',
-      patterns: [/\[\[(.+:)?(.+?)\]\]/],
-      defaultHandling: false,
+      description: 'Searches the LANCER compendium, including supplements. **(Use "search" for short.)**',
       throttling: false,
       guildOnly: false,
       interactions: [{ type: "slash" }],
@@ -220,9 +218,8 @@ client.login(process.env.TOKEN)
       await registerCommandsToAllGuilds()
     })
 
-// this is a hack, liable to break. I would use client.registry.registerSlashGlobally() but that's really slow
-// for some reason. bugs:
-// -the search-compendium command doesn't work in DMs but it works in guilds. why.
+// this is a hack, liable to break. I would use client.registry.registerSlashGlobally() but that's really slow.
+// bugs:
 // -every DM command needs to NOT be prefixed with a slash and it will work. what.
 async function registerCommandsToAllGuilds() {
   // const commands = client.registry._prepareCommandsForSlash()
