@@ -222,8 +222,6 @@ client.login(process.env.TOKEN)
 // bugs:
 // -every DM command needs to NOT be prefixed with a slash and it will work. what.
 async function registerCommandsToAllGuilds() {
-  // const commands = client.registry._prepareCommandsForSlash()
-
   const commands = client.registry._prepareCommandsForSlash().map((command) => {
     // slash commands are type 1
     if (command.type === 1) {
