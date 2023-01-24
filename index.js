@@ -220,17 +220,20 @@ client.login(process.env.TOKEN)
       await registerCommandsToAllGuilds()
     })
 
-// this is a hack, liable to break. it is based on the implementation of client.registry.registerSlashGlobally(),
-// but it explicitly sets dm_permission for slash commands to false, which commando does not support doing.
+// this is a hack, liable to break. I would use client.registry.registerSlashGlobally() but that's really slow
+// for some reason. also the search-compendium command doesn't work in DMs but it works in guilds. why.
 async function registerCommandsToAllGuilds() {
+  // const commands = client.registry._prepareCommandsForSlash()
+
   const commands = client.registry._prepareCommandsForSlash().map((command) => {
     // slash commands are type 1
     if (command.type === 1) {
-      return { ...command, dm_permission: false }
+      return { ...command, dm_permission: true }
     } else {
       return command
     }
   })
+  console.log(commands)
 
   await client.registry.rest.put(
       Routes.applicationCommands(client.user.id),
