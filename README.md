@@ -4,7 +4,7 @@ UNCLEBot is a Discord bot for looking up items and rules from LANCER, a tactical
 
 It was originally developed by ari, and is currently being maintained by Fungus. 
 
-Invite to your server: https://discordapp.com/api/oauth2/authorize?client_id=686085650222415887&permissions=76800&scope=bot
+Invite to your server: https://discordapp.com/api/oauth2/authorize?client_id=686085650222415887&permissions=2147483648&scope=bot
 
 For help with UNCLEBot, visit the PilotNET server: https://discord.gg/lancer
 
@@ -12,21 +12,21 @@ For help with UNCLEBot, visit the PilotNET server: https://discord.gg/lancer
 
 | Command | Description |
 | --- | --- |
-| `::help` | Display a list of available commands, or detailed information for a specified command. |
-| `::faq` | Look up an entry in the Lancer FAQ/Errata, available here: https://lancer-faq.netlify.app |
-| `::invite` |  Get an invite link for UNCLE |
-| `::dm-me` | UNCLEBot DMs you one message, enabling you to send commands via DM. |
-| ``[[search term]]`` | Searches the LANCER compendium for <search term>, including supplements. Note that UNCLE doesn't have NPC information in it, since NPC content is content you're supposed to pay for.|
-| `::structure` | Look up an entry on the structure check table. Parameters: Lowest dice rolled, Mech's remaining structure |
-| `::stress` | Look up an entry on the Stress/Overheating table. Parameters: Lowest dice rolled, Mech's remaining stress |
+| `/help` | Display a list of available commands, or detailed information for a specified command. |
+| `/faq` | Look up an entry in the Lancer FAQ/Errata, available here: https://lancer-faq.netlify.app |
+| `/invite` |  Get an invite link for UNCLE |
+| `/dm-me` | UNCLEBot DMs you one message, enabling you to send commands via DM. |
+| `/search-compendium` | Searches the LANCER compendium for <search term>, including supplements. Note that UNCLE doesn't have NPC information in it, since NPC content is content you're supposed to pay for.|
+| `/structure` | Look up an entry on the structure check table. Parameters: Lowest dice rolled, Mech's remaining structure |
+| `/stress` | Look up an entry on the Stress/Overheating table. Parameters: Lowest dice rolled, Mech's remaining stress |
 
 ## Sending Commands via DM
 
-TL;DR You'll need to use the `::dm-me` command.
+TL;DR You'll need to use the `/dm-me` command.
 
 This is a limitation of the underlying discordjs library -- when a client starts, it doesn't load any of its DM channels into its cache.
 
-Basically, when UNCLE reboots, UNCLE forgets all the DMs it was involved in, and can't manually fetch them. The workaround is to force UNCLE to DM you, which makes UNCLE become aware that your DM channel exists, enabling commands to be sent via DM
+Basically, when UNCLE reboots, UNCLE forgets all the DMs it was involved in, and can't manually fetch them. The workaround is to force UNCLE to DM you, which makes UNCLE become aware that your DM channel exists, enabling commands to be sent via DM.
 
 # Using your own instance of UNCLE
 
