@@ -14,7 +14,7 @@ const staticsList = [
   {
     "id": "mf_black_witch_alt_orchidea",
     "names": ["orchis", "orchidea", "orchid"]
-    //fuse's search matches orochi and horos before "ssc baronic interest orchidea"
+    //fuse's search algorithm matches orochi and horos before "ssc baronic interest orchidea"
   },
   {
     "id": "mf_swallowtail_alt_swallowtail_ranger_variant",
@@ -24,6 +24,10 @@ const staticsList = [
     "id": "ms_roller_directed_payload_charges",
     "names": ["roller charges"]
   },
+  {
+    "id": "FLIGHT/HOVER",
+    "names": ["flying"] // previously "flying" brought up gunslinger
+  }, 
   
   //https://docs.google.com/document/d/1UQRVRKkldAnoKQvDrXWGAAptA8yyv46mUh9FK-g8P1I/edit
   //"Lancer Character Corner Common Abbreviations Guide"
