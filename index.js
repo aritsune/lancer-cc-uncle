@@ -55,7 +55,7 @@ class SearchCommand extends Commando.Command {
       group: 'lancer',
       memberName: 'search',
       aliases: ['search', 'compendium'],
-      description: 'Searches the LANCER compendium, including supplements. **(Use "search" for short.)**',
+      description: 'Searches the LANCER compendium, including supplements.',
       throttling: false,
       guildOnly: false,
       interactions: [{ type: "slash" }],
