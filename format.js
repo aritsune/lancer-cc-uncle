@@ -2,11 +2,6 @@ const data = require('./data');
 const emoji = require('./emoji.json')
 const turndownService = require('turndown')()
 
-//Just takes data_type and outputs a pretty-print version.
-// function itemTypeFormat(object) {
-//   return object.data_type ? object.data_type : ''
-// }
-
 // ===== HELPERS =====
 
 //Identifies the source of an item (e.g. SSC Metalmark 3, Talent - Ace)
@@ -16,12 +11,6 @@ function licenseFormat(object) {
   else if (object.tags && object.tags.find(tag => tag.id === 'tg_exotic')) return "Exotic"
   //else if (object.frame_integrated) return `${object.frame_integrated} Core Integrated`
   else if (object.source) return `${object.source} ${object.license} ${object.license_level}`
-  else return ''
-}
-
-//TODO (Search Namespacing) - use this in places
-function contentPackFormat(object) {
-  if (object.content_pack) return `(From *${object.content_pack}*)`
   else return ''
 }
 
@@ -393,11 +382,6 @@ function weaponFormat(weapon) {
 }
 
 module.exports = function format(object) {
-  let objName = object.id || object.name || 'unidentified object'
-  
-  console.log("Formatting", objName, "of type", object.data_type)
-  // console.log(object)
-  
   let integrated_formatted = ['']
   // This is an array to support arbitrary depths of integrated contents 
   // (a mech with an integrated weapon with an integrated mod with an integrated...)
@@ -413,7 +397,7 @@ module.exports = function format(object) {
 *(from ${object.content_pack})*`)
   }
   
-  switch (object.data_type) {
+  switch (object?.data_type) {
     case 'Action':
       formatWithSource(actionFormat, object);
       break;
@@ -463,13 +447,11 @@ module.exports = function format(object) {
       formatWithSource(weaponFormat, object);
       break;
     default:
-      console.log("Unrecognized type", (object.data_type || object.type),
-        "Object was:", (object.name || object.id || "no name or id"))
+      console.log("Unrecognized type", (object?.data_type || object?.type),
+        "Object was:", (object?.name || object?.id || "no name or id"))
       break;
   }
   
   integrated_formatted = integrated_formatted.join('\n').trim();
-  console.log("Formatted", objName) // "\n", integrated_formatted)
   return integrated_formatted
-  
 }

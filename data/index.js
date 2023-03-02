@@ -75,7 +75,6 @@ data_pack_paths.forEach(pack_path => {
   data_pack_files.forEach(file => {
     
     let adjusted_file_name = "." + file_path_regex.exec(pack_path+file)[1]
-    // console.log("Adjusted file name", adjusted_file_name) 
 
     function concatFileContentsToExisting(existing, adjusted_file_name) {
       file_contents = require(adjusted_file_name)

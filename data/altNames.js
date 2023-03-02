@@ -291,7 +291,7 @@ module.exports = function (originalData) {
       item.deployables.forEach(dep => item.alt_names.push(dep.name))
     }
     
-    // Add traits as altnames to frames -- NOT IMPLEMENTED
+    // Add traits as altnames to frames -- NOT IMPLEMENTED since it depends on search namespacing.
     // if (item.data_type === 'Frame' && item.traits && item.traits.length > 0) {
     //   TODO (Search Namespacing) - ensure traits like "Slow" or "Guardian" are NOT included as altnames
     //   item.traits.forEach(trait => item.alt_names.push(trait.name))
