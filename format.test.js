@@ -246,22 +246,24 @@ test('all weapons at once', () => {
 })
 
 test('Reactions should display frequency - 1/round', () => {
-  let jk2 = searchable.filter(item => item.id === "ms_jäger_kunst_ii")[0]
-  let jk2_output = format(jk2)
-  expect(jk2_output).toEqual(expect.stringContaining("1/round"))
-
-})
-
-test('Reactions should display frequency - 1/scene', () => {
-  let empath = searchable.filter(item => item.id === "t_empath")[0]
-  let empath_output = format(empath)
-  expect(empath_output).toEqual(expect.stringContaining("1/scene"))
+  let ovw = searchable.filter(item => item.id === "act_overwatch")[0]
+  let ovw_output = format(ovw)
+  expect(ovw_output).toEqual(expect.stringContaining("1/round"))
 })
 
 test.each(mod_data)('Mods should have SP', (item) => {
-  // let supermassive = searchable.filter(item => item.id === "wm_supermassive_mod")[0]
-  // let supermassive_output = format(supermassive)
-  // expect(supermassive_output).toEqual(expect.stringContaining("1 SP"))
   let output = format(item)
   expect(output).toEqual(expect.stringContaining(item.sp + " SP"))
+})
+
+test('Items should display content_pack source - core rulebook', () => {
+  let everest = searchable.filter(item => item.id === "mf_raleigh")[0]
+  let everest_output = format(everest)
+  expect(everest_output).toEqual(expect.stringContaining("Core Rulebook"))
+})
+
+test('Items should display content_pack source - solstice rain', () => {
+  let chomo = searchable.filter(item => item.id === "mf_chomolungma")[0]
+  let chomo_output = format(chomo)
+  expect(chomo_output).toEqual(expect.stringContaining("Solstice Rain"))
 })

@@ -2,11 +2,6 @@ const data = require('./data');
 const emoji = require('./emoji.json')
 const turndownService = require('turndown')()
 
-//Just takes data_type and outputs a pretty-print version.
-// function itemTypeFormat(object) {
-//   return object.data_type ? object.data_type : ''
-// }
-
 // ===== HELPERS =====
 
 //Identifies the source of an item (e.g. SSC Metalmark 3, Talent - Ace)
@@ -16,12 +11,6 @@ function licenseFormat(object) {
   else if (object.tags && object.tags.find(tag => tag.id === 'tg_exotic')) return "Exotic"
   //else if (object.frame_integrated) return `${object.frame_integrated} Core Integrated`
   else if (object.source) return `${object.source} ${object.license} ${object.license_level}`
-  else return ''
-}
-
-//TODO (Search Namespacing) - use this in places
-function contentPackFormat(object) {
-  if (object.content_pack) return `(From *${object.content_pack}*)`
   else return ''
 }
 
@@ -332,7 +321,7 @@ function tagFormat(object) {
 function talentFormat(talent) {
   let out = `**${talent.name}** - Talent\n`
   talent.ranks.forEach((rank, i) => {
-    out += `${emoji['rank_' + (i + 1)]} **${rank.name}**:`
+    out += `${emoji['rank_' + (i + 1)]} **${rank.name}**: `
     
     // if(rank.integrated) {
     //   out += `You gain the following: ${integratedFormat(rank.integrated)}`
@@ -393,75 +382,76 @@ function weaponFormat(weapon) {
 }
 
 module.exports = function format(object) {
-  let objName = object.id || object.name || 'unidentified object'
-  
-  console.log("Formatting", objName, "of type", object.data_type)
-  //console.log(object)
-  
-  //arbitrary integrated handling
   let integrated_formatted = ['']
+  // This is an array to support arbitrary depths of integrated contents 
+  // (a mech with an integrated weapon with an integrated mod with an integrated...)
+  // Please don't make mechs like that though.
   
+  // Also, many items don't make sense as integrated (integrated mods or 
+  // integrated statuses are weird). Nonetheless, they're lightly supported.
+
+  function formatWithSource(formatter, object) {
+    integrated_formatted = integrated_formatted.concat(
+      `${formatter(object).trim()}
+
+*(from ${object.content_pack})*`)
+  }
   
-  //At the moment we don't consider integrated items of other types, as many item
-  //don't make sense as integrated (integrated mods or integrated actions are weird).
-  
-  switch (object.data_type) {
+  switch (object?.data_type) {
     case 'Action':
-      integrated_formatted = integrated_formatted.concat(actionFormat(object));
+      formatWithSource(actionFormat, object);
       break;
     case 'Condition':
-      integrated_formatted = integrated_formatted.concat(statusFormat(object));
+      formatWithSource(statusFormat, object);
       break;
     case 'CoreBonus':
-      integrated_formatted = integrated_formatted.concat(cbFormat(object));
+      formatWithSource(cbFormat, object);
       break;
     case 'CoreSystem':
-      integrated_formatted = integrated_formatted.concat(coreFormat(object));
+      formatWithSource(coreFormat, object);
       break;
     case 'Frame':
-      integrated_formatted = integrated_formatted.concat(frameFormat(object));
+      formatWithSource(frameFormat, object);
       break;
     case 'GlossaryEntry':
-      integrated_formatted = integrated_formatted.concat(glossaryFormat(object));
+      formatWithSource(glossaryFormat, object);
       break;
     case 'Mod':
-      integrated_formatted = integrated_formatted.concat(modFormat(object));
+      formatWithSource(modFormat, object);
       break;
     case 'PilotArmor':
-      integrated_formatted = integrated_formatted.concat(pilotArmorFormat(object));
+      formatWithSource(pilotArmorFormat, object);
       break;
     case 'PilotGear':
-      integrated_formatted = integrated_formatted.concat(pilotGearFormat(object));
+      formatWithSource(pilotGearFormat, object);
       break;
     case 'PilotWeapon':
-      integrated_formatted = integrated_formatted.concat(weaponFormat(object));
+      formatWithSource(weaponFormat, object);
       break;
     case 'PilotSkill':
-      integrated_formatted = integrated_formatted.concat(skillFormat(object));
+      formatWithSource(skillFormat, object);
       break;
     case 'Status':
-      integrated_formatted = integrated_formatted.concat(statusFormat(object));
+      formatWithSource(statusFormat, object);
       break;
     case 'System':
-      integrated_formatted = integrated_formatted.concat(systemFormat(object));
+      formatWithSource(systemFormat, object);
       break;
     case 'Tag':
-      integrated_formatted = integrated_formatted.concat(tagFormat(object));
+      formatWithSource(tagFormat, object);
       break;
     case 'Talent':
-      integrated_formatted = integrated_formatted.concat(talentFormat(object));
+      formatWithSource(talentFormat, object);
       break;
     case 'Weapon':
-      integrated_formatted = integrated_formatted.concat(weaponFormat(object));
+      formatWithSource(weaponFormat, object);
       break;
     default:
-      console.log("Unrecognized type", (object.data_type || object.type),
-        "Object was:", (object.name || object.id || "no name or id"))
+      console.log("Unrecognized type", (object?.data_type || object?.type),
+        "Object was:", (object?.name || object?.id || "no name or id"))
       break;
   }
   
   integrated_formatted = integrated_formatted.join('\n').trim();
-  console.log("Formatted", objName) // "\n", integrated_formatted)
   return integrated_formatted
-  
 }

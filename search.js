@@ -63,16 +63,12 @@ let searchable = [
   //weapons_without_integrated
 ].flat()
 
-//console.log(searchable[0])
-
 //integrated attribute handler
 // for (let item in searchable) {
 //   if (item.integrated) {
 //     item.integrated.map(item_id => weapon_data.find(item_id) || system_data.find(item_id))
 //   }
 // }
-
-// console.log("SEARCHABLE", searchable)
 
 const options = {
   isCaseSensitive: false,
@@ -111,15 +107,15 @@ module.exports = {
     }
     
     if (sanitized_category) {
-      /* TODO (Search Namespacing) - Reenable search namespacing once I can be bothered to figure out a use case for it.
-        There was going to be a feature where you could restrict searches to certain categories, so
+      /* TODO (Search Namespacing) - Reenable search namespacing if necessary.
+        Search Namespacing restricts searches to certain categories, so
         you could search for a term but only in the Frames, or in the Core Bonuses, etc.
-        This was only ever really useful for core bonus Neurolink Targeting and death's head frame trait Neurolink
-        but caused search quality to go down, so I just took it out.
+        e.g. Core Bonus: Neurolink Targeting vs the Death's Head frame trait,
+        Lock On status vs Lock On action, etc.
        */
       return fuse.search(term)
       
-      // //Replace shortcutted category with longer version
+      //Replace shortcutted category with longer version
       // sanitized_category = (category_shortcuts[sanitized_category] || sanitized_category)
       //
       // let unfiltered_items = fuse.search(term)
