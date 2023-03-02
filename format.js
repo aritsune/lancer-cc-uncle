@@ -332,7 +332,7 @@ function tagFormat(object) {
 function talentFormat(talent) {
   let out = `**${talent.name}** - Talent\n`
   talent.ranks.forEach((rank, i) => {
-    out += `${emoji['rank_' + (i + 1)]} **${rank.name}**:`
+    out += `${emoji['rank_' + (i + 1)]} **${rank.name}**: `
     
     // if(rank.integrated) {
     //   out += `You gain the following: ${integratedFormat(rank.integrated)}`

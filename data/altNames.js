@@ -278,10 +278,10 @@ module.exports = function (originalData) {
       item.alt_names = item.alt_names.concat([gmsAlt])
     }
     
-    //Add invasion options as altnames (e.g. Logic Bomb, Banish as altnames for Viral Logic Suite)
-    //and quick tech options (e.g. Pinpoint Focus as altname for Tesseract)
-    //also adds deployables and grenades as altnames to charges (e.g. bouncing mine for roller directed payload charges)
-    //test cases: viral logic suite, tesseract, hex charges, roller charges, portable bunker, blinkshield
+    // Add invasion options as altnames (e.g. Logic Bomb, Banish as altnames for Viral Logic Suite)
+    // and quick tech options (e.g. Pinpoint Focus as altname for Tesseract)
+    // also adds deployables and grenades as altnames to charges (e.g. bouncing mine for roller directed payload charges)
+    // test cases: viral logic suite, tesseract, hex charges, roller charges, portable bunker, blinkshield
     if (item?.actions?.length > 1) {
       item.actions.forEach(action => {
         if (action.name) item.alt_names.push(action.name)
@@ -291,11 +291,11 @@ module.exports = function (originalData) {
       item.deployables.forEach(dep => item.alt_names.push(dep.name))
     }
     
-    //Add traits as altnames to frames
-    if (item.data_type === 'Frame' && item.traits && item.traits.length > 0) {
-      // TODO (Search Namespacing) - ensure traits like "Slow" or "Guardian" are NOT included as altnames
-      // item.traits.forEach(trait => item.alt_names.push(trait.name))
-    }
+    // Add traits as altnames to frames -- NOT IMPLEMENTED
+    // if (item.data_type === 'Frame' && item.traits && item.traits.length > 0) {
+    //   TODO (Search Namespacing) - ensure traits like "Slow" or "Guardian" are NOT included as altnames
+    //   item.traits.forEach(trait => item.alt_names.push(trait.name))
+    // }
     
     //Add talent ranks as altnames to ... talents
     if (item.data_type === 'Talent' && item.ranks && item.ranks.length > 0) {
