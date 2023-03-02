@@ -109,6 +109,9 @@ data_pack_paths.forEach(pack_path => {
       case('pilot_gear.json'):
         pilot_items_data = concatFileContentsToExisting(pilot_items_data, adjusted_file_name)
         break
+      case('reserves.json'):
+        // TODO: implement reserves formatting later.
+        break
       case('skills.json'):
         skill_data = concatFileContentsToExisting(skill_data, adjusted_file_name)
         break
