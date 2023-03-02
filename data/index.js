@@ -141,6 +141,7 @@ data_pack_paths.forEach(pack_path => {
 let core_system_data = frame_data.map(frame => ({
   //id: `core_${frame.core_system.name.replace(' ', '_').toLowerCase()}`,
   source: `${frame.source} ${frame.name}`,
+  content_pack: frame.content_pack,
   ...frame.core_system
 }))
 
