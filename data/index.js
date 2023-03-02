@@ -1,11 +1,11 @@
-//Extracts data, then feeds data into format.js
+// Extracts data from LCPs, then feeds data into format.js
 
-//Load data out of the lancer-data module.
+// Load data out of the lancer-data module.
 const lancer_data = require("lancer-data");
 let {
   actions,
   core_bonuses,
-  //core_systems are extracted from the frames later
+  // core_systems are extracted from the frames later
   frames,
   glossary,
   mods,
@@ -20,11 +20,11 @@ let {
 
 let action_data = actions;
 let core_bonus_data = core_bonuses;
-//core_systems are extracted from the frames later
+// core_systems are extracted from the frames later
 let frame_data = frames;
 let glossary_data = glossary;
 let mod_data = mods;
-let pilot_items_data = pilot_gear; //pilot_gear is divided into subtypes later
+let pilot_items_data = pilot_gear; // pilot_gear is divided into subtypes later
 let skill_data = skills;
 let status_data = statuses;
 let system_data = systems;
@@ -32,20 +32,21 @@ let tag_data = tags;
 let talent_data = talents;
 let weapon_data = weapons;
 
+// content_pack describes where data came from.
 [action_data, core_bonus_data, frame_data, glossary_data,
 mod_data, pilot_items_data, skill_data, status_data, system_data,
 tag_data, talent_data, weapon_data].forEach(array =>
-  array.forEach(entry => entry.content_pack = 'Lancer Core')
+  array.forEach(entry => entry.content_pack = 'Lancer Core Rulebook')
 )
 
-//Load data out of supplemental modules (Long Rim, Wallflower, homebrew content packs)
+// Load data out of supplemental modules (Long Rim, Wallflower, homebrew content packs)
 const { readdirSync } = require('fs')
 
 const getDirectories = source =>
   readdirSync(source, { withFileTypes: true })
     .filter(dirent => dirent.isDirectory())
     .map(dirent => source + dirent.name + "/")
-//https://stackoverflow.com/a/26832802
+// https://stackoverflow.com/a/26832802
 
 const getFiles = source =>
   readdirSync(source, { withFileTypes: true })
@@ -57,57 +58,74 @@ console.log("Found data packs", data_pack_paths)
 
 data_pack_paths.forEach(pack_path => {
   
-  //Get files from pack_path directory
+  // Get files from pack_path directory
   let data_pack_files = getFiles(pack_path)
   console.log("In path", pack_path, "found files", data_pack_files)
+
+  // Adjust filenames to have the "/<LCP directory>/<filename>.json" format,
+  // stripping the "./data/" prefix
+  let file_path_regex = /\.\/data(.+\.json)/
+
+  // Get name + version number from lcp_manifest
+  manifest_file_name = "." + file_path_regex.exec(pack_path+"lcp_manifest.json")[1]
+  manifest_file = require(manifest_file_name)
+  content_source_string = `${manifest_file.name} v${manifest_file.version}, by ${manifest_file.author}`
+  // example: "Lancer Wallflower Data v1.0.7, from Massif Press"
   
   data_pack_files.forEach(file => {
     
-    //Adjust the filename to have the "/<directory>/<filename>.json" format
-    let file_path_regex = /\.\/data(.+\.json)/
     let adjusted_file_name = "." + file_path_regex.exec(pack_path+file)[1]
-    //console.log("Adjusted file name", adjusted_file_name)
-  
-    //Adjust the directory name to have a prettyprint format --TODO (Search Namespacing) -- figure this out later
-    let pack_path_pretty_regex = /^.\/data\/(.+)(-|_| )(.+)\/$/
-    let pack_path_pretty = pack_path_pretty_regex.exec(pack_path)[1]
-    
+    // console.log("Adjusted file name", adjusted_file_name) 
+
+    function concatFileContentsToExisting(existing, adjusted_file_name) {
+      file_contents = require(adjusted_file_name)
+      file_contents.map(item => item.content_pack = content_source_string)
+      return existing.concat(file_contents)
+    }
+
     switch(file) {
       case('actions.json'):
-        action_data = action_data.concat(require(adjusted_file_name))
+        action_data = concatFileContentsToExisting(action_data, adjusted_file_name)
+        break
+      // TODO: implement bond formatting later.
+      case('bonds.json'):
+        // bonds_data = bonds_data.contact(require(adjusted_file_name))
         break
       case('core_bonuses.json'):
-        core_bonus_data = core_bonus_data.concat(require(adjusted_file_name))
+        core_bonus_data = concatFileContentsToExisting(core_bonus_data, adjusted_file_name)
         break
       case('frames.json'):
-        frame_data = frame_data.concat(require(adjusted_file_name))
+        frame_data = concatFileContentsToExisting(frame_data, adjusted_file_name)
         break
       case('glossary.json'):
-        glossary_data = glossary_data.concat(require(adjusted_file_name))
+        glossary_data = concatFileContentsToExisting(glossary_data, adjusted_file_name)
+        break
+      case('lcp_manifest.json'):
+        // ignore
         break
       case('mods.json'):
-        mod_data = mod_data.concat(require(adjusted_file_name))
+        mod_data = concatFileContentsToExisting(mod_data, adjusted_file_name)
         break
       case('pilot_gear.json'):
-        pilot_items_data = pilot_items_data.concat(require(adjusted_file_name))
+        pilot_items_data = concatFileContentsToExisting(pilot_items_data, adjusted_file_name)
         break
       case('skills.json'):
-        skill_data = skill_data.concat(require(adjusted_file_name))
+        skill_data = concatFileContentsToExisting(skill_data, adjusted_file_name)
         break
       case('statuses.json'):
-        status_data = status_data.concat(require(adjusted_file_name))
+        status_data = concatFileContentsToExisting(status_data, adjusted_file_name)
         break
       case('systems.json'):
-        system_data = system_data.concat(require(adjusted_file_name))
+        system_data = concatFileContentsToExisting(system_data, adjusted_file_name)
         break
       case('tags.json'):
-        tag_data = tag_data.concat(require(adjusted_file_name))
+        tag_data = concatFileContentsToExisting(tag_data, adjusted_file_name)
         break
       case('talents.json'):
-        talent_data = talent_data.concat(require(adjusted_file_name))
+        talent_data = concatFileContentsToExisting(talent_data, adjusted_file_name)
         break
       case('weapons.json'):
-        weapon_data = weapon_data.concat(require(adjusted_file_name))
+        weapon_data = concatFileContentsToExisting(weapon_data, adjusted_file_name)
         break
       default:
         console.log(adjusted_file_name, "doesn't correspond to a known LCP file, or was otherwise ignored")
@@ -116,21 +134,21 @@ data_pack_paths.forEach(pack_path => {
   })
 })
 
-//Retrieves all core systems (core weapons included?), then gives each core system
-//a source attribute: "you come from this frame"
+// Retrieves all core systems (core weapons included?), then gives each core system
+// a source attribute: "you come from this frame"
 let core_system_data = frame_data.map(frame => ({
   //id: `core_${frame.core_system.name.replace(' ', '_').toLowerCase()}`,
   source: `${frame.source} ${frame.name}`,
   ...frame.core_system
 }))
 
-//Subdivide pilot gear
+// Subdivide pilot gear
 let pilot_armor_data = pilot_items_data.filter(pg => pg.type === "Armor");
 let pilot_gear_data = pilot_items_data.filter(pg => pg.type === "Gear");
 let pilot_weapon_data = pilot_items_data.filter(pg => pg.type === "Weapon");
 
-//Strip out anything with an id starting with "missing_", as those are compcon-specific stubs
-//glossary_data, core_system_data, statuses doesn't have IDs
+// Strip out anything with an id starting with "missing_", as those are compcon-specific stubs
+// glossary_data, core_system_data, statuses doesn't have IDs
 
 action_data = action_data.filter(data_entry => !(data_entry.id.startsWith("missing_")))
 core_bonus_data = core_bonus_data.filter(data_entry => !(data_entry.id.startsWith("missing_")))
@@ -147,7 +165,7 @@ talent_data = talent_data.filter(data_entry => !(data_entry.id.startsWith("missi
 weapon_data = weapon_data.filter(data_entry => !(data_entry.id.startsWith("missing_")))
 
 
-//Manually modify structure and stress glossary entries to include the tables
+// Manually modify structure and stress glossary entries to include the tables
 glossary_data.find(glossary_entry => glossary_entry.name === 'STRUCTURE')
   .description += `
 
@@ -210,9 +228,9 @@ Roll 1d6 per point of stress damage marked, including the stress damage that has
 </tbody>
 </table>`
 
-//Assigns data_type to each object; data_type is used to pretty-print the object's type.
-//Previously data_type was an attribute of every kind of object. It was removed.
-//This also integrates the former itemTypeFormat function
+// Assigns data_type to each object; data_type is used to pretty-print the object's type.
+// The old LCP format had data_type as an attribute of every object; this was removed, though.
+// This also integrates the former itemTypeFormat function
 action_data = action_data.map(action => ({
   ...action,
   data_type: 'Action'
