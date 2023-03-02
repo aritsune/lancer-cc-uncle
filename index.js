@@ -56,8 +56,6 @@ class SearchCommand extends Commando.Command {
       memberName: 'search',
       aliases: ['search', 'compendium'],
       description: 'Searches the LANCER compendium, including supplements.',
-      patterns: [/\[\[(.+:)?(.+?)\]\]/],
-      defaultHandling: false,
       throttling: false,
       guildOnly: false,
       interactions: [{ type: "slash" }],
@@ -81,7 +79,7 @@ class SearchCommand extends Commando.Command {
     }
     
     const results = targets.map(tgt => {
-      //Entry point for searches.
+      // Entry point for searches.
       const results = search(tgt.term, tgt.category)
       if (results.length === 0) return `No results found for *${(tgt.category || '')}${tgt.term.replace(/@/g, '\\@')}*.`
       else return format(results[0].item)
@@ -96,7 +94,7 @@ class SearchCommand extends Commando.Command {
 
   splitCommandArg(searchTerm) {
     let targets = [];
-    //Identify a searchable term.
+    // Identify a searchable term.
     const matches = searchTerm.split(":")
     if (matches.length > 1) {
       targets.push({term: matches[1], category: matches[0]})
@@ -137,7 +135,7 @@ class InviteCommand extends Commando.Command {
     client.on('ready', () => this.userID = client.user.id)
   }
   async run(msg) {
-    await msg.reply(`Invite me to your server: https://discordapp.com/api/oauth2/authorize?client_id=${this.userID}&permissions=76800&scope=bot`)
+    await msg.reply(`Invite me to your server: https://discordapp.com/api/oauth2/authorize?client_id=${this.userID}&permissions=2147483648&scope=bot`)
   }
 }
 
@@ -150,7 +148,7 @@ class StructureCommand extends Commando.Command {
       aliases: ['structure-check', 'structure_check', 'structure-damage', 'structure_damage'],
       group: 'lancer',
       memberName: 'structure',
-      description: 'Look up an entry on the structure check table.', // Parameters: Lowest dice rolled, Mech's remaining structure
+      description: 'Look up an entry on the Structure check table.', // Parameters: Lowest dice rolled, Mech's remaining structure
       guildOnly: false,
       interactions: [{ type: "slash" }],
       args: [
@@ -220,17 +218,19 @@ client.login(process.env.TOKEN)
       await registerCommandsToAllGuilds()
     })
 
-// this is a hack, liable to break. it is based on the implementation of client.registry.registerSlashGlobally(),
-// but it explicitly sets dm_permission for slash commands to false, which commando does not support doing.
+// this is a hack, liable to break. I would use client.registry.registerSlashGlobally() but that's really slow.
+// bugs:
+// -every DM command needs to NOT be prefixed with a slash and it will work. what.
 async function registerCommandsToAllGuilds() {
   const commands = client.registry._prepareCommandsForSlash().map((command) => {
     // slash commands are type 1
     if (command.type === 1) {
-      return { ...command, dm_permission: false }
+      return { ...command, dm_permission: true }
     } else {
       return command
     }
   })
+  console.log(commands)
 
   await client.registry.rest.put(
       Routes.applicationCommands(client.user.id),
