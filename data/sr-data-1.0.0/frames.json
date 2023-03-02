@@ -1,0 +1,67 @@
+[
+  {
+    "id": "mf_chomolungma",
+    "source": "GMS",
+    "license_level": 0,
+    "name": "CHOMOLUNGMA",
+    "mechtype": ["Controller", "Support"],
+    "description": "<p>While the public perception of GMS may be that of a stolid, conservative manufacturer, Union devotes substantial resources to the research and development of new armaments and technological breakthroughs in order to maintain or exceed parity with galactic-tier actors such as Harrison Armory or the Karrakin Trade Baronies. Under development by Union&apos;s Advanced Projects Special Research Agency in conjunction with General Massive Systems, the Chomolungma is a newer and more technologically advanced frame using the standard GMS Pattern I design as a base.</p><p>The Chomolungma is a specialist chassis, trading out weapon hardpoint mounting capability for additional sensors, comms/transmission arrays, and advanced GMS e-war systems including cutting-edge systemic intrusion software packages and recursive-weave hyperprocessors. In light of recent conflicts, Union has begun increasing distribution of Chomolungma licenses among both regular and auxiliary units to keep pace with evolutionary developments in battlefield tactics and technologies.</p>",
+    "mounts": ["Main/Aux", "Flex"],
+    "stats": {
+      "size": 1,
+      "structure": 4,
+      "stress": 4,
+      "armor": 0,
+      "hp": 10,
+      "evasion": 8,
+      "edef": 10,
+      "heatcap": 6,
+      "repcap": 4,
+      "sensor_range": 15,
+      "tech_attack": 1,
+      "save": 11,
+      "speed": 4,
+      "sp": 7
+    },
+    "traits": [
+      {
+        "name": "Brilliance",
+        "description": "1/scene, the Chomolungma may take any Quick Tech action as a free action, and then may either Bolster or Lock On as a free action."
+      },
+      {
+        "name": "Data Siphon",
+        "description": "Whenever the Chomolungma makes a tech attack against a hostile character, it may also automatically Scan them."
+      },
+      {
+        "name": "Replaceable Parts",
+        "description": "While resting, the Chomolungma can be repaired at a rate of 1 Repair per 1 structure damage, instead of 2 Repairs."
+      }
+    ],
+    "core_system": {
+      "name": "Advanced Intrusion Package",
+      "active_name": "Wide-Area Code Pulse",
+      "active_effect": "Choose any number of hostile characters within Sensors and make a special Invade tech attack against them, ignoring Invisible and line of sight. On hit, apply the effects of Invade as normal, choosing options for each target. On miss, targets become Impaired until the end of their next turn",
+      "activation": "Full",
+      "passive_name": "Advanced Intrusion Package",
+      "passive_effect": "Gain the following options for Invade",
+      "passive_actions": [
+        {
+          "name": "Balance Control Lockout",
+          "activation": "Invade",
+          "detail": "Push your target 2 spaces in any direction and knock them Prone. If they are already Prone, they become Immobilized until the end of their next turn. You may only Immobilize each character this way 1/scene.",
+          "cost": 0,
+          "tech_attack": true
+        },
+        {
+          "name": "System Crusher",
+          "activation": "Invade",
+          "detail": "Your target takes an additional 2 heat, for a total of 4 heat. If this Invade causes them to exceed their Heat Cap, they take 4 burn as well. This can only be used 1/scene on each character.",
+          "cost": 0,
+          "tech_attack": true
+        }
+      ]
+    },
+    "image_url": "https://compcon-image-assets.s3.amazonaws.com/frames/nodata.png",
+    "y_pos": 0
+  }
+]

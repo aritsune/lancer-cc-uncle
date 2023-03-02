@@ -1,0 +1,72 @@
+[
+  {
+    "id": "reserve_up_armoring",
+    "name": "Up-Armoring",
+    "type": "Mech",
+    "label": "Resource",
+    "description": "It’s a simple and straightforward battlefield modification to affix additional plating to a chassis’ exterior. Your mech gains +1 ARMOR for the duration of the next mission (to a maximum of 4), and you start the next combat with +5 OVERSHIELD."
+  },
+  {
+    "id": "reserve_hot_load_ammunition",
+    "name": "Hot-Load Ammunition",
+    "type": "Tactical",
+    "label": "Resource",
+    "description": "Adding this much additional power to a weapon’s ammunition is generally not sanctioned, but it is effective. You can spend this reserve to empower your weapons. The next successful ranged or melee attack you make can’t have its damage reduced in any way, and the target must pass a Hull save or be knocked Prone. This effect ends when you hit with a ranged or melee attack roll, or at the end of the scene."
+  },
+  {
+    "id": "reserve_recon_drone",
+    "name": "Recon Drone",
+    "type": "Tactical",
+    "label": "Resource",
+    "description": "With the intense signal jamming blanketing the city, these high-ceiling, long-loiter drones provide some of the best intel a pilot is likely to get. At the start of each combat, choose a single hostile character within Range 50 and Scan them. This does not require line of sight."
+  },
+  {
+    "id": "reserve_sniper_team",
+    "name": "Sniper Team",
+    "type": "Tactical",
+    "label": "Resource",
+    "description": "LSA ground forces and Union marines are getting a crash-course in joint operations on this mission, and nothing builds teamwork like target shooting. You can spend this reserve at the start of any combat to call upon a nearby sniper team to provide you with fire support. For the rest of the scene, each time you take the Lock On Quick Tech action, your target takes 2 AP kinetic damage."
+  },
+  {
+    "id": "reserve_lookingglass",
+    "name": "LOOKINGGLASS Overlay",
+    "type": "Mech",
+    "label": "Resource",
+    "description": "This head-mounted sensor add-on is capable of defeating even advanced thermal/optic/systemic camouflage systems, though it can only operate at that level of intensity for a short duration before burning out. You can spend this reserve during any combat to activate the sensors. For the rest of the scene you ignore soft cover and ignore Invisible for characters within Range 3. Hostile characters within Range 3 can’t become Hidden, though they remain Hidden if they were already."
+  },
+  {
+    "id": "reserve_leg_enhancements",
+    "name": "Leg Enhancements",
+    "type": "Mech",
+    "label": "Resource",
+    "description": "Mechs are already built to navigate uneven terrain, but joint and servo reinforcements can make a good thing even better. Your mech ignores difficult terrain for the duration of the upcoming mission. Additionally, once during the mission you can spend this reserve to ignore Slowed or Immobilized received from a hostile source, negating the condition as it happens."
+  },
+  {
+    "id": "reserve_high_mobility_pack",
+    "name": "High-Mobility Pack",
+    "type": "Mech",
+    "label": "Resource",
+    "description": "The LSA uses these externally mounted flight units for rapid assault and air-drop operations, and the schematics are easy enough to modify and print to GMS standard. You can spend this reserve at the start of any combat to count any and all of your movement as flying for the rest of that scene. Additionally, you may deploy yourself anywhere on the map after all other characters (PCs and NPCs) have deployed."
+  },
+  {
+    "id": "reserve_golden_ticket",
+    "name": "Golden Ticket",
+    "type": "Resource",
+    "label": "Resource",
+    "description": "1st Lt. Kim is only authorized to distribute so many limited-access licenses, but a little off-the-books code-cloning by Rio can help stretch those licenses a bit further. You gain a piece of Exotic Gear from OPERATION SOLSTICE RAIN"
+  },
+  {
+    "id": "reserve_personal_touch",
+    "name": "Personal Touch",
+    "type": "Mech",
+    "label": "Resource",
+    "description": "It looks like Vonna’s taken a shine to you, or at the very least taken a shine to your chassis. Your mech gains a free Custom Paint Job for the duration of the next mission, and you can also spend this reserve to gain +1 Accuracy on all mech skill checks and saves during a combat of your choice."
+  },
+  {
+    "id": "reserve_return_to_sender",
+    "name": "Return to Sender",
+    "type": "Mech",
+    "label": "Resource",
+    "description": "Using a captured artillery shell as a chassis-deployed improvised explosive device is incredibly unwise, but it’s probably not the worst decision a pilot’s ever made. Your mech is equipped with a powerful, single-use explosive. 1/mission, you can create a Blast 2 explosion within Range 3 as a quick action. Affected characters must pass an Agility save or take 3d6 explosive damage, or half damage on a success. Objects, cover, and terrain within the area automatically take 30 AP explosive damage. Only one PC can have this reserve at a time; anyone rolling this result again picks another reserve of their choice from this list."
+  }
+]
