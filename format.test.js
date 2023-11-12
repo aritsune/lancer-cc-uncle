@@ -1,6 +1,6 @@
-const format = require('./format')
-const data = require('./data')
-const turndownService = require('turndown')()
+import * as format from './format';
+import * as data from './data';
+import * as turndownService from 'turndown';
 
 const {
   action_data,

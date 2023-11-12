@@ -1,6 +1,6 @@
-const data = require('./data');
-const emoji = require('./emoji.json')
-const turndownService = require('turndown')()
+import * as data from './data';
+import * as emoji from './emoji.json';
+import * as turndownService from 'turndown';
 
 // ===== HELPERS =====
 

@@ -1,46 +1,82 @@
 // Extracts data from LCPs, then feeds data into format.js
 
 // Load data out of the lancer-data module.
-const lancer_data = require("lancer-data");
-let {
-  actions,
-  core_bonuses,
-  // core_systems are extracted from the frames later
-  frames,
-  glossary,
-  mods,
-  pilot_gear,
-  skills,
-  statuses,
-  systems,
-  tags,
-  talents,
-  weapons
-} = lancer_data
+import * as lancer_data from "@massif/lancer-data";
+import * as long_rim_data from "@massif/long-rim-data";
+import * as wallflower_data from "@massif/wallflower-data";
+import * as ktb_data from "@massif/ktb-data";
+import * as osr_data from "@massif/osr-data";
+import * as dustgrave_data from "@massif/dustgrave-data";
 
-let action_data = actions;
-let core_bonus_data = core_bonuses;
+function source_data(src) {
+  let {
+    actions,
+    core_bonuses,
+    // core_systems are extracted from the frames later
+    frames,
+    glossary,
+    mods,
+    pilot_gear,
+    skills,
+    statuses,
+    systems,
+    tags,
+    talents,
+    weapons
+  } = src
+
+  let sourced_data = {
+    action_data: actions,
+    core_bonus_data: core_bonuses,
+    // core_systems are extracted from the frames later
+    frame_data: frames,
+    glossary_data: glossary,
+    mod_data: mods,
+    pilot_items_data: pilot_gear, // pilot_gear is divided into subtypes later
+    skill_data: skills,
+    status_data: statuses,
+    system_data: systems,
+    tag_data: tags,
+    talent_data: talents,
+    weapon_data: weapons
+  }
+
+  const manifest = !!src.info ? src.info : src.lcp_manifest;
+  const pack_name = `${manifest.name} v${manifest.version}, by ${manifest.author}`;
+
+  // content_pack describes where data came from.
+  sourced_data.values().forEach(array =>
+    array.forEach(entry => entry.content_pack = pack_name)
+  );
+
+  return sourced_data;
+}
+
+const lancer_data_sourced = source_data(lancer_data);
+const long_rim_data_sourced = source_data(long_rim_data);
+const wallflower_data_sourced = source_data(wallflower_data);
+const ktb_data_sourced = source_data(ktb_data);
+const osr_data_sourced = source_data(osr_data);
+const dustgrave_data_sourced = source_data(dustgrave_data);
+
+let data_array = [lancer_data_sourced, long_rim_data_sourced, wallflower_data_sourced, ktb_data_sourced, osr_data_sourced, dustgrave_data_sourced];
+
+let action_data = [].concat(...data_array.map(data => data.action_data));
+let core_bonus_data = [].concat(...data_array.map(data => data.core_bonus_data));
 // core_systems are extracted from the frames later
-let frame_data = frames;
-let glossary_data = glossary;
-let mod_data = mods;
-let pilot_items_data = pilot_gear; // pilot_gear is divided into subtypes later
-let skill_data = skills;
-let status_data = statuses;
-let system_data = systems;
-let tag_data = tags;
-let talent_data = talents;
-let weapon_data = weapons;
-
-// content_pack describes where data came from.
-[action_data, core_bonus_data, frame_data, glossary_data,
-mod_data, pilot_items_data, skill_data, status_data, system_data,
-tag_data, talent_data, weapon_data].forEach(array =>
-  array.forEach(entry => entry.content_pack = 'Lancer Core Rulebook')
-)
+let frame_data = [].concat(...data_array.map(data => data.frame_data));
+let glossary_data = [].concat(...data_array.map(data => data.glossary_data));
+let mod_data = [].concat(...data_array.map(data => data.mod_data));
+let pilot_items_data = [].concat(...data_array.map(data => data.pilot_items_data)); // pilot_gear is divided into subtypes later
+let skill_data = [].concat(...data_array.map(data => data.skill_data));
+let status_data = [].concat(...data_array.map(data => data.status_data));
+let system_data = [].concat(...data_array.map(data => data.system_data));
+let tag_data = [].concat(...data_array.map(data => data.tag_data));
+let talent_data = [].concat(...data_array.map(data => data.talent_data));
+let weapon_data = [].concat(...data_array.map(data => data.weapon_data));
 
 // Load data out of supplemental modules (Long Rim, Wallflower, homebrew content packs)
-const { readdirSync } = require('fs')
+import { readdirSync } from "fs";
 
 const getDirectories = source =>
   readdirSync(source, { withFileTypes: true })
@@ -57,7 +93,7 @@ let data_pack_paths = getDirectories('./data/')
 console.log("Found data packs", data_pack_paths)
 
 data_pack_paths.forEach(pack_path => {
-  
+
   // Get files from pack_path directory
   let data_pack_files = getFiles(pack_path)
   console.log("In path", pack_path, "found files", data_pack_files)
@@ -67,14 +103,14 @@ data_pack_paths.forEach(pack_path => {
   let file_path_regex = /\.\/data(.+\.json)/
 
   // Get name + version number from lcp_manifest
-  manifest_file_name = "." + file_path_regex.exec(pack_path+"lcp_manifest.json")[1]
+  manifest_file_name = "." + file_path_regex.exec(pack_path + "lcp_manifest.json")[1]
   manifest_file = require(manifest_file_name)
   content_source_string = `${manifest_file.name} v${manifest_file.version}, by ${manifest_file.author}`
   // example: "Lancer Wallflower Data v1.0.7, from Massif Press"
-  
+
   data_pack_files.forEach(file => {
-    
-    let adjusted_file_name = "." + file_path_regex.exec(pack_path+file)[1]
+
+    let adjusted_file_name = "." + file_path_regex.exec(pack_path + file)[1]
 
     function concatFileContentsToExisting(existing, adjusted_file_name) {
       file_contents = require(adjusted_file_name)
@@ -82,51 +118,51 @@ data_pack_paths.forEach(pack_path => {
       return existing.concat(file_contents)
     }
 
-    switch(file) {
-      case('actions.json'):
+    switch (file) {
+      case ('actions.json'):
         action_data = concatFileContentsToExisting(action_data, adjusted_file_name)
         break
       // TODO: implement bond formatting later.
-      case('bonds.json'):
+      case ('bonds.json'):
         // bonds_data = bonds_data.contact(require(adjusted_file_name))
         break
-      case('core_bonuses.json'):
+      case ('core_bonuses.json'):
         core_bonus_data = concatFileContentsToExisting(core_bonus_data, adjusted_file_name)
         break
-      case('frames.json'):
+      case ('frames.json'):
         frame_data = concatFileContentsToExisting(frame_data, adjusted_file_name)
         break
-      case('glossary.json'):
+      case ('glossary.json'):
         glossary_data = concatFileContentsToExisting(glossary_data, adjusted_file_name)
         break
-      case('lcp_manifest.json'):
+      case ('lcp_manifest.json'):
         // ignore
         break
-      case('mods.json'):
+      case ('mods.json'):
         mod_data = concatFileContentsToExisting(mod_data, adjusted_file_name)
         break
-      case('pilot_gear.json'):
+      case ('pilot_gear.json'):
         pilot_items_data = concatFileContentsToExisting(pilot_items_data, adjusted_file_name)
         break
-      case('reserves.json'):
+      case ('reserves.json'):
         // TODO: implement reserves formatting later.
         break
-      case('skills.json'):
+      case ('skills.json'):
         skill_data = concatFileContentsToExisting(skill_data, adjusted_file_name)
         break
-      case('statuses.json'):
+      case ('statuses.json'):
         status_data = concatFileContentsToExisting(status_data, adjusted_file_name)
         break
-      case('systems.json'):
+      case ('systems.json'):
         system_data = concatFileContentsToExisting(system_data, adjusted_file_name)
         break
-      case('tags.json'):
+      case ('tags.json'):
         tag_data = concatFileContentsToExisting(tag_data, adjusted_file_name)
         break
-      case('talents.json'):
+      case ('talents.json'):
         talent_data = concatFileContentsToExisting(talent_data, adjusted_file_name)
         break
-      case('weapons.json'):
+      case ('weapons.json'):
         weapon_data = concatFileContentsToExisting(weapon_data, adjusted_file_name)
         break
       default:
@@ -291,7 +327,7 @@ talent_data = talent_data.map(talent => ({
   data_type: 'Talent'
 }))
 weapon_data = weapon_data.map(weapon => ({
-    ...weapon,
+  ...weapon,
   data_type: 'Weapon'
 }))
 
@@ -328,7 +364,7 @@ let data = {
   weapon_data
 }
 
-const altNamesTransform = require('./altNames')
+import * as altNamesTransform from './altNames'
 
 data = altNamesTransform(data)
 

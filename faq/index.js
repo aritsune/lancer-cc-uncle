@@ -1,8 +1,7 @@
-const Commando = require('@iceprod/discord.js-commando')
-const Fuse = require('fuse.js')
+import Commando from '@iceprod/discord.js-commando'
+import Fuse from 'fuse.js'
 
-
-const getFaqData = require('./getFaq')
+import * as getFaqData from './getFaq'
 
 const fuseOptions = {
   isCaseSensitive: false,

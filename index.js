@@ -1,11 +1,13 @@
-const Commando = require('@iceprod/discord.js-commando')
-const { search, getDetails } = require('./search')
-const format = require('./format')
-const structureDamage = require('./util/structure-damage')
-const stressDamage = require('./util/stress-damage')
-require('dotenv').config()
-const { Util } = require("discord.js")
-const { Routes } = require('discord-api-types/v9');
+import Commando from '@iceprod/discord.js-commando'
+import { search, getDetails } from './search'
+import * as format from './format';
+import * as structureDamage from './util/structure-damage'
+import * as stressDamage from './util/stress-damage'
+
+import 'dotenv/config'
+
+import { Util } from 'discord.js'
+import { Routes } from 'discord-api-types/v9'
 
 /*
 /data/index.js is the data cleaner/importer. the result of /data/ is a data object.
@@ -139,7 +141,7 @@ class InviteCommand extends Commando.Command {
   }
 }
 
-const FaqCommand = require('./faq')
+import FaqCommand from './faq';
 
 class StructureCommand extends Commando.Command {
   constructor(client) {

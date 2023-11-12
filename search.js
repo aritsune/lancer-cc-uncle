@@ -1,5 +1,5 @@
-const data = require('./data');
-const Fuse = require('fuse.js')
+import * as data from './data'
+import Fuse from 'fuse.js'
 
 const {
   action_data,

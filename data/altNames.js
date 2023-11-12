@@ -229,7 +229,7 @@ const regexDynamics = {
 
 
 
-const fromEntries = require('object.fromentries');
+import fromEntries from 'object.fromentries'
 
 function nestedMap(dataArray, mapFn) {
   const entries = Object.entries(dataArray)

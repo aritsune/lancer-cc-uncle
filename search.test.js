@@ -1,6 +1,6 @@
-const {search, getDetails} = require('./search')
-const format = require('./format')
-const data = require('./data')
+import { search, getDetails } from './search'
+import * as format from './format';
+import * as data from './data'
 
 let searchable = []
 Object.keys(data).forEach(key => {
