@@ -1,5 +1,5 @@
-import * as format from './format';
-import * as data from './data';
+import * as format from './format.js';
+import * as data from './data/index.js';
 import * as turndownService from 'turndown';
 
 const {

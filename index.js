@@ -1,8 +1,8 @@
 import Commando from '@iceprod/discord.js-commando'
-import { search, getDetails } from './search'
-import * as format from './format';
-import * as structureDamage from './util/structure-damage'
-import * as stressDamage from './util/stress-damage'
+import { search } from './search.js'
+import * as format from './format.js';
+import * as structureDamage from './util/structure-damage.js'
+import * as stressDamage from './util/stress-damage.js'
 
 import 'dotenv/config'
 
@@ -141,7 +141,7 @@ class InviteCommand extends Commando.Command {
   }
 }
 
-import FaqCommand from './faq';
+import FaqCommand from './faq/index.js';
 
 class StructureCommand extends Commando.Command {
   constructor(client) {

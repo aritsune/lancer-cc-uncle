@@ -364,7 +364,7 @@ let data = {
   weapon_data
 }
 
-import * as altNamesTransform from './altNames'
+import * as altNamesTransform from './altNames.js'
 
 data = altNamesTransform(data)
 

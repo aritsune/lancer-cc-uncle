@@ -1,5 +1,5 @@
-import * as data from './data';
-import * as emoji from './emoji.json';
+import * as data from './data/index.js';
+import * as emoji from './emoji.json' assert { type: "json" };
 import * as turndownService from 'turndown';
 
 // ===== HELPERS =====

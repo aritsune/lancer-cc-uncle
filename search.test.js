@@ -1,6 +1,6 @@
-import { search, getDetails } from './search'
-import * as format from './format';
-import * as data from './data'
+import { search } from './search.js'
+import * as format from './format.js';
+import * as data from './data/index.js'
 
 let searchable = []
 Object.keys(data).forEach(key => {

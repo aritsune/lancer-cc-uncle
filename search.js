@@ -1,4 +1,4 @@
-import * as data from './data'
+import * as data from './data/index.js'
 import Fuse from 'fuse.js'
 
 const {
@@ -94,37 +94,35 @@ const options = {
 
 const fuse = new Fuse(searchable, options);
 
-module.exports = {
-  search(term, category) {
-    let sanitized_category  = (category ? category.replace(/[:_ ]/g, '').toLowerCase() : category)
-    console.log("SEARCH CATEGORY", sanitized_category, "SEARCH TERM", term)
+export function search(term, category) {
+  let sanitized_category  = (category ? category.replace(/[:_ ]/g, '').toLowerCase() : category)
+  console.log("SEARCH CATEGORY", sanitized_category, "SEARCH TERM", term)
+
+  //Special switch-case for some shortcuts
+  const category_shortcuts = {
+    'cb': 'corebonus',
+    'core': 'coresystem',
+    'glossary': 'glossary entry'
+  }
   
-    //Special switch-case for some shortcuts
-    const category_shortcuts = {
-      'cb': 'corebonus',
-      'core': 'coresystem',
-      'glossary': 'glossary entry'
-    }
+  if (sanitized_category) {
+    /* TODO (Search Namespacing) - Reenable search namespacing if necessary.
+      Search Namespacing restricts searches to certain categories, so
+      you could search for a term but only in the Frames, or in the Core Bonuses, etc.
+      e.g. Core Bonus: Neurolink Targeting vs the Death's Head frame trait,
+      Lock On status vs Lock On action, etc.
+      */
+    return fuse.search(term)
     
-    if (sanitized_category) {
-      /* TODO (Search Namespacing) - Reenable search namespacing if necessary.
-        Search Namespacing restricts searches to certain categories, so
-        you could search for a term but only in the Frames, or in the Core Bonuses, etc.
-        e.g. Core Bonus: Neurolink Targeting vs the Death's Head frame trait,
-        Lock On status vs Lock On action, etc.
-       */
-      return fuse.search(term)
-      
-      //Replace shortcutted category with longer version
-      // sanitized_category = (category_shortcuts[sanitized_category] || sanitized_category)
-      //
-      // let unfiltered_items = fuse.search(term)
-      // //Filter search results by data_type
-      // return unfiltered_items.filter(x =>
-      //   x.item.data_type.toLowerCase() === sanitized_category) //sanitized_category is already lowercase
-    }
-    else {
-      return fuse.search(term)
-    }
+    //Replace shortcutted category with longer version
+    // sanitized_category = (category_shortcuts[sanitized_category] || sanitized_category)
+    //
+    // let unfiltered_items = fuse.search(term)
+    // //Filter search results by data_type
+    // return unfiltered_items.filter(x =>
+    //   x.item.data_type.toLowerCase() === sanitized_category) //sanitized_category is already lowercase
+  }
+  else {
+    return fuse.search(term)
   }
 }

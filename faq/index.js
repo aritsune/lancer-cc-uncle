@@ -1,7 +1,7 @@
 import Commando from '@iceprod/discord.js-commando'
 import Fuse from 'fuse.js'
 
-import * as getFaqData from './getFaq'
+import * as getFaqData from './getFaq.js'
 
 const fuseOptions = {
   isCaseSensitive: false,
@@ -68,32 +68,29 @@ async function getQuestion(searchStr) {
   return out
 }
 
-
-
-
-
-module.exports =
-  class FaqCommand extends Commando.Command {
-    constructor(client) {
-      super(client, {
-        name: 'faq',
-        group: 'lancer',
-        memberName: 'faq',
-        description: 'Look up an entry in the Lancer FAQ/Errata, available here: https://lancer-faq.netlify.app',
-        argsType: 'single',
-        guildOnly: false,
-        interactions: [{ type: "slash" }],
-        args: [{
-          type: "string",
-          prompt: "Look up an entry in the Lancer FAQ/Errata.",
-          key: "question"
-        }]
-      })
-    }
-    async run(msg, arg) {
-      const question = arg.question
-      console.log(question);
-      const out = await getQuestion(question);
-      await msg.reply(out, { split: true })
-    }
+class FaqCommand extends Commando.Command {
+  constructor(client) {
+    super(client, {
+      name: 'faq',
+      group: 'lancer',
+      memberName: 'faq',
+      description: 'Look up an entry in the Lancer FAQ/Errata, available here: https://lancer-faq.netlify.app',
+      argsType: 'single',
+      guildOnly: false,
+      interactions: [{ type: "slash" }],
+      args: [{
+        type: "string",
+        prompt: "Look up an entry in the Lancer FAQ/Errata.",
+        key: "question"
+      }]
+    })
   }
+  async run(msg, arg) {
+    const question = arg.question
+    console.log(question);
+    const out = await getQuestion(question);
+    await msg.reply(out, { split: true })
+  }
+}
+
+export default FaqCommand;
