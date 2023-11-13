@@ -243,7 +243,7 @@ function nestedMap(dataArray, mapFn) {
 
 
 // transform function
-module.exports = function (originalData) {
+export default function (originalData) {
   let outputData = nestedMap(originalData, item => {
 
     item.alt_names = []

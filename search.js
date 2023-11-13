@@ -1,4 +1,4 @@
-import * as data from './data/index.js'
+import data from './data/index.js'
 import Fuse from 'fuse.js'
 
 const {
@@ -18,7 +18,6 @@ const {
   talent_data,
   weapon_data
 } = data
-
 
 // const traits = frames.flatMap(frame => frame.traits.map(trait => ({
 //   id: `trait_${trait.name.replace(/ /g, '_').toLowerCase()}`,

@@ -11,7 +11,7 @@ async function refreshCache() {
 
 refreshCache();
 
-module.exports = async function () {
+export default async function () {
   console.log('[FAQ CACHE]', 'got request');
 
   if (currentFaqData === []) {

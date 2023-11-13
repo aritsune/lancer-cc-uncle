@@ -381,7 +381,7 @@ function weaponFormat(weapon) {
   return out
 }
 
-module.exports = function format(object) {
+export default function format(object) {
   let integrated_formatted = ['']
   // This is an array to support arbitrary depths of integrated contents 
   // (a mech with an integrated weapon with an integrated mod with an integrated...)

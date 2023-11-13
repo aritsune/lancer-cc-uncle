@@ -1,4 +1,4 @@
-module.exports = function structureDamage(lowest_dice_rolled, remaining_structure) {
+export function structureDamage(lowest_dice_rolled, remaining_structure) {
   let out = `Lowest Dice Rolled: ${lowest_dice_rolled} | Remaining Structure: ${remaining_structure}\n\n`
   if (remaining_structure <= 0) return "Remaining structure was <= 0, which is invalid."
   switch(lowest_dice_rolled) {

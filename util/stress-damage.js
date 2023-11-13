@@ -1,4 +1,4 @@
-module.exports = function stressDamage(lowest_dice_rolled, remaining_stress) {
+export function stressDamage(lowest_dice_rolled, remaining_stress) {
   let out = `Lowest Dice Rolled: ${lowest_dice_rolled} | Remaining Stress: ${remaining_stress}\n\n`
   if (remaining_stress <= 0) return "Remaining stress was <= 0, which is invalid."
   switch(lowest_dice_rolled) {

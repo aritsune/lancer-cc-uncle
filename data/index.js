@@ -1,12 +1,12 @@
 // Extracts data from LCPs, then feeds data into format.js
 
 // Load data out of the lancer-data module.
-import * as lancer_data from "@massif/lancer-data";
-import * as long_rim_data from "@massif/long-rim-data";
-import * as wallflower_data from "@massif/wallflower-data";
-import * as ktb_data from "@massif/ktb-data";
-import * as osr_data from "@massif/osr-data";
-import * as dustgrave_data from "@massif/dustgrave-data";
+import lancer_data from "@massif/lancer-data";
+// import long_rim_data from "@massif/long-rim-data";
+// import wallflower_data from "@massif/wallflower-data";
+// import ktb_data from "@massif/ktb-data";
+// import osr_data from "@massif/osr-data";
+// import dustgrave_data from "@massif/dustgrave-data";
 
 function source_data(src) {
   let {
@@ -15,6 +15,8 @@ function source_data(src) {
     // core_systems are extracted from the frames later
     frames,
     glossary,
+    info,
+    lcp_manifest,
     mods,
     pilot_gear,
     skills,
@@ -41,11 +43,11 @@ function source_data(src) {
     weapon_data: weapons
   }
 
-  const manifest = !!src.info ? src.info : src.lcp_manifest;
+  const manifest = info ? info : lcp_manifest;
   const pack_name = `${manifest.name} v${manifest.version}, by ${manifest.author}`;
 
   // content_pack describes where data came from.
-  sourced_data.values().forEach(array =>
+  Object.values(sourced_data).forEach(array => 
     array.forEach(entry => entry.content_pack = pack_name)
   );
 
@@ -53,14 +55,13 @@ function source_data(src) {
 }
 
 const lancer_data_sourced = source_data(lancer_data);
-const long_rim_data_sourced = source_data(long_rim_data);
-const wallflower_data_sourced = source_data(wallflower_data);
-const ktb_data_sourced = source_data(ktb_data);
-const osr_data_sourced = source_data(osr_data);
-const dustgrave_data_sourced = source_data(dustgrave_data);
+// const long_rim_data_sourced = source_data(long_rim_data);
+// const wallflower_data_sourced = source_data(wallflower_data);
+// const ktb_data_sourced = source_data(ktb_data);
+// const osr_data_sourced = source_data(osr_data);
+// const dustgrave_data_sourced = source_data(dustgrave_data);
 
-let data_array = [lancer_data_sourced, long_rim_data_sourced, wallflower_data_sourced, ktb_data_sourced, osr_data_sourced, dustgrave_data_sourced];
-
+let data_array = [lancer_data_sourced];
 let action_data = [].concat(...data_array.map(data => data.action_data));
 let core_bonus_data = [].concat(...data_array.map(data => data.core_bonus_data));
 // core_systems are extracted from the frames later
@@ -205,7 +206,7 @@ weapon_data = weapon_data.filter(data_entry => !(data_entry.id.startsWith("missi
 
 
 // Manually modify structure and stress glossary entries to include the tables
-glossary_data.find(glossary_entry => glossary_entry.name === 'STRUCTURE')
+glossary_data.find(glossary_entry => glossary_entry.name === 'Structure')
   .description += `
 
 Roll 1d6 per point of structure damage marked, including the structure damage that has just been taken. Choose the lowest result and check the structure damage chart to determine the outcome.
@@ -236,7 +237,7 @@ Roll 1d6 per point of structure damage marked, including the structure damage th
 </tbody>
 </table>`
 
-glossary_data.find(glossary_entry => glossary_entry.name === 'STRESS')
+glossary_data.find(glossary_entry => glossary_entry.name === 'Stress')
   .description += `
 
 Roll 1d6 per point of stress damage marked, including the stress damage that has just been taken. Choose the lowest result and check the overheating chart to determine the outcome.
@@ -364,8 +365,8 @@ let data = {
   weapon_data
 }
 
-import * as altNamesTransform from './altNames.js'
+import altNamesTransform from './altNames.js'
 
 data = altNamesTransform(data)
 
-module.exports = data
+export default data
