@@ -259,7 +259,7 @@ test.each(mod_data)('Mods should have SP', (item) => {
 test('Items should display content_pack source - core rulebook', () => {
   let everest = searchable.filter(item => item.id === "mf_raleigh")[0]
   let everest_output = format(everest)
-  expect(everest_output).toEqual(expect.stringContaining("Core Rulebook"))
+  expect(everest_output).toEqual(expect.stringContaining("LANCER Core"))
 })
 
 test('Items should display content_pack source - solstice rain', () => {
