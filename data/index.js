@@ -44,7 +44,7 @@ function source_data(src) {
   }
 
   const manifest = info ? info : lcp_manifest;
-  const pack_name = `${manifest.name} v${manifest.version}, by ${manifest.author}`;
+  const pack_name = `${manifest.name} ${manifest.version}, by ${manifest.author}`;
 
   // content_pack describes where data came from.
   Object.values(sourced_data).forEach(array => {
