@@ -1,43 +1,85 @@
 // Extracts data from LCPs, then feeds data into format.js
 
 // Load data out of the lancer-data module.
-const lancer_data = require("lancer-data");
-let {
-  actions,
-  core_bonuses,
-  // core_systems are extracted from the frames later
-  frames,
-  glossary,
-  mods,
-  pilot_gear,
-  skills,
-  statuses,
-  systems,
-  tags,
-  talents,
-  weapons
-} = lancer_data
+const lancer_data = require("@massif/lancer-data");
+const long_rim_data = require("@massif/long-rim-data");
+const wallflower_data = require("@massif/wallflower-data");
+const ktb_data = require("@massif/ktb-data");
+const osr_data = require("@massif/osr-data");
+const dustgrave_data = require("@massif/dustgrave-data");
 
-let action_data = actions;
-let core_bonus_data = core_bonuses;
+function source_data(src) {
+  let {
+    actions,
+    core_bonuses,
+    // core_systems are extracted from the frames later
+    frames,
+    glossary,
+    info,
+    lcp_manifest,
+    mods,
+    pilot_gear,
+    skills,
+    statuses,
+    systems,
+    tags,
+    talents,
+    weapons
+  } = src
+
+  let sourced_data = {
+    action_data: actions,
+    core_bonus_data: core_bonuses,
+    // core_systems are extracted from the frames later
+    frame_data: frames,
+    glossary_data: glossary,
+    mod_data: mods,
+    pilot_items_data: pilot_gear, // pilot_gear is divided into subtypes later
+    skill_data: skills,
+    status_data: statuses,
+    system_data: systems,
+    tag_data: tags,
+    talent_data: talents,
+    weapon_data: weapons
+  }
+
+  const manifest = info ? info : lcp_manifest;
+  const pack_name = `${manifest.name} v${manifest.version}, by ${manifest.author}`;
+
+  // content_pack describes where data came from.
+  Object.values(sourced_data).forEach(array => {
+    array?.forEach(entry => entry.content_pack = pack_name)
+  });
+
+  return sourced_data;
+}
+
+let data_array = [
+  lancer_data, 
+  long_rim_data, 
+  wallflower_data, 
+  ktb_data, 
+  osr_data, 
+  dustgrave_data
+].map(data => source_data(data));
+
+function compile_data(data_array, data_type) {
+  return [].concat(...data_array.map(data => data[data_type]).filter(data => !!data));
+}
+
+let action_data = compile_data(data_array, "action_data");
+let core_bonus_data = compile_data(data_array, "core_bonus_data");
 // core_systems are extracted from the frames later
-let frame_data = frames;
-let glossary_data = glossary;
-let mod_data = mods;
-let pilot_items_data = pilot_gear; // pilot_gear is divided into subtypes later
-let skill_data = skills;
-let status_data = statuses;
-let system_data = systems;
-let tag_data = tags;
-let talent_data = talents;
-let weapon_data = weapons;
-
-// content_pack describes where data came from.
-[action_data, core_bonus_data, frame_data, glossary_data,
-mod_data, pilot_items_data, skill_data, status_data, system_data,
-tag_data, talent_data, weapon_data].forEach(array =>
-  array.forEach(entry => entry.content_pack = 'Lancer Core Rulebook')
-)
+let frame_data = compile_data(data_array, "frame_data");
+let glossary_data = compile_data(data_array, "glossary_data");
+let mod_data = compile_data(data_array, "mod_data");
+let pilot_items_data = compile_data(data_array, "pilot_items_data");
+let skill_data = compile_data(data_array, "skill_data");
+let status_data = compile_data(data_array, "status_data");
+let system_data = compile_data(data_array, "system_data");
+let tag_data = compile_data(data_array, "tag_data");
+let talent_data = compile_data(data_array, "talent_data");
+let weapon_data = compile_data(data_array, "weapon_data");
 
 // Load data out of supplemental modules (Long Rim, Wallflower, homebrew content packs)
 const { readdirSync } = require('fs')
@@ -169,7 +211,7 @@ weapon_data = weapon_data.filter(data_entry => !(data_entry.id.startsWith("missi
 
 
 // Manually modify structure and stress glossary entries to include the tables
-glossary_data.find(glossary_entry => glossary_entry.name === 'STRUCTURE')
+glossary_data.find(glossary_entry => glossary_entry.name === 'Structure')
   .description += `
 
 Roll 1d6 per point of structure damage marked, including the structure damage that has just been taken. Choose the lowest result and check the structure damage chart to determine the outcome.
@@ -200,7 +242,7 @@ Roll 1d6 per point of structure damage marked, including the structure damage th
 </tbody>
 </table>`
 
-glossary_data.find(glossary_entry => glossary_entry.name === 'STRESS')
+glossary_data.find(glossary_entry => glossary_entry.name === 'Stress')
   .description += `
 
 Roll 1d6 per point of stress damage marked, including the stress damage that has just been taken. Choose the lowest result and check the overheating chart to determine the outcome.
