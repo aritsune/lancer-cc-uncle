@@ -5,26 +5,25 @@
   "main": "index.js",
   "scripts": {
     "bot": "node index.js",
-    "test": "jest",
-    "postinstall": "patch-package"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@iceprod/discord.js-commando": "^0.15.1",
-    "@massif/dustgrave-data": "^1.3.1",
-    "@massif/ktb-data": "^1.2.3",
-    "@massif/lancer-data": "^3.1.5",
-    "@massif/long-rim-data": "^1.2.1",
-    "@massif/osr-data": "^1.1.2",
-    "@massif/wallflower-data": "^2.0.5",
+    "@massif/dustgrave-data": "^1.3.2",
+    "@massif/ktb-data": "^1.2.4",
+    "@massif/lancer-data": "^3.1.6",
+    "@massif/long-rim-data": "^1.2.2",
+    "@massif/osr-data": "^1.1.3",
+    "@massif/ssmr-data": "^1.6.7",
+    "@massif/wallflower-data": "^2.0.6",
     "discord.js": "^13.8.1",
     "dotenv": "^8.2.0",
     "fuse.js": "^5.1.0",
     "node-fetch": "^2.6.1",
     "object.fromentries": "^2.0.4",
-    "patch-package": "^8.0.0",
     "turndown": "^5.0.3"
   },
   "devDependencies": {
