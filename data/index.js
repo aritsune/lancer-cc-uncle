@@ -1,6 +1,6 @@
 // Extracts data from LCPs, then feeds data into format.js
 
-// Load data out of the lancer-data module.
+// Load data out of the official NPM packages.
 const lancer_data = require("@massif/lancer-data");
 const long_rim_data = require("@massif/long-rim-data");
 const wallflower_data = require("@massif/wallflower-data");
@@ -54,13 +54,14 @@ function source_data(src) {
   return sourced_data;
 }
 
+// Include all imported Lancer NPM data here.
 let data_array = [
   lancer_data, 
   long_rim_data, 
   wallflower_data, 
   ktb_data, 
   osr_data, 
-  dustgrave_data
+  dustgrave_data,
 ].map(data => source_data(data));
 
 function compile_data(data_array, data_type) {
