@@ -1,0 +1,12 @@
+diff --git a/node_modules/@massif/wallflower-data/package.json b/node_modules/@massif/wallflower-data/package.json
+index 174bc71..928cecc 100644
+--- a/node_modules/@massif/wallflower-data/package.json
++++ b/node_modules/@massif/wallflower-data/package.json
+@@ -3,7 +3,6 @@
+   "version": "2.0.5",
+   "description": "Player-facing COMP/CON data from 'No Room for a Wallflower: Part I', a campaign for the LANCER TTRPG",
+   "main": "index.js",
+-  "type": "module",
+   "scripts": {
+     "build": "node ./scripts/build.js",
+     "cleanup": "node ./scripts/cleanup.js",
