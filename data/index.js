@@ -8,6 +8,7 @@ const ktb_data = require("@massif/ktb-data");
 const osr_data = require("@massif/osr-data");
 const dustgrave_data = require("@massif/dustgrave-data");
 const ssmr_data = require("@massif/ssmr-data");
+const ows_data = require("@massif/ows-data")
 
 function source_data(src) {
   let {
@@ -64,6 +65,7 @@ let data_array = [
   osr_data, 
   dustgrave_data,
   ssmr_data,
+  ows_data,
 ].map(data => source_data(data));
 
 function compile_data(data_array, data_type) {
