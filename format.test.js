@@ -51,9 +51,6 @@ function searchStub(id) {
   return searchable.filter(obj => obj.id === id)[0]
 }
 
-// I got too lazy to write each action as an individual unit test,
-// since for each unit test, the setup was very similar
-
 // TODO - reformat these to use the test.each() structure
 
 test('all actions at once', () => {
@@ -75,31 +72,29 @@ test('all core bonuses at once', () => {
   })
 })
 
-test('all core systems at once', () => {
-  core_system_data.forEach(cs => {
-    let output = format(cs)
-    let expectedDescription = turndownService.turndown(cs.active_effect)
+
+test.each(core_system_data)('test each core system', (cs) => {
+  let output = format(cs)
+  let expectedDescription = turndownService.turndown(cs.active_effect)
+
+  //It's mandatory for a core system to include an active_effect.
+  expect(output).toEqual(expect.stringContaining(expectedDescription))
   
-    //It's mandatory for a core system to include an active_effect.
-    expect(output).toEqual(expect.stringContaining(expectedDescription))
-    
-    //Optional aspects of core systems.
-    if (cs.passive_actions) {
-      let action0Description = turndownService.turndown(cs.passive_actions[0].detail)
-      expect(output).toEqual(expect.stringContaining(action0Description))
-    }
-    if (cs.active_actions) {
-      let action1Description = turndownService.turndown(cs.active_actions[0].detail)
-      expect(output).toEqual(expect.stringContaining(action1Description))
-    }
-    if (cs.integrated) { //Integrated weapons or systems.
-      let integrated = searchStub(cs.integrated[0])
-      let integratedDescription = integrated.effect || ''
-      integratedDescription = turndownService.turndown(integratedDescription)
-      expect(output).toEqual(expect.stringContaining(integratedDescription))
-    }
-    
-  })
+  //Optional aspects of core systems.
+  if (cs.passive_actions && cs.passive_actions.length > 0) {
+    let action0Description = turndownService.turndown(cs.passive_actions[0].detail)
+    expect(output).toEqual(expect.stringContaining(action0Description))
+  }
+  if (cs.active_actions && cs.active_actions.length > 0) {
+    let action1Description = turndownService.turndown(cs.active_actions[0].detail)
+    expect(output).toEqual(expect.stringContaining(action1Description))
+  }
+  if (cs.integrated && cs.integrated.length > 0) { //Integrated weapons or systems.
+    let integrated = searchStub(cs.integrated[0])
+    let integratedDescription = integrated.effect || ''
+    integratedDescription = turndownService.turndown(integratedDescription)
+    expect(output).toEqual(expect.stringContaining(integratedDescription))
+  }
 })
 
 test('all frames at once', () => {
@@ -232,17 +227,13 @@ test('all talents at once', () => {
   })
 })
 
-test('all weapons at once', () => {
-  let combined_weapon_data = pilot_weapon_data.concat(weapon_data)
+test.each(weapon_data)('test each weapon', (weap) => {
+  let output = format(weap)
+  let expectedDescription = turndownService.turndown(weap.name)
   
-  combined_weapon_data.forEach(weap => {
-    let output = format(weap)
-    let expectedDescription = turndownService.turndown(weap.name)
-    
-    expect(output).toEqual(expect.stringContaining(expectedDescription))
-    
-    //TODO -- figure out how to test tags, range, damage, effects, etc...
-  })
+  expect(output).toEqual(expect.stringContaining(expectedDescription))
+
+  //TODO -- figure out how to test tags, range, damage, effects, etc...
 })
 
 test('Reactions should display frequency - 1/round', () => {
