@@ -20,6 +20,7 @@
     "@massif/ssmr-data": "^1.6.7",
     "@massif/wallflower-data": "^2.0.6",
     "@massif/ows-data": "^1.0.1",
+    "@massif/sotw-data": "^1.0.1",
     "discord.js": "^13.8.1",
     "dotenv": "^8.2.0",
     "fuse.js": "^5.1.0",
