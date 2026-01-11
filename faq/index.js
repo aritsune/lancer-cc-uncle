@@ -1,5 +1,6 @@
 const Commando = require('@iceprod/discord.js-commando')
 const Fuse = require('fuse.js')
+const { Util } = require('discord.js')
 
 
 const getFaqData = require('./getFaq')
@@ -95,6 +96,15 @@ module.exports =
       const question = arg.question
       console.log(question);
       const out = await getQuestion(question);
-      await msg.reply(out, { split: true })
+      // For slash interactions, reply via interaction API to ensure the UI is acknowledged.
+      if (msg.interaction) {
+        const parts = Util.splitMessage(out)
+        await msg.interaction.reply({ content: parts[0] })
+        for (let i = 1; i < parts.length; ++i) {
+          await msg.interaction.followUp({ content: parts[i] })
+        }
+      } else {
+        await msg.reply(out, { split: true })
+      }
     }
   }
