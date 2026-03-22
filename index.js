@@ -3,6 +3,7 @@ const { search, getDetails } = require('./search')
 const format = require('./format')
 const structureDamage = require('./util/structure-damage')
 const stressDamage = require('./util/stress-damage')
+const splitMessage = require('./util/message_splitter')
 require('dotenv').config()
 const { Util } = require("discord.js")
 const { Routes } = require('discord-api-types/v9');
@@ -85,7 +86,7 @@ class SearchCommand extends Commando.Command {
       else return format(results[0].item)
     }).join('\n--\n')
     
-    const splitMessages = Util.splitMessage('\n' + results)
+    const splitMessages = splitMessage(results)
     let currentMessage = msg
     for (let i = 0; i < splitMessages.length; ++i) {
       currentMessage = await currentMessage.reply(splitMessages[i])
